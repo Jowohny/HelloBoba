@@ -1,38 +1,219 @@
 <script setup lang="ts">
-	const tabs = [
-		{ tabName: 'News', link: '/news' },
-		{ tabName: 'Menu', link: '/menu' },
-		{ tabName: 'Locations', link: '/locations' },
-		{ tabName: 'Contact Us', link: '/contact' }
-	]
+  import { ref, onMounted, nextTick } from 'vue'
+  import gsap from 'gsap'
+	import { SplitText } from "gsap/SplitText";
+
+	gsap.registerPlugin(SplitText) 
+
+  const tabs = [
+    { tabName: 'News', link: '/news' },
+    { tabName: 'Menu', link: '/menu' },
+    { tabName: 'Locations', link: '/locations' },
+    { tabName: 'Contact Us', link: '/contact' }
+  ]
+
+  const navbarRef = ref(null);
+  const bobaRef = ref(null);
+  const nameRef = ref(null);
+  const pageRefs = ref<any[]>([]);
+  const orderRef = ref(null);
+
+	const helloTextRef = ref(null);
+	const bobaTextRef = ref(null);
+
+  const getEl = (refValue: any) => refValue?.$el || refValue;
+
+  function setPageRef(el: any, index: number) {
+    if (el) {
+      pageRefs.value[index] = el.$el || el;
+    }
+  }
+
+  onMounted(async() => {
+    await nextTick();
+
+    if (!navbarRef.value) return;
+
+    const bobaEl = getEl(bobaRef.value);
+    const nameEl = getEl(nameRef.value);
+    const orderEl = getEl(orderRef.value);
+    const linksEls = pageRefs.value;
+
+		let splitHello = new SplitText(helloTextRef.value, { type: 'chars' })
+		let splitBoba = new SplitText(bobaTextRef.value, { type: 'chars' })
+
+    const timeline = gsap.timeline()
+
+    timeline.set([bobaEl, linksEls, orderEl], { 
+      autoAlpha: 0 
+    })
+		.set(nameEl, {
+			scale: 4,
+			x: '16vw'
+		})
+
+    timeline.set(navbarRef.value, { 
+      transformOrigin: "center center" ,
+			width: '100vw',
+			height: '100vh',
+			top: '0%',
+			left: '50%',
+			borderRadius: '100px'
+    })
+		timeline.set(bobaEl, {
+			x: '25vh',
+			yPercent: 150,
+			xPercent: -50,
+			scale: 14
+		})
+		timeline.set(splitHello.chars, {
+      autoAlpha: 0,
+      x: -10,
+      y: -10
+    })
+		.set(splitBoba.chars, {
+      autoAlpha: 0,
+      x: 10,
+      y: -10
+    })
+
+		timeline.to(navbarRef.value, {
+			width: '50vh',
+			top: '50%',
+			left: '50%',
+			xPercent: -50,
+			yPercent: -50,
+			duration: 0.5,
+			ease: 'power4.out',
+			delay: 1
+		})
+		.to(navbarRef.value, {
+			height: '60vh',
+			duration: 2,
+			ease: 'elastic.out(1,0.75)'
+		})
+
+    timeline.to(bobaEl, {  
+			autoAlpha: 1,
+      duration: 1, 
+      ease: 'power4.inOut' 
+    }, '-=1.5')
+		.to(bobaEl, {
+			scale: 5,
+			autoAlpha: 0,
+			duration: 0.5,
+			ease: 'power4.out' 
+		}, '-=0.5');
+
+		timeline.to(navbarRef.value, {
+			height: '20vh',
+			duration: 0.8,
+			borderRadius: '75px',
+			ease: 'power4.inOut' 
+		}, '-=0.7')
+		.to(navbarRef.value, {
+			width: '50vw',
+			duration: 0.7,
+			ease: 'power4.inOut' 
+		}, '-=0.4');
+
+		timeline.to(splitHello.chars, {
+      duration: 1,
+      stagger: 0.1,
+      autoAlpha: 1,
+      x: 0,
+      y: 0,
+			ease: 'elastic.out(1,1)'
+    })
+		.to(splitBoba.chars, {
+      duration: 1,
+      stagger: -0.1,
+      autoAlpha: 1,
+      x: 0,
+      y: 0,
+			ease: 'elastic.out(1,1)'
+    }, '<');
+
+		timeline.to(navbarRef.value, {
+			top: '8vh',
+			height: '10vh',
+			width: '80vw',
+			duration: 1,
+			ease: 'power4.inOut'
+		}, '-=0.3')
+
+		timeline.to(nameEl, {
+			scale: 1,
+			x: 0
+		}, '<')
+		.to(bobaEl, {
+			scale: 0,
+			xPercent: 0,
+			yPercent: 0,
+			x: 0,
+			duration: 0
+		}, '-=0.2')
+		.to(bobaEl, {
+			autoAlpha: 1,
+			scale: 1,
+			duration: 1,
+			ease: 'elastic.out(1,0.5)'
+		}, '<')
+
+
+		timeline.fromTo(linksEls, {
+			y: -10
+		}, {
+			y: 0,
+			stagger: 0.1,
+			autoAlpha: 1,
+			duration: 0.5
+		}, '-=0.3')
+
+		timeline.fromTo(orderEl, {
+			scale: 2
+		}, {
+			autoAlpha: 1,
+			scale: 1,
+			duration: 2,
+			ease: 'elastic.out(1,0.5)'
+		})
+  })
 </script>
 
 <template>
-	<div class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between gap-6 w-[80%] px-6 py-3 rounded-full shadow-xl shadow-green-500/20">
-		<NuxtLink to="/" class="flex items-baseline no-underline font-black text-3xl tracking-tighter text-green-500">
-			<span>HELLO</span>
-			<span class="text-amber-800">BOBA</span>
-		</NuxtLink>
+  <div ref="navbarRef" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between gap-6 w-[80%] h-[10%] px-6 py-3 rounded-full border shadow-xl shadow-green-500/20 overflow-hidden">
+    <div class="flex flex-row">
+      <span ref='bobaRef' class="h-10 w-10 shrink-0 overflow-hidden rounded-full">
+        <NuxtPicture class="h-full w-full object-cover" src="boba.webp"/>
+      </span>
+      <NuxtLink ref="nameRef" to="/" class="subpixel-antialiased flex items-center gap-2 no-underline font-black text-3xl tracking-tighter text-green-500">
+        <span ref="helloTextRef">HELLO</span>
+        <span ref="bobaTextRef" class="text-amber-800">BOBA</span>
+      </NuxtLink>
+    </div>
 
-		<div class="flex items-center gap-2">
-			<NuxtLink
-				v-for="tab in tabs"
-				:key="tab.tabName"
-				:to="tab.link"
-				class="px-4 py-2 rounded-full font-bold text-md text-gray-700"
-				active-class="bg-green-500/15 text-green-600"
-			>
-				{{ tab.tabName }}
-			</NuxtLink>
-		</div>
+    <div class="flex items-center gap-2">
+      <NuxtLink
+        v-for="(tab, index) in tabs"
+        :key="tab.tabName"
+        :ref="(el) => setPageRef(el, index)"
+        :to="tab.link"
+        class="px-4 py-2 rounded-full font-bold text-md text-gray-700"
+        active-class="bg-green-500/15 text-green-600"
+      >
+        {{ tab.tabName }}
+      </NuxtLink>
+    </div>
 
-		<NuxtLink to="#" class="px-5 py-2 rounded-full font-extrabold text-md text-white bg-gradient-to-r from-green-500 to-green-600 shadow-lg">
-			TBA
-		</NuxtLink>
-	</div>
-	<div class="pt-28">
-		<slot />
-	</div>
+    <NuxtLink ref="orderRef" to="#" class="px-5 py-2 rounded-full font-extrabold text-md text-white bg-gradient-to-r from-green-500 to-green-600 shadow-lg">
+      TBA
+    </NuxtLink>
+  </div>
+
+  <div class="pt-28">
+    <slot />
+  </div>
 </template>
 
 <style scoped>
