@@ -42,6 +42,59 @@
 		let splitHello = new SplitText(helloTextRef.value, { type: 'chars' })
 		let splitBoba = new SplitText(bobaTextRef.value, { type: 'chars' })
 
+		const enableHover = () => {
+			nameEl.addEventListener('mouseenter', () => {
+				gsap.to(nameEl, { 
+					scale: 1.2, 
+					x: 15, 
+					duration: 0.3,
+					ease: 'power2.out' 
+				});
+			});
+
+			nameEl.addEventListener('mouseleave', () => {
+				gsap.to(nameEl, { 
+					scale: 1, 
+					x: 0, 
+					duration: 0.3, 
+					ease: 'power2.in' 
+				});
+			});
+
+			bobaEl.addEventListener('mouseenter', () => {
+				gsap.to(bobaEl, { 
+					scale: 1.2, 
+					duration: 0.3,
+					ease: 'power2.out' 
+				});
+			});
+
+			bobaEl.addEventListener('mouseleave', () => {
+				gsap.to(bobaEl, { 
+					scale: 1, 
+					duration: 0.3, 
+					ease: 'power2.in' 
+				});
+			});
+
+			orderEl.addEventListener('mouseenter', () => {
+				gsap.to(orderEl, { 
+					scale: 1.2, 
+					duration: 0.3,
+					ease: 'power2.out' 
+				});
+			});
+
+			orderEl.addEventListener('mouseleave', () => {
+				gsap.to(orderEl, { 
+					scale: 1, 
+					duration: 0.3, 
+					ease: 'power2.in' 
+				});
+			});
+  	};
+
+
     const timeline = gsap.timeline()
 
     timeline.set([bobaEl, linksEls, orderEl], { 
@@ -85,13 +138,13 @@
 			yPercent: -50,
 			duration: 0.5,
 			ease: 'power4.out',
-			delay: 1
+			delay: 0.2
 		})
 		.to(navbarRef.value, {
 			height: '60vh',
 			duration: 2,
 			ease: 'elastic.out(1,0.75)'
-		})
+		}, '-=0.2')
 
     timeline.to(bobaEl, {  
 			autoAlpha: 1,
@@ -157,7 +210,8 @@
 			autoAlpha: 1,
 			scale: 1,
 			duration: 1,
-			ease: 'elastic.out(1,0.5)'
+			ease: 'elastic.out(1,0.5)',
+			onComplete: () => enableHover()
 		}, '<')
 
 
@@ -184,17 +238,13 @@
 <template>
   <div ref="navbarRef" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between gap-6 w-[80%] h-[10%] px-6 py-3 rounded-full border shadow-xl shadow-green-500/20 overflow-hidden">
     <div class="flex flex-row">
-      <div class="h-9 w-9 transition-transform hover:scale-125 active:scale-95 duration-300 cursor-pointer">
-				<span ref='bobaRef' class="shrink-0 overflow-hidden rounded-full">
-					<NuxtPicture class="h-full w-full object-cover" src="boba.webp"/>
-				</span>
-			</div>
-			<div class="transition-transform duration-300 hover:scale-110 active:scale-95 hover:translate-x-2 cursor-pointer">
-				<NuxtLink ref="nameRef" to="/" class="subpixel-antialiased flex items-center gap-2 no-underline font-black text-3xl tracking-tighter text-green-500">
-					<span ref="helloTextRef">HELLO</span>
-					<span ref="bobaTextRef" class="text-amber-800">BOBA</span>
-				</NuxtLink>
-			</div>
+			<span ref='bobaRef' class="h-9 w-9 shrink-0 overflow-hidden rounded-full">
+				<NuxtPicture class="h-full w-full object-cover" src="boba.webp"/>
+			</span>
+			<NuxtLink ref="nameRef" to="/" class="subpixel-antialiased flex items-center gap-2 no-underline font-black text-3xl tracking-tighter text-green-500">
+				<span ref="helloTextRef">HELLO</span>
+				<span ref="bobaTextRef" class="text-amber-800">BOBA</span>
+			</NuxtLink>
     </div>
 
     <div class="flex items-center gap-2">
@@ -210,11 +260,9 @@
       </NuxtLink>
     </div>
 
-    <div class="transition-transform duration-300 hover:scale-110 active:scale-95">
-			<NuxtLink ref="orderRef" to="#" class="px-5 py-2 rounded-full font-extrabold text-md text-white bg-gradient-to-r from-green-500 to-green-600 shadow-lg">
-				TBA
-			</NuxtLink>
-		</div>
+		<NuxtLink ref="orderRef" to="#" class="px-5 py-2 rounded-full font-extrabold text-md text-white bg-gradient-to-r from-green-500 to-green-600 shadow-lg">
+			TBA
+		</NuxtLink>
   </div>
 
   <div class="pt-28">
