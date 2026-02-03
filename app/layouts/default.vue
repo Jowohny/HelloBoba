@@ -184,13 +184,17 @@
 <template>
   <div ref="navbarRef" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between gap-6 w-[80%] h-[10%] px-6 py-3 rounded-full border shadow-xl shadow-green-500/20 overflow-hidden">
     <div class="flex flex-row">
-      <span ref='bobaRef' class="h-10 w-10 shrink-0 overflow-hidden rounded-full">
-        <NuxtPicture class="h-full w-full object-cover" src="boba.webp"/>
-      </span>
-      <NuxtLink ref="nameRef" to="/" class="subpixel-antialiased flex items-center gap-2 no-underline font-black text-3xl tracking-tighter text-green-500">
-        <span ref="helloTextRef">HELLO</span>
-        <span ref="bobaTextRef" class="text-amber-800">BOBA</span>
-      </NuxtLink>
+      <div class="h-9 w-9 transition-transform hover:scale-125 active:scale-95 duration-300 cursor-pointer">
+				<span ref='bobaRef' class="shrink-0 overflow-hidden rounded-full">
+					<NuxtPicture class="h-full w-full object-cover" src="boba.webp"/>
+				</span>
+			</div>
+			<div class="transition-transform duration-300 hover:scale-110 active:scale-95 hover:translate-x-2 cursor-pointer">
+				<NuxtLink ref="nameRef" to="/" class="subpixel-antialiased flex items-center gap-2 no-underline font-black text-3xl tracking-tighter text-green-500">
+					<span ref="helloTextRef">HELLO</span>
+					<span ref="bobaTextRef" class="text-amber-800">BOBA</span>
+				</NuxtLink>
+			</div>
     </div>
 
     <div class="flex items-center gap-2">
@@ -199,16 +203,18 @@
         :key="tab.tabName"
         :ref="(el) => setPageRef(el, index)"
         :to="tab.link"
-        class="px-4 py-2 rounded-full font-bold text-md text-gray-700"
+        class="px-4 py-2 rounded-full font-bold text-md text-gray-700 transition-colors hover:bg-green-500/20 duration-400"
         active-class="bg-green-500/15 text-green-600"
       >
         {{ tab.tabName }}
       </NuxtLink>
     </div>
 
-    <NuxtLink ref="orderRef" to="#" class="px-5 py-2 rounded-full font-extrabold text-md text-white bg-gradient-to-r from-green-500 to-green-600 shadow-lg">
-      TBA
-    </NuxtLink>
+    <div class="transition-transform duration-300 hover:scale-110 active:scale-95">
+			<NuxtLink ref="orderRef" to="#" class="px-5 py-2 rounded-full font-extrabold text-md text-white bg-gradient-to-r from-green-500 to-green-600 shadow-lg">
+				TBA
+			</NuxtLink>
+		</div>
   </div>
 
   <div class="pt-28">
