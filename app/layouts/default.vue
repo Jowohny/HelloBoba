@@ -63,7 +63,8 @@
 
 			bobaEl.addEventListener('mouseenter', () => {
 				gsap.to(bobaEl, { 
-					scale: 1.2, 
+					scale: 1.6, 
+					rotate: 20,
 					duration: 0.3,
 					ease: 'power2.out' 
 				});
@@ -71,7 +72,8 @@
 
 			bobaEl.addEventListener('mouseleave', () => {
 				gsap.to(bobaEl, { 
-					scale: 1, 
+					scale: 1.3, 
+					rotate: 0,
 					duration: 0.3, 
 					ease: 'power2.in' 
 				});
@@ -197,7 +199,9 @@
 
 		timeline.to(nameEl, {
 			scale: 1,
-			x: 0
+			x: 0,
+			xPercent: 5,
+			yPercent: 5
 		}, '<')
 		.to(bobaEl, {
 			scale: 0,
@@ -208,7 +212,7 @@
 		}, '-=0.2')
 		.to(bobaEl, {
 			autoAlpha: 1,
-			scale: 1,
+			scale: 1.3,
 			duration: 1,
 			ease: 'elastic.out(1,0.5)',
 			onComplete: () => enableHover()
@@ -236,10 +240,10 @@
 </script>
 
 <template>
-  <div ref="navbarRef" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between gap-6 w-[80%] h-[10%] px-6 py-3 rounded-full border shadow-xl shadow-green-500/20 overflow-hidden">
+  <div ref="navbarRef" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 backdrop-blur-lg flex items-center bg-white/20 justify-between gap-6 w-[80%] h-[10%] px-6 rounded-full border shadow-xl shadow-green-500/20 overflow-hidden">
     <div class="flex flex-row">
 			<span ref='bobaRef' class="h-9 w-9 shrink-0 overflow-hidden rounded-full">
-				<NuxtPicture class="h-full w-full object-cover" src="boba.webp"/>
+				<NuxtPicture class="h-full w-full object-cover cursor-pointer" src="bobalogo.png"/>
 			</span>
 			<NuxtLink ref="nameRef" to="/" class="subpixel-antialiased flex items-center gap-2 no-underline font-black text-3xl tracking-tighter text-green-500">
 				<span ref="helloTextRef">HELLO</span>
@@ -253,8 +257,8 @@
         :key="tab.tabName"
         :ref="(el) => setPageRef(el, index)"
         :to="tab.link"
-        class="px-4 py-2 rounded-full font-bold text-md text-gray-700 transition-colors hover:bg-green-500/20 duration-400"
-        active-class="bg-green-500/15 text-green-600"
+        class="px-4 py-2 rounded-full font-bold text-md text-gray-700 transition-colors hover:bg-green-600/80 duration-400"
+        active-class="bg-green-500/70 text-green-800"
       >
         {{ tab.tabName }}
       </NuxtLink>
@@ -265,7 +269,7 @@
 		</NuxtLink>
   </div>
 
-  <div class="pt-28">
+  <div class="min-h-screen min-w-full bg-[#f6f6f6]">
     <slot />
   </div>
 </template>
