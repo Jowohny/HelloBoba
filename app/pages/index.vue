@@ -6,38 +6,55 @@ const heroImage = ref(null);
 const textContent = ref(null);
 const logoRef = ref(null);
 
+const hasPlayedIntro = useState('playedIntro', () => false);
+
 onMounted(() => {
-  const tl = gsap.timeline({ delay: 3.8 });
 
-  tl.from(heroImage.value, {
-    scale: 1.15,
-    filter: 'blur(20px)',
-    duration: 2.5,
-    ease: "expo.out"
-  });
+  const startFloating = () => {
+    gsap.to(logoRef.value, {
+      y: -15,       
+      duration: 2,  
+      repeat: -1,   
+      yoyo: true,  
+      ease: "sine.inOut" 
+    });
+  };
 
-  tl.from(textContent.value, {
-    y: 20,
-    autoAlpha: 0,
-    duration: 1.5,
-    stagger: 1,
-    ease: "power2.out"
-  }, "-=1.5");
+  if (!hasPlayedIntro.value) {
 
-	tl.from(logoRef.value, {
-    scale: 0.8,
-    autoAlpha: 0, 
-    duration: 1,
-    ease: "back.out(1.7)"
-  }, "<"); 
+    const tl = gsap.timeline({ 
+      delay: 3.8,
+      onStart: () => { hasPlayedIntro.value = true; } 
+    });
 
-  gsap.to(logoRef.value, {
-    y: -15,       
-    duration: 2,  
-    repeat: -1,   
-    yoyo: true,  
-    ease: "sine.inOut" 
-  });
+    tl.from(heroImage.value, {
+      scale: 1.15,
+      filter: 'blur(20px)',
+      duration: 2.5,
+      ease: "expo.out"
+    });
+
+    tl.from(textContent.value, {
+      y: 20,
+      autoAlpha: 0,
+      duration: 1.5,
+      stagger: 0.3,
+      ease: "power2.out"
+    }, "-=1.5");
+
+    tl.from(logoRef.value, {
+      scale: 0.8,
+      autoAlpha: 0, 
+      duration: 1,
+      ease: "back.out(1.7)"
+    }, "<"); 
+
+    tl.add(startFloating, "-=1");
+
+  } else {
+
+    startFloating();
+  }
 });
 </script>
 
@@ -79,11 +96,6 @@ onMounted(() => {
 
 <style scoped>
 .recolor-logo {
-  filter: invert(23%) sepia(44%) saturate(604%) hue-rotate(97deg) brightness(150%) contrast(70%);
-}
-
-.section {
-  backface-visibility: hidden;
-  -webkit-font-smoothing: antialiased;
+  filter: invert(80%) sepia(160%) saturate(500%) hue-rotate(105deg) brightness(80%) contrast(130%);
 }
 </style>

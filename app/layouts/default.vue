@@ -245,7 +245,7 @@
 			<span ref='bobaRef' class="h-9 w-9 shrink-0 overflow-hidden rounded-full">
 				<NuxtPicture class="h-full w-full object-cover cursor-pointer" src="bobalogo.png"/>
 			</span>
-			<NuxtLink ref="nameRef" to="/" class="subpixel-antialiased flex items-center gap-2 no-underline font-black text-3xl tracking-tighter text-green-500">
+			<NuxtLink ref="nameRef" to="/" class="subpixel-antialiased flex items-center gap-2 no-underline font-black text-3xl tracking-tighter text-green-300">
 				<span ref="helloTextRef">HELLO</span>
 				<span ref="bobaTextRef" class="text-amber-800">BOBA</span>
 			</NuxtLink>
