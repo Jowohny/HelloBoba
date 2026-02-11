@@ -5,6 +5,8 @@ import gsap from 'gsap';
 const heroImage = ref(null);
 const textContent = ref(null);
 const logoRef = ref(null);
+const bannerRef = ref(null);
+const bannerTextRef = ref(null);
 
 const hasPlayedIntro = useState('playedIntro', () => false);
 
@@ -16,25 +18,27 @@ onMounted(() => {
       duration: 2,  
       repeat: -1,   
       yoyo: true,  
-      ease: "sine.inOut" 
+      ease: "sine.inOut"
     });
   };
 
   if (!hasPlayedIntro.value) {
 
-    const tl = gsap.timeline({ 
+		document.body.style.overflow = 'hidden';
+
+    const timeline = gsap.timeline({ 
       delay: 3.8,
-      onStart: () => { hasPlayedIntro.value = true; } 
+      onStart: () => { hasPlayedIntro.value = true; }
     });
 
-    tl.from(heroImage.value, {
+    timeline.from(heroImage.value, {
       scale: 1.15,
       filter: 'blur(20px)',
       duration: 2.5,
       ease: "expo.out"
     });
 
-    tl.from(textContent.value, {
+    timeline.from(textContent.value, {
       y: 20,
       autoAlpha: 0,
       duration: 1.5,
@@ -42,20 +46,47 @@ onMounted(() => {
       ease: "power2.out"
     }, "-=1.5");
 
-    tl.from(logoRef.value, {
+    timeline.from(logoRef.value, {
       scale: 0.8,
       autoAlpha: 0, 
       duration: 1,
-      ease: "back.out(1.7)"
+      ease: "back.out(1.7)",
+			onComplete: () => {
+				document.body.style.overflow = '';
+			}
     }, "<"); 
 
-    tl.add(startFloating, "-=1");
+    timeline.add(startFloating, "-=1");
+
+		timeline.from(bannerRef.value, {
+			y: -40,
+			duration: 1.5,
+			ease: 'elastic.out(1,0.5)',
+			autoAlpha: 0,
+			filter: 'blur(10px)'
+		}, '-=1');
+
+		timeline.from(bannerTextRef.value, {
+			duration: 2,
+			ease: 'sine.out',
+			autoAlpha: 0
+		}, '<')
+		.to(bannerTextRef.value, {
+			repeat: -1,
+			xPercent: -50,
+			duration: 25,
+			ease: 'none'
+		}, '<')
 
   } else {
 
     startFloating();
   }
 });
+
+onUnmounted(() => {
+	document.body.style.overflow = '';
+})
 </script>
 
 <template>
@@ -91,11 +122,23 @@ onMounted(() => {
 				hopefully something along the length of this.
       </p>
     </div>
-  </div>
+	</div>
+
+	<div ref="bannerRef" class="relative w-full z-30 -mt-24 overflow-hidden py-16 pointer-events-none">
+		<div class="bg-[#3f6212] py-4 border-y-4 border-[#a3e635] w-full rotate-2 scale-110 shadow-2xl relative flex items-center justify-center">
+			<div ref="bannerTextRef" class="whitespace-nowrap translate-x-1/4 flex gap-4 text-[#ecfccb] text-4xl font-[900] uppercase italic tracking-tighter">
+				<span v-for="n in 10" :key="n">
+					boba comes free with any drink &nbsp;•
+				</span>
+			</div>
+
+		</div>
+	</div>
+
 </template>
 
 <style scoped>
 .recolor-logo {
-  filter: invert(80%) sepia(160%) saturate(500%) hue-rotate(105deg) brightness(80%) contrast(130%);
+  filter: invert(80%) sepia(160%) saturate(500%) hue-rotate(105deg) brightness(90%) contrast(130%) opacity(80%);
 }
 </style>
