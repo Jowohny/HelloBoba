@@ -100,7 +100,7 @@ const decreaseIndexCarousel = () => {
 
               <div>
                 <div class="flex justify-between items-start mb-2">
-                  <h3 class="font-black font-sans text-xl text-black tracking-wide leading-tight">{{ drink.name }}</h3>
+                  <h3 class="font-black font-sans text-xl text-black tracking-tight leading-tight">{{ drink.name }}</h3>
                   <span class="font-semibold font-sans text-green-600 bg-green-100 px-2 py-1 border border-green-300/30 rounded-xl text-sm">{{ drink.price }}</span>
                 </div>
                 <p class="text-sm text-slate-500 font-semibold">{{ drink.description }}</p>

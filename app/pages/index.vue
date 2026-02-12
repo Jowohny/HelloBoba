@@ -10,8 +10,74 @@ const bannerTextRef = ref(null);
 
 const hasPlayedIntro = useState('playedIntro', () => false);
 
-onMounted(() => {
 
+
+const top10Drinks = [
+	{
+		name: 'Hello Boba Special',
+		price: '$6.60',
+		description: 'Mango Refresher with Aloe Vera & Lychee Jelly (included)',
+		image: '/bobalogo.png'
+	},
+	{
+		name: 'Mango Mango',
+		price: '$6.60',
+		description: 'Mango Refresher with Aloe Vera & Lychee Jelly (included)',
+		image: '/bobalogo.png'
+	},
+	{
+		name: 'Horchata Cinnamon Crumbs',
+		price: '$6.60',
+		description: 'Mango Refresher with Aloe Vera & Lychee Jelly (included)',
+		image: '/bobalogo.png'
+	},
+	{
+		name: 'Thai Green Milk Tea',
+		price: '$6.60',
+		description: 'Mango Refresher with Aloe Vera & Lychee Jelly (included)',
+		image: '/bobalogo.png'
+	},
+	{
+		name: 'Creme Brulee Oreo Smoothie',
+		price: '$6.60',
+		description: 'Mango Refresher with Aloe Vera & Lychee Jelly (included)',
+		image: '/bobalogo.png'
+	},
+	{
+		name: 'Creme Brulee Thai Tea',
+		price: '$6.60',
+		description: 'Mango Refresher with Aloe Vera & Lychee Jelly (included)',
+		image: '/bobalogo.png'
+	},
+	{
+		name: 'Vietnamese Iced Coffee',
+		price: '$6.60',
+		description: 'Mango Refresher with Aloe Vera & Lychee Jelly (included)',
+		image: '/bobalogo.png'
+	},
+	{
+		name: 'Creme Brulee Brown Sugar Boba Milk',
+		price: '$6.60',
+		description: 'Mango Refresher with Aloe Vera & Lychee Jelly (included)',
+		image: '/bobalogo.png'
+	},
+	{
+		name: 'Creme Brulee Matcha Smoothie',
+		price: '$6.60',
+		description: 'Mango Refresher with Aloe Vera & Lychee Jelly (included)',
+		image: '/bobalogo.png'
+	},
+	{
+		name: 'Butterfly Mango',
+		price: '$6.60',
+		description: 'Mango Refresher with Aloe Vera & Lychee Jelly (included)',
+		image: '/bobalogo.png'
+	}
+]
+
+
+
+onMounted(() => {
   const startFloating = () => {
     gsap.to(logoRef.value, {
       y: -15,       
@@ -21,6 +87,15 @@ onMounted(() => {
       ease: "sine.inOut"
     });
   };
+
+	const startBanner = () => {
+		gsap.to(bannerTextRef.value, {
+			repeat: -1,
+			xPercent: -50,
+			duration: 25,
+			ease: 'none'
+		});
+	};
 
   if (!hasPlayedIntro.value) {
 
@@ -78,9 +153,13 @@ onMounted(() => {
 			ease: 'none'
 		}, '<')
 
+		timeline.add(startBanner, '<')
+
   } else {
 
     startFloating();
+		startBanner();
+
   }
 });
 
@@ -124,20 +203,27 @@ onUnmounted(() => {
     </div>
 	</div>
 
-	<div ref="bannerRef" class="relative w-full z-30 -mt-24 overflow-hidden py-16 pointer-events-none">
-		<div class="bg-[#3f6212] py-4 border-y-4 border-[#a3e635] w-full rotate-2 scale-110 shadow-2xl relative flex items-center justify-center">
-			<div ref="bannerTextRef" class="whitespace-nowrap translate-x-1/4 flex gap-4 text-[#ecfccb] text-4xl font-[900] uppercase italic tracking-tighter">
-				<span v-for="n in 10" :key="n">
-					boba comes free with any drink &nbsp;•
-				</span>
-			</div>
-
-		</div>
+	<div ref="bannerRef" class="relative w-full -mt-20 overflow-hidden py-10 -mb-16 z-30 pointer-events-none">
+    <div class="bg-[#3f6212] py-4 border-y-4 border-[#a3e635] w-full rotate-2 scale-110 relative flex items-center justify-center">
+      <div ref="bannerTextRef" class="whitespace-nowrap translate-x-1/4 flex gap-4 text-[#ecfccb] text-4xl font-[900] uppercase italic tracking-tighter">
+        <span v-for="n in 10" :key="n">
+          boba comes free with any drink &nbsp;•
+        </span>
+      </div>
+    </div>
 	</div>
+
+	<Carousel :items="top10Drinks"/>
 
 </template>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+
+.font-sans {
+  font-family: 'Nunito', sans-serif;
+}
+
 .recolor-logo {
   filter: invert(80%) sepia(160%) saturate(500%) hue-rotate(105deg) brightness(90%) contrast(130%) opacity(80%);
 }
