@@ -6,6 +6,7 @@
 	gsap.registerPlugin(SplitText) 
 
   const tabs = [
+		{ tabName: 'Home', link: '/'},
     { tabName: 'News', link: '/news' },
     { tabName: 'Menu', link: '/menu' },
     { tabName: 'Locations', link: '/locations' },
@@ -45,8 +46,7 @@
 		const enableHover = () => {
 			nameEl.addEventListener('mouseenter', () => {
 				gsap.to(nameEl, { 
-					scale: 1.2, 
-					x: 15, 
+					scale: 1.3, 
 					duration: 0.3,
 					ease: 'power2.out' 
 				});
@@ -54,8 +54,7 @@
 
 			nameEl.addEventListener('mouseleave', () => {
 				gsap.to(nameEl, { 
-					scale: 1, 
-					x: 0, 
+					scale: 1.2, 
 					duration: 0.3, 
 					ease: 'power2.in' 
 				});
@@ -198,9 +197,9 @@
 		}, '-=0.3')
 
 		timeline.to(nameEl, {
-			scale: 1,
+			scale: 1.2,
 			x: 0,
-			xPercent: 5,
+			xPercent: 15,
 			yPercent: 5
 		}, '<')
 		.to(bobaEl, {
@@ -245,7 +244,7 @@
 			<span ref='bobaRef' class="h-9 w-9 shrink-0 overflow-hidden rounded-full">
 				<NuxtPicture class="h-full w-full object-cover cursor-pointer" src="bobalogo.png"/>
 			</span>
-			<NuxtLink ref="nameRef" to="/" class="subpixel-antialiased flex items-center gap-2 no-underline font-black text-3xl tracking-tighter text-green-300">
+			<NuxtLink ref="nameRef" to="/" class="subpixel-antialiased flex items-center gap-2 no-underline font-black text-2xl tracking-tighter text-green-300">
 				<span ref="helloTextRef">HELLO</span>
 				<span ref="bobaTextRef" class="text-amber-800">BOBA</span>
 			</NuxtLink>
