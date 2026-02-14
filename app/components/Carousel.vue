@@ -55,21 +55,21 @@ const decreaseIndexCarousel = () => {
 </script>
 
 <template>
-  <div class="min-h-screen flex justify-center py-20 px-4 bg-white relative z-10">
+  <div class="min-h-screen flex justify-center py-20 px-4 relative z-10">
     <div class="max-w-7xl">    
       <div class="flex items-end justify-between mb-12 relative z-50">
         <div class="text-left">
           <span class="text-green-600 font-bold tracking-widest uppercase text-sm mb-2 block">Our Favorites</span>
-          <h1 class="text-transparent bg-clip-text bg-gradient-to-r from-[#65a30d] to-[#3f6212] text-5xl tracking-tight font-black font-sans">
-            Current Top 10
+          <h1 class="text-transparent bg-clip-text bg-gradient-to-r from-[#65a30d] to-[#3f6212] text-8xl tracking-tight font-black font-sans">
+            Top 10
           </h1>
         </div>
 
         <div class="flex gap-4">
-          <button @click="decreaseIndexCarousel" class="cursor-pointer h-12 w-12 rounded-full border-2 border-green-600 text-green-700 flex items-center justify-center hover:bg-green-600 hover:text-white transition-all active:scale-95 disabled:opacity-50">
+          <button @click="decreaseIndexCarousel" class="cursor-pointer h-12 w-12 rounded-full bg-green-600 text-green-700 flex items-center justify-center hover:bg-green-700 transition-all active:scale-95 disabled:opacity-50">
 						<NuxtPicture src="/leftchevron.png"/>
           </button>
-          <button @click="increaseIndexCarousel" class="cursor-pointer h-12 w-12 rounded-full bg-green-600 text-white flex items-center justify-center shadow-lg shadow-green-600/30 hover:bg-green-700 transition-all active:scale-95">
+          <button @click="increaseIndexCarousel" class="cursor-pointer h-12 w-12 rounded-full bg-green-600 flex items-center justify-center shadow-lg shadow-green-600/30 hover:bg-green-700 transition-all active:scale-95">
 						<NuxtPicture src="/rightchevron.webp"/>
           </button>
         </div>
@@ -84,7 +84,7 @@ const decreaseIndexCarousel = () => {
             class="flex-shrink-0 w-1/3 px-4 transition-all duration-500 ease-out"
             :class="{ 'opacity-30 blur-[2px] scale-95': !isVisible(index) }"
           >
-            <div class="relative bg-white rounded-lg p-6 shadow-xl shadow-zinc-200 border border-zinc-100 hover:-translate-y-2 transition-transform duration-300 h-full flex flex-col">
+            <div class="relative bg-white/90 rounded-lg p-6 shadow-xl shadow-zinc-200 border border-zinc-100 hover:-translate-y-2 transition-transform duration-300 h-full flex flex-col">
               
               <div class="absolute -top-4 -left-4 w-12 h-12 bg-green-500 text-white font-black tracking-tight text-xl rounded-full flex items-center justify-center shadow-lg border-4 border-white z-20">
                 #{{ index + 1 }}

@@ -7,10 +7,23 @@ const textContent = ref(null);
 const logoRef = ref(null);
 const bannerRef = ref(null);
 const bannerTextRef = ref(null);
+const bouncingContainerRef = ref<HTMLDivElement | null>(null);
 
 const hasPlayedIntro = useState('playedIntro', () => false);
 
+interface BouncingIcon {
+  id: number;
+  icon: string;
+  x: number;
+  y: number;
+  vx: number; 
+  vy: number;
+  size: number;
+	opacity: number;
+	rotation: number;
+}
 
+const backgroundIcons = ref<BouncingIcon[]>([])
 
 const top10Drinks = [
 	{
@@ -75,7 +88,16 @@ const top10Drinks = [
 	}
 ]
 
-
+const flavorTest = [
+	'/flavors/lychee.png',
+	'/flavors/mango.png',
+	'/flavors/mint.png',
+	'/flavors/oreo.png',
+	'/flavors/passionfruit.png',
+	'/flavors/peach.png',
+	'/flavors/strawberry.png',
+	'/flavors/watermelon.png'
+]
 
 onMounted(() => {
   const startFloating = () => {
@@ -161,11 +183,82 @@ onMounted(() => {
 		startBanner();
 
   }
+
+	createAndAnimateIcons();
+
 });
 
 onUnmounted(() => {
 	document.body.style.overflow = '';
 })
+
+const createAndAnimateIcons = () => {
+  const container = bouncingContainerRef.value;
+  if (!container) return;
+
+  const bounds = container.getBoundingClientRect();
+  const numIcons = 40;
+
+  for (let i = 0; i < numIcons; i++) {
+    const iconData: BouncingIcon = {
+      id: i,
+      icon: flavorTest[Math.floor(Math.random() * flavorTest.length)]!,
+      x: Math.random() * bounds.width,
+      y: Math.random() * bounds.height,
+      vx: 80 + (Math.random() - 0.5) * 160, 
+      vy: 80 + (Math.random() - 0.5) * 160,
+      size: 100 + Math.random() * 40,
+			opacity: 1,
+			rotation: 0
+    };
+    backgroundIcons.value.push(iconData);
+    const reactiveIcon = backgroundIcons.value[i];
+    animateIcon(reactiveIcon!, bounds);
+  }
+}
+
+const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
+  const timeToXWall = icon.vx > 0 ? (bounds.width - icon.x - icon.size) / icon.vx : -icon.x / icon.vx;
+  const timeToYWall = icon.vy > 0 ? (bounds.height - icon.y - icon.size) / icon.vy : -icon.y / icon.vy;
+
+  const duration = Math.min(timeToXWall, timeToYWall);
+
+  gsap.to(icon, {
+    x: icon.x + icon.vx * duration,
+    y: icon.y + icon.vy * duration,
+    duration: duration,
+    ease: 'none', 
+    onComplete: () => {
+			let hitWall = false;
+
+			if (duration === timeToXWall) {
+				icon.vx *= -1; 
+				hitWall = true;
+			}
+
+			if (duration === timeToYWall) {
+				icon.vy *= -1; 
+				hitWall = true;
+			}
+
+			if (hitWall) {
+				const speed = Math.sqrt(icon.vx * icon.vx + icon.vy * icon.vy);
+				
+				const spinDirection = Math.random() > 0.5 ? 1 : -1;
+				const spinAmount = speed * 2.5 * spinDirection;
+
+				gsap.to(icon, {
+					rotation: `+=${spinAmount}`, 
+					duration: 5,      
+					ease: 'expo.out',
+					overwrite: 'auto'
+				});
+			}
+
+			animateIcon(icon, bounds);
+    }
+  });
+}
 </script>
 
 <template>
@@ -213,7 +306,25 @@ onUnmounted(() => {
     </div>
 	</div>
 
-	<Carousel :items="top10Drinks"/>
+	<div ref="bouncingContainerRef" class="relative">
+		<div class="absolute inset-0 w-full h-full pointer-events-none z-0">
+			<img 
+				v-for="icon in backgroundIcons" 
+				:key="icon.id"
+				:name="icon.icon"
+				:src="icon.icon"
+				class="text-slate-700/50 absolute"
+				:style="{
+						left: `${icon.x}px`,
+						top: `${icon.y}px`,
+						width: `${icon.size}px`,
+						opacity: icon.opacity,
+						transform: `rotate(${icon.rotation}deg)`
+				}"
+			/>
+		</div>
+		<Carousel :items="top10Drinks"/>
+	</div>
 
 </template>
 
