@@ -197,7 +197,7 @@ const createAndAnimateIcons = () => {
   if (!container) return;
 
   const bounds = container.getBoundingClientRect();
-  const numIcons = 40;
+  const numIcons = 20;
 
   for (let i = 0; i < numIcons; i++) {
     const iconData: BouncingIcon = {
@@ -205,10 +205,10 @@ const createAndAnimateIcons = () => {
       icon: flavorTest[Math.floor(Math.random() * flavorTest.length)]!,
       x: Math.random() * bounds.width,
       y: Math.random() * bounds.height,
-      vx: 80 + (Math.random() - 0.5) * 160, 
-      vy: 80 + (Math.random() - 0.5) * 160,
-      size: 100 + Math.random() * 40,
-			opacity: 1,
+      vx:	(Math.random() - 0.5) * 300, 
+      vy: (Math.random() - 0.5) * 300,
+      size: 200 + Math.random() * 100,
+			opacity: 0.5 + Math.random() * 0.5,
 			rotation: 0
     };
     backgroundIcons.value.push(iconData);
@@ -245,7 +245,7 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
 				const speed = Math.sqrt(icon.vx * icon.vx + icon.vy * icon.vy);
 				
 				const spinDirection = Math.random() > 0.5 ? 1 : -1;
-				const spinAmount = speed * 2.5 * spinDirection;
+				const spinAmount = speed * 0.8 * spinDirection;
 
 				gsap.to(icon, {
 					rotation: `+=${spinAmount}`, 
@@ -313,7 +313,7 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
 				:key="icon.id"
 				:name="icon.icon"
 				:src="icon.icon"
-				class="text-slate-700/50 absolute"
+				class="absolute"
 				:style="{
 						left: `${icon.x}px`,
 						top: `${icon.y}px`,
@@ -325,7 +325,7 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
 		</div>
 		<Carousel :items="top10Drinks"/>
 	</div>
-
+	<div class="min-h-screen"></div>
 </template>
 
 <style scoped>
