@@ -25,6 +25,21 @@ interface BouncingIcon {
 
 const backgroundIcons = ref<BouncingIcon[]>([])
 
+const socialMediaLinks = [
+	{
+		media: 'Instagram',
+		link: 'https://www.instagram.com/hello.boba.boba'
+	},
+	{
+		media: 'TikTok ',
+		link: 'https://www.tiktok.com/@hello.bobaelmonte'
+	},
+	{
+		media: 'Facebook',
+		link: 'https://www.facebook.com/hellobobaelmonte/'
+	}	
+]
+
 const top10Drinks = [
 	{
 		name: 'Hello Boba Special',
@@ -307,7 +322,7 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
 	</div>
 
 	<div ref="bouncingContainerRef" class="relative">
-		<div class="absolute inset-0 w-full h-full pointer-events-none z-0">
+		<div class="absolute inset-0 w-full bg-white h-full pointer-events-none z-0">
 			<img 
 				v-for="icon in backgroundIcons" 
 				:key="icon.id"
@@ -324,8 +339,29 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
 			/>
 		</div>
 		<Carousel :items="top10Drinks"/>
+		<svg class="absolute -scale-y-100 bottom-0 left-0 w-full text-[#3f6212] fill-current h-32" viewBox="0 0 1440 320" preserveAspectRatio="none">
+				<path d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+		</svg>
+
 	</div>
-	<div class="min-h-screen"></div>
+
+	<div class="relative bg-[#3f6212] pt-8 pb-20 overflow-hidden text-[#ecfccb]">
+		<div class="max-w-7xl mx-auto px-6 text-center relative z-10">
+			<div class="inline-block p-8 rounded-full bg-[#ecfccb] border-8 border-[#84cc16] mb-12 shadow-2xlw">
+				<span class="text-8xl">🥝</span>
+			</div>
+			<h2 class="text-9xl font-sans font-[900] tracking-tighter mb-8 text-transparent bg-clip-text bg-gradient-to-b from-white to-[#84cc16]">
+				Hello<br>Boba
+			</h2>
+			<div class="flex justify-center gap-8 text-sm font-bold tracking-[0.3em] uppercase opacity-70">
+				<NuxtLink 
+					v-for="social in socialMediaLinks"
+					:key="social.media"
+					class="text-zinc-400 transition-all duration-300 ease-out hover:text-green-400 hover:-translate-y-1"	
+				>{{ social.media }}</NuxtLink>
+			</div>
+		</div>
+	</div>
 </template>
 
 <style scoped>

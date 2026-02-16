@@ -85,7 +85,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen flex justify-center py-20 px-4 relative z-10">
+  <div class="min-h-screen flex justify-center py-20 relative z-10">
     <div class="max-w-7xl">    
       <div class="flex items-end justify-between mb-12 relative z-50">
         <div class="text-left">
