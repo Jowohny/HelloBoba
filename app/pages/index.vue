@@ -7,6 +7,7 @@ const textContent = ref(null);
 const logoRef = ref(null);
 const bannerRef = ref(null);
 const bannerTextRef = ref(null);
+const kiwiRef = ref(null);
 const bouncingContainerRef = ref<HTMLDivElement | null>(null);
 
 const hasPlayedIntro = useState('playedIntro', () => false);
@@ -134,6 +135,15 @@ onMounted(() => {
 		});
 	};
 
+	const startRotation = () => {
+		gsap.to(kiwiRef.value, {
+			repeat: -1,
+			ease: 'none',
+			duration: 10,
+			rotate: 360,
+		})
+	}
+
   if (!hasPlayedIntro.value) {
 
 		document.body.style.overflow = 'hidden';
@@ -191,11 +201,13 @@ onMounted(() => {
 		}, '<')
 
 		timeline.add(startBanner, '<')
+		timeline.add(startRotation, '<')
 
   } else {
 
     startFloating();
 		startBanner();
+		startRotation();
 
   }
 
@@ -342,25 +354,28 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
 		<svg class="absolute -scale-y-100 bottom-0 left-0 w-full text-[#3f6212] fill-current h-32" viewBox="0 0 1440 320" preserveAspectRatio="none">
 				<path d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
 		</svg>
-
 	</div>
 
-	<div class="relative bg-[#3f6212] pt-8 pb-20 overflow-hidden text-[#ecfccb]">
+	<div class="relative bg-[#3f6212] pt-8 pb-12 overflow-hidden text-[#ecfccb]">
 		<div class="max-w-7xl mx-auto px-6 text-center relative z-10">
-			<div class="inline-block p-8 rounded-full bg-[#ecfccb] border-8 border-[#84cc16] mb-12 shadow-2xlw">
-				<span class="text-8xl">🥝</span>
+			<div ref="kiwiRef" class="inline-block px-8 py-11 rounded-full bg-[#ecfccb] border-8 border-[#84cc16] mb-12 shadow-2xlw">
+				<NuxtPicture class="aspect-square h-full w-auto" src="/kiwiboba.png"></NuxtPicture>
 			</div>
 			<h2 class="text-9xl font-sans font-[900] tracking-tighter mb-8 text-transparent bg-clip-text bg-gradient-to-b from-white to-[#84cc16]">
-				Hello<br>Boba
+				Hello Boba
 			</h2>
 			<div class="flex justify-center gap-8 text-sm font-bold tracking-[0.3em] uppercase opacity-70">
 				<NuxtLink 
 					v-for="social in socialMediaLinks"
 					:key="social.media"
-					class="text-zinc-400 transition-all duration-300 ease-out hover:text-green-400 hover:-translate-y-1"	
+					:to="social.link"
+					target="_blank"
+					rel="noopenner noreferrer"
+					class="text-zinc-400 transition-all duration-300 ease-out cursor-pointer hover:text-green-400 hover:-translate-y-1"	
 				>{{ social.media }}</NuxtLink>
 			</div>
 		</div>
+		<h1 class="mt-8 font-sans font-[700] text-xl text-zinc-500 tracking-wide text-center">© 2026 Hello Boba. All rights reserved.</h1>
 	</div>
 </template>
 
