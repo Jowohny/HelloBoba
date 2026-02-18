@@ -17,6 +17,7 @@ const props = defineProps<{
 }>();
 
 const carouselRef = ref(null);
+const orderRef = ref(null);
 const currentIndex = ref(0);
 const displayAmount = 3;
 
@@ -70,11 +71,12 @@ onMounted(() => {
     ease: 'back.out(1.5)', 
   });
 
-  gsap.from(carouselRef.value , { 
+  gsap.from([carouselRef.value, orderRef.value] , { 
     scrollTrigger: {
       trigger: carouselRef.value,
       start: 'top 95%',
     },
+		stagger: 0.5,
     duration: 0.7,
     opacity: 0,
 		rotateX: 90,
@@ -95,7 +97,7 @@ onMounted(() => {
           </h1>
         </div>
 
-        <div class="flex gap-4">
+        <div class="top-text flex gap-4">
           <button @click="decreaseIndexCarousel" class="cursor-pointer h-12 w-12 rounded-full bg-green-600 text-green-700 flex items-center justify-center hover:bg-green-700 transition-all active:scale-95 disabled:opacity-50">
 						<NuxtPicture src="/leftchevron.png"/>
           </button>
@@ -138,7 +140,21 @@ onMounted(() => {
             </div>
           </div>
         </div>
-      </div>
+				<div ref="orderRef" class="w-full flex justify-center my-12 pb-10 relative z-50">
+					<NuxtLink 
+						to="#" 
+						class="group relative px-10 py-4 bg-gradient-to-r from-green-500 to-green-700 rounded-full shadow-lg shadow-green-700/40 hover:shadow-green-500/50 hover:-translate-y-1 transition-all duration-300 active:scale-95 cursor-not-allowed"
+					>
+						<span class="flex items-center gap-3 text-white font-sans font-black text-xl tracking-tight">
+							Order Now
+							<span class="px-2 py-1 bg-black/20 rounded-md text-green-100 text-xs font-bold uppercase tracking-widest backdrop-blur-sm">
+								TBA
+							</span>
+						</span>
+					</NuxtLink>
+				</div>
+			</div>
+
     </div>
   </div>
 </template>

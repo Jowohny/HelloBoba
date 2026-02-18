@@ -239,7 +239,7 @@
 </script>
 
 <template>
-  <div ref="navbarRef" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 backdrop-blur-lg flex items-center bg-white/20 justify-between gap-6 w-[80%] h-[10%] px-6 rounded-full border shadow-xl shadow-green-500/20 overflow-hidden">
+  <div ref="navbarRef" class="fixed top-4 left-1/2 -translate-x-1/2 z-[999] backdrop-blur-lg flex items-center bg-white/20 justify-between gap-6 w-[80%] h-[10%] px-6 rounded-full border shadow-xl shadow-green-500/20 overflow-hidden">
     <div class="flex flex-row">
 			<span ref='bobaRef' class="h-9 w-9 shrink-0 overflow-hidden rounded-full">
 				<NuxtPicture class="h-full w-full object-cover cursor-pointer" src="bobalogo.png"/>
@@ -263,7 +263,7 @@
       </NuxtLink>
     </div>
 
-		<NuxtLink ref="orderRef" to="#" class="px-5 py-2 rounded-full font-extrabold text-md text-white bg-gradient-to-r from-green-500 to-green-600 shadow-lg">
+		<NuxtLink ref="orderRef" to="#" class="px-5 py-2 rounded-full font-black text-md text-white cursor-not-allowed bg-gradient-to-r from-green-500 to-green-600 shadow-lg">
 			TBA
 		</NuxtLink>
   </div>
