@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import gsap from 'gsap';
+import { SplitText } from 'gsap/SplitText';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(SplitText, ScrollTrigger);
 
 const heroImage = ref(null);
 const textContent = ref(null);
@@ -153,6 +157,13 @@ onMounted(() => {
       onStart: () => { hasPlayedIntro.value = true; }
     });
 
+		const footerTimeline = gsap.timeline({
+			scrollTrigger: {
+				trigger: '.hours-text',
+				start: 'top 65%'
+			},
+		})
+
     timeline.from(heroImage.value, {
       scale: 1.15,
       filter: 'blur(20px)',
@@ -198,10 +209,69 @@ onMounted(() => {
 			xPercent: -50,
 			duration: 25,
 			ease: 'none'
-		}, '<')
+		}, '<');
 
-		timeline.add(startBanner, '<')
-		timeline.add(startRotation, '<')
+		timeline.add(startBanner, '<');
+		timeline.add(startRotation, '<');
+
+		footerTimeline.from(['.hours-text', '.visit-text'], {
+			autoAlpha: 0,
+			duration: 0.6,
+			ease: 'expo.out',
+			y: -50,
+			stagger: 0.1
+		})
+		.from('.kiwi-circle', {
+			autoAlpha: 0,
+			duration: 0.8,
+			ease: 'elastic.out(1,0.5)',
+			scale: 0
+		}, '<')
+		.from(kiwiRef.value, {
+			borderWidth: 0,
+			duration: 0.2,
+			ease: 'sine.out'
+		}, '<')
+		.from('.days-text', {
+			x: -50,
+			autoAlpha: 0,
+			duration: 0.5,
+			ease: 'sine.out',
+			stagger: 0.05
+		}, '<+=0.3')
+		.from('.location-tag', {
+			scale: 0,
+			autoAlpha: 0,
+			ease: 'elastic.out(1,0.5)',
+			duration: 0.7,
+			stagger: 0.3
+		}, '<+=0.1')
+		.from('.address-text', {
+			x: 50,
+			autoAlpha: 0,
+			ease: 'sine.out',
+			stagger: 0.07,
+			duration: 0.5
+		}, '<+=0.2');
+
+		let footerBoba = new SplitText('.footer-boba', { type: 'chars,words', charsClass: 'text-transparent bg-clip-text bg-gradient-to-b from-white to-[#84cc16]' });
+
+		footerTimeline.from(footerBoba.chars, {
+			y: 80,                
+			rotationX: -90,        
+			autoAlpha: 0,
+			stagger: 0.05,         
+			duration: 0.8,
+			ease: 'back.out(1.5)'
+		}, '<+=0.2');
+
+		footerTimeline.from('.social-media', {
+			stagger: 0.2,
+			ease: 'sine.out',
+			duration: 0.5,
+			autoAlpha: 0,
+			y: 10
+		}, '<+=0.5');
 
   } else {
 
@@ -361,48 +431,48 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
 			<div class="grid grid-cols-3 gap-10 items-center w-full max-w-5xl mx-auto mb-12">
   
 				<div class="text-right flex flex-col justify-center">
-					<h3 class="text-white font-black font-sans uppercase tracking-widest text-xl mb-4">Hours</h3>
+					<h3 class="hours-text text-white font-black font-sans uppercase tracking-widest text-xl mb-4">Hours</h3>
 					<ul class="space-y-2 text-sm font-bold tracking-wide">
-						<li v-for="day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday']">{{ day }}: <span class="font-normal opacity-80">11:00 AM - 9:00 PM</span></li>
-						<li v-for="day in ['Friday', 'Saturday', 'Sunday']">{{ day }}: <span class="font-normal opacity-80">11:00 AM - 10:00 PM</span></li>
+						<li class="days-text" v-for="day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday']">{{ day }}: <span class="font-normal opacity-80">11:00 AM - 9:00 PM</span></li>
+						<li class="days-text" v-for="day in ['Friday', 'Saturday', 'Sunday']">{{ day }}: <span class="font-normal opacity-80">11:00 AM - 10:00 PM</span></li>
 					</ul>
 				</div>
 
-				<div class="flex justify-center">
+				<div class="kiwi-circle flex justify-center">
 					<div ref="kiwiRef" class="w-48 h-48 px-8 py-11 rounded-full bg-[#ecfccb] border-8 border-[#84cc16] shadow-2xl flex items-center justify-center">
 						<NuxtPicture class="aspect-square h-full w-full" src="/kiwiboba.png" />
 					</div>
 				</div>
 
 				<div class="text-left flex flex-col justify-center">
-					<h3 class="text-white font-black font-sans uppercase tracking-widest text-xl mb-4">Visit Us</h3>
+					<h3 class="visit-text text-white font-black font-sans uppercase tracking-widest text-xl mb-4">Visit Us</h3>
 					<div class="text-sm gap-6 flex flex-col font-normal opacity-80 space-y-1">
 						<div class="flex flex-row gap-4">
-							<NuxtPicture :img-attrs="{ class: 'h-16 w-auto object-cover' }" src="/locationpointer.png"/>
-							<div class="flex- flex-col">
+							<NuxtPicture :img-attrs="{ class: 'location-tag h-16 w-auto object-cover' }" src="/locationpointer.png"/>
+							<div class="flex flex-col">
 								<NuxtLink
 									class="hover:text-green-400 transition-colors duration-300"
 									to="https://www.google.com/maps/place/Hello+Boba/data=!4m7!3m6!1s0x80c2d1db6c36bda3:0x1fdf3db0b5303a86!8m2!3d34.062467!4d-118.0311685!16s%2Fg%2F11ftxdfmv7!19sChIJo702bNvRwoARhjowtbA93x8?authuser=0&hl=en&rclk=1"
 								>
-									<p>11230 Garvey Ave #C</p>
-									<p>El Monte, CA 91733</p>
+									<p class="address-text">11230 Garvey Ave #C</p>
+									<p class="address-text">El Monte, CA 91733</p>
 								</NuxtLink>
-								<a href="tel:+16263617058" class="inline-block mt-1 text-sm font-bold tracking-widest text-white hover:text-green-400 transition-colors duration-300">
+								<a href="tel:+16263617058" class="address-text inline-block mt-1 text-sm font-bold tracking-widest text-white hover:text-green-400 transition-colors duration-300">
 									+16263617058
 								</a>
 							</div>
 						</div>
 						<div class="flex flex-row gap-4">
-							<NuxtPicture :img-attrs="{ class: 'h-16 w-auto object-cover' }" src="/locationpointer.png"/>
+							<NuxtPicture :img-attrs="{ class: 'location-tag h-16 w-auto object-cover' }" src="/locationpointer.png"/>
 							<div class="flex flex-col">
 								<NuxtLink
 									class="hover:text-green-400 transition-colors duration-300"
 									to="https://www.google.com/maps/place/Hello+Boba/data=!4m7!3m6!1s0x80c2d91f75934401:0x7f2669691ab068dc!8m2!3d34.0899773!4d-118.0139066!16s%2Fg%2F11y64hq1f9!19sChIJAUSTdR_ZwoAR3GiwGmlpJn8?authuser=0&hl=en&rclk=1"
 								>
-									<p>4788 Peck Rd</p>
-									<p>El Monte, CA 91732</p>
+									<p class="address-text">4788 Peck Rd</p>
+									<p class="address-text">El Monte, CA 91732</p>
 								</NuxtLink>
-								<a href="tel:+16263617055" class="inline-block mt-1 text-sm font-bold tracking-widest text-white hover:text-green-400 transition-colors duration-300">
+								<a href="tel:+16263617055" class="address-text inline-block mt-1 text-sm font-bold tracking-widest text-white hover:text-green-400 transition-colors duration-300">
 									+16263617055
 								</a>
 							</div>
@@ -411,7 +481,7 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
 				</div>
 
 			</div>
-			<h2 class="text-9xl font-sans font-[900] tracking-tighter mb-8 text-transparent bg-clip-text bg-gradient-to-b from-white to-[#84cc16]">
+			<h2 class="footer-boba text-9xl font-sans font-[900] tracking-tighter mb-8 ">
 				Hello Boba
 			</h2>
 			<div class="flex justify-center gap-8 text-sm font-bold tracking-[0.3em] uppercase opacity-70">
@@ -421,7 +491,7 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
 					:to="social.link"
 					target="_blank"
 					rel="noopenner noreferrer"
-					class="text-zinc-400 transition-all duration-300 ease-out cursor-pointer hover:text-green-400 hover:-translate-y-1"	
+					class="social-media text-zinc-400 cursor-pointer transition-colors hover:text-green-400"	
 				>{{ social.media }}</NuxtLink>
 			</div>
 		</div>
