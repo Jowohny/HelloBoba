@@ -448,7 +448,7 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
 					<h3 class="visit-text text-white font-black font-sans uppercase tracking-widest text-xl mb-4">Visit Us</h3>
 					<div class="text-sm gap-6 flex flex-col font-normal opacity-80 space-y-1">
 						<div class="flex flex-row gap-4">
-							<NuxtPicture :img-attrs="{ class: 'location-tag h-16 w-auto object-cover' }" src="/locationpointer.png"/>
+							<NuxtPicture :img-attrs="{ class: 'location-tag h-16 w-auto object-cover invert' }" src="/locationpointer.png"/>
 							<div class="flex flex-col">
 								<NuxtLink
 									class="hover:text-green-400 transition-colors duration-300"
@@ -463,7 +463,7 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
 							</div>
 						</div>
 						<div class="flex flex-row gap-4">
-							<NuxtPicture :img-attrs="{ class: 'location-tag h-16 w-auto object-cover' }" src="/locationpointer.png"/>
+							<NuxtPicture :img-attrs="{ class: 'location-tag h-16 w-auto object-cover invert' }" src="/locationpointer.png"/>
 							<div class="flex flex-col">
 								<NuxtLink
 									class="hover:text-green-400 transition-colors duration-300"
