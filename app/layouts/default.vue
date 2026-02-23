@@ -22,6 +22,8 @@
 	const helloTextRef = ref(null);
 	const bobaTextRef = ref(null);
 
+	const hasPlayedIntro = useState('playedIntro', () => false)
+
   const getEl = (refValue: any) => refValue?.$el || refValue;
 
   function setPageRef(el: any, index: number) {
@@ -193,7 +195,8 @@
 			height: '10vh',
 			width: '80vw',
 			duration: 1,
-			ease: 'power4.inOut'
+			ease: 'power4.inOut',
+			onComplete: () => { hasPlayedIntro.value = true; }
 		}, '-=0.3')
 
 		timeline.to(nameEl, {

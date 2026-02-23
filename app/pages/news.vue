@@ -2,6 +2,11 @@
 import { onMounted } from 'vue'; 
 import gsap from 'gsap';
 
+const hasPlayedIntro = useState('playedIntro', () => false);
+
+const headerRef = ref(null);
+const cardsRef = ref<HTMLElement[]>([]);
+
 const newsItems = [
   {
     title: "Buy One, Get One 50% Off",
@@ -56,6 +61,40 @@ onMounted(() => {
 		ease: "none",
 		repeat: -1
 	});
+
+	watch(hasPlayedIntro, async (isDone) => {
+    if (isDone) {
+      await nextTick();
+			const timeline = gsap.timeline();
+
+			requestAnimationFrame(() => {
+				requestAnimationFrame(() => {
+					timeline.fromTo(headerRef.value, { 
+						y: -30, 
+						autoAlpha: 0 
+					}, 
+					{ 
+						y: 0, 
+						autoAlpha: 1, 
+						duration: 1, 
+						ease: 'expo.out' 
+					});
+
+					timeline.fromTo(cardsRef.value, { 
+						y: 60, 
+						autoAlpha: 0 
+					}, 
+					{ 
+						y: 0, 
+						autoAlpha: 1, 
+						duration: 0.8,
+						stagger: 0.15, 
+						ease: 'back.out(1.2)' 
+					}, "-=0.5")
+				})
+			})
+    }
+  }, { immediate: true });
 })
 </script>
 
@@ -79,7 +118,7 @@ onMounted(() => {
 
 		<div class="max-w-7xl mx-auto relative z-10">
       
-      <div class="text-center mb-16">
+      <div ref="headerRef" class="text-center mb-16 opacity-0">
         <span class="inline-block px-4 py-1.5 mb-4 rounded-full border border-green-500/20 bg-green-500/10 text-green-700 font-bold tracking-widest text-xs uppercase backdrop-blur-sm">
           The Latest
         </span>
@@ -96,7 +135,8 @@ onMounted(() => {
         <div 
           v-for="(item, index) in newsItems" 
           :key="index"
-          class="group relative bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl shadow-zinc-200/50 border border-zinc-100 p-6 flex"
+          ref="cardsRef" 
+          class="opacity-0 group relative bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl shadow-zinc-200/50 border border-zinc-100 p-6 flex"
           :class="[item.featured, item.vertical ? 'flex-row' : 'flex-col']"
         >
           <div 
@@ -123,9 +163,11 @@ onMounted(() => {
                 {{ item.date }}
               </span>
             </div>
+            
             <h3 class="font-black font-sans text-2xl text-zinc-900 tracking-tight leading-tight mb-3 group-hover:text-[#65a30d] transition-colors">
               {{ item.title }}
             </h3>
+            
             <p class="text-sm text-zinc-500 font-semibold leading-relaxed mb-6">
               {{ item.description }}
             </p>

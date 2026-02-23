@@ -148,141 +148,136 @@ onMounted(() => {
 		})
 	}
 
-  if (!hasPlayedIntro.value) {
+	watch(hasPlayedIntro, async (isDone) => {
+		if (isDone) {
 
-		document.body.style.overflow = 'hidden';
+			const timeline = gsap.timeline()
 
-    const timeline = gsap.timeline({ 
-      delay: 3.8,
-      onStart: () => { hasPlayedIntro.value = true; }
-    });
+			document.body.style.overflow = 'hidden'
 
-		const footerTimeline = gsap.timeline({
-			scrollTrigger: {
-				trigger: '.hours-text',
-				start: 'top 65%'
-			},
-		})
+			timeline.set(heroImage.value, {
+				filter: 'blur(20px)'
+			})
 
-    timeline.from(heroImage.value, {
-      scale: 1.15,
-      filter: 'blur(20px)',
-      duration: 2.5,
-      ease: "expo.out"
-    });
+			timeline.from(heroImage.value, {
+				scale: 1.15,
+				filter: 'blur(20px)',
+				duration: 2.5,
+				ease: "expo.out"
+			});
 
-    timeline.from(textContent.value, {
-      y: 20,
-      autoAlpha: 0,
-      duration: 1.5,
-      stagger: 0.3,
-      ease: "power2.out"
-    }, "-=1.5");
+			timeline.from(textContent.value, {
+				y: 20,
+				autoAlpha: 0,
+				duration: 1.5,
+				stagger: 0.3,
+				ease: "power2.out"
+			}, "-=1.5");
 
-    timeline.from(logoRef.value, {
-      scale: 0.8,
-      autoAlpha: 0, 
-      duration: 1,
-      ease: "back.out(1.7)",
-			onComplete: () => {
-				document.body.style.overflow = '';
-			}
-    }, "<"); 
+			timeline.from(logoRef.value, {
+				scale: 0.8,
+				autoAlpha: 0, 
+				duration: 1,
+				ease: "back.out(1.7)",
+				onComplete: () => {
+					document.body.style.overflow = '';
+				}
+			}, "<"); 
 
-    timeline.add(startFloating, "-=1");
+			timeline.add(startFloating, "-=1");
 
-		timeline.from(bannerRef.value, {
-			y: -40,
-			duration: 1.5,
-			ease: 'elastic.out(1,0.5)',
-			autoAlpha: 0,
-			filter: 'blur(10px)'
-		}, '-=1');
+			timeline.from(bannerRef.value, {
+				y: -40,
+				duration: 1.5,
+				ease: 'elastic.out(1,0.5)',
+				autoAlpha: 0,
+				filter: 'blur(10px)'
+			}, '-=1');
 
-		timeline.from(bannerTextRef.value, {
-			duration: 2,
-			ease: 'sine.out',
-			autoAlpha: 0
-		}, '<')
-		.to(bannerTextRef.value, {
-			repeat: -1,
-			xPercent: -50,
-			duration: 25,
-			ease: 'none'
-		}, '<');
+			timeline.from(bannerTextRef.value, {
+				duration: 2,
+				ease: 'sine.out',
+				autoAlpha: 0
+			}, '<')
+			.to(bannerTextRef.value, {
+				repeat: -1,
+				xPercent: -50,
+				duration: 25,
+				ease: 'none'
+			}, '<');
 
-		timeline.add(startBanner, '<');
-		timeline.add(startRotation, '<');
+			timeline.add(startBanner, '<');
+			timeline.add(startRotation, '<');
 
-		footerTimeline.from(['.hours-text', '.visit-text'], {
-			autoAlpha: 0,
-			duration: 0.6,
-			ease: 'expo.out',
-			y: -50,
-			stagger: 0.1
-		})
-		.from('.kiwi-circle', {
-			autoAlpha: 0,
-			duration: 0.8,
-			ease: 'elastic.out(1,0.5)',
-			scale: 0
-		}, '<')
-		.from(kiwiRef.value, {
-			borderWidth: 0,
-			duration: 0.2,
-			ease: 'sine.out'
-		}, '<')
-		.from('.days-text', {
-			x: -50,
-			autoAlpha: 0,
-			duration: 0.5,
-			ease: 'sine.out',
-			stagger: 0.05
-		}, '<+=0.3')
-		.from('.location-tag', {
-			scale: 0,
-			autoAlpha: 0,
-			ease: 'elastic.out(1,0.5)',
-			duration: 0.7,
-			stagger: 0.3
-		}, '<+=0.1')
-		.from('.address-text', {
-			x: 50,
-			autoAlpha: 0,
-			ease: 'sine.out',
-			stagger: 0.07,
-			duration: 0.5
-		}, '<+=0.2');
+			const footerTimeline = gsap.timeline({
+				scrollTrigger: {
+					trigger: '.hours-text',
+					start: 'top 65%'
+				},
+			})
 
-		let footerBoba = new SplitText('.footer-boba', { type: 'chars,words', charsClass: 'text-transparent bg-clip-text bg-gradient-to-b from-white to-[#84cc16]' });
+			footerTimeline.from(['.hours-text', '.visit-text'], {
+				autoAlpha: 0,
+				duration: 0.6,
+				ease: 'expo.out',
+				y: -50,
+				stagger: 0.1
+			})
+			.from('.kiwi-circle', {
+				autoAlpha: 0,
+				duration: 0.8,
+				ease: 'elastic.out(1,0.5)',
+				scale: 0
+			}, '<')
+			.from(kiwiRef.value, {
+				borderWidth: 0,
+				duration: 0.2,
+				ease: 'sine.out'
+			}, '<')
+			.from('.days-text', {
+				x: -50,
+				autoAlpha: 0,
+				duration: 0.5,
+				ease: 'sine.out',
+				stagger: 0.05
+			}, '<+=0.3')
+			.from('.location-tag', {
+				scale: 0,
+				autoAlpha: 0,
+				ease: 'elastic.out(1,0.5)',
+				duration: 0.7,
+				stagger: 0.3
+			}, '<+=0.1')
+			.from('.address-text', {
+				x: 50,
+				autoAlpha: 0,
+				ease: 'sine.out',
+				stagger: 0.07,
+				duration: 0.5
+			}, '<+=0.2');
 
-		footerTimeline.from(footerBoba.chars, {
-			y: 80,                
-			rotationX: -90,        
-			autoAlpha: 0,
-			stagger: 0.05,         
-			duration: 0.8,
-			ease: 'back.out(1.5)'
-		}, '<+=0.2');
+			let footerBoba = new SplitText('.footer-boba', { type: 'chars,words', charsClass: 'text-transparent bg-clip-text bg-gradient-to-b from-white to-[#84cc16]' });
 
-		footerTimeline.from('.social-media', {
-			stagger: 0.2,
-			ease: 'sine.out',
-			duration: 0.5,
-			autoAlpha: 0,
-			y: 10
-		}, '<+=0.5');
+			footerTimeline.from(footerBoba.chars, {
+				y: 80,                
+				rotationX: -90,        
+				autoAlpha: 0,
+				stagger: 0.05,         
+				duration: 0.8,
+				ease: 'back.out(1.5)'
+			}, '<+=0.2');
 
-  } else {
-
-    startFloating();
-		startBanner();
-		startRotation();
-
-  }
+			footerTimeline.from('.social-media', {
+				stagger: 0.2,
+				ease: 'sine.out',
+				duration: 0.5,
+				autoAlpha: 0,
+				y: 10
+			}, '<+=0.5');
+		}
+	}, { immediate: true });
 
 	createAndAnimateIcons();
-
 });
 
 onUnmounted(() => {
