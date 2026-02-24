@@ -5,9 +5,10 @@ import gsap from 'gsap';
 const hasPlayedIntro = useState('playedIntro', () => false);
 
 const headerRef = ref(null);
-const cardsRef = ref<HTMLElement[]>([]);
+const currentCardsRef = ref<HTMLElement[]>([]);
+const pastCardsRef = ref<HTMLElement[]>([]);
 
-const newsItems = [
+const currentNewsItems = [
   {
     title: "Buy One, Get One 50% Off",
     date: "Monday-Friday: 4PM - 7PM",
@@ -34,8 +35,11 @@ const newsItems = [
     description: "Just a heads up! We will be closing early at 5:00 PM this Friday for a team building event. Normal hours resume Saturday.",
     featured: 'col-span-3 row-span-1',
 		vertical: false
-  },
-  {
+  }
+];
+
+const previousNewsItems = [
+	{
     title: "The Lemon Challenge",
     date: "January 1, 2026 - Present",
     category: "Challenge",
@@ -80,7 +84,7 @@ onMounted(() => {
 						ease: 'expo.out' 
 					});
 
-					timeline.fromTo(cardsRef.value, { 
+					timeline.fromTo(currentCardsRef.value, { 
 						y: 60, 
 						autoAlpha: 0 
 					}, 
@@ -90,7 +94,30 @@ onMounted(() => {
 						duration: 0.8,
 						stagger: 0.15, 
 						ease: 'back.out(1.2)' 
-					}, "-=0.5")
+					}, "-=0.5");
+
+					timeline.fromTo( '.past-tag', {
+						scale: 0.5,
+						autoAlpha: 0
+					},{
+						y: 0,
+						scale: 1,
+						autoAlpha: 1,
+						duration: 1.5,
+						ease: 'elastic.out(1,0.7)'
+					}, '-=0.5');
+
+					timeline.fromTo(pastCardsRef.value, { 
+						y: 60, 
+						autoAlpha: 0 
+					}, 
+					{ 
+						y: 0, 
+						autoAlpha: 0.8, 
+						duration: 0.8,
+						stagger: 0.15, 
+						ease: 'back.out(1.2)' 
+					}, "-=1.2")
 				})
 			})
     }
@@ -122,7 +149,7 @@ onMounted(() => {
         <span class="inline-block px-4 py-1.5 mb-4 rounded-full border border-green-500/20 bg-green-500/10 text-green-700 font-bold tracking-widest text-xs uppercase backdrop-blur-sm">
           The Latest
         </span>
-        <h1 class="text-transparent bg-clip-text bg-gradient-to-r from-[#65a30d] to-[#3f6212] text-6xl md:text-8xl tracking-tighter font-black font-sans pb-2">
+        <h1 class="text-transparent bg-clip-text bg-gradient-to-r from-[#65a30d] to-[#3f6212] text-8xl tracking-tighter font-black font-sans pb-2">
           Shop News
         </h1>
         <p class="text-zinc-500 font-semibold mt-4 max-w-lg mx-auto">
@@ -130,12 +157,11 @@ onMounted(() => {
         </p>
       </div>
 
-      <div class="grid grid-cols-10 auto-rows-[400px] gap-8">
-        
+      <div class="grid grid-cols-10 auto-rows-[400px] mb-20 gap-8">
         <div 
-          v-for="(item, index) in newsItems" 
+          v-for="(item, index) in currentNewsItems" 
           :key="index"
-          ref="cardsRef" 
+          ref="currentCardsRef" 
           class="opacity-0 group relative bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl shadow-zinc-200/50 border border-zinc-100 p-6 flex"
           :class="[item.featured, item.vertical ? 'flex-row' : 'flex-col']"
         >
@@ -163,6 +189,52 @@ onMounted(() => {
                 {{ item.date }}
               </span>
             </div>
+            <h3 class="font-black font-sans text-2xl text-zinc-900 tracking-tight leading-tight mb-3 group-hover:text-[#65a30d] transition-colors">
+              {{ item.title }}
+            </h3>
+            <p class="text-sm text-zinc-500 font-semibold leading-relaxed mb-6">
+              {{ item.description }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+			<span class="past-tag opacity-0 flex w-fit mx-auto px-4 py-2 mb-4 rounded-full border border-green-500/20 bg-green-500/10 text-green-700 font-extrabold tracking-widest text-xl uppercase backdrop-blur-sm">
+				Past Events
+			</span>
+
+			<div class="grid grid-cols-10 auto-rows-[400px] gap-8">
+        <div 
+          v-for="(item, index) in previousNewsItems" 
+          :key="index"
+          ref="pastCardsRef" 
+          class="opacity-0 group relative bg-black/70 backdrop-blur-sm rounded-3xl shadow-2xl shadow-zinc-200 border border-zinc-100 p-6 flex"
+          :class="[item.featured, item.vertical ? 'flex-row' : 'flex-col']"
+        >
+          <div 
+						class="relative bg-zinc-50 rounded-2xl overflow-hidden shrink-0 border"
+						:class="item.vertical ? 'h-full w-1/2' : 'w-full h-1/2'"
+					>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10"></div>
+            <NuxtPicture 
+              :src="item.image" 
+              class="w-full h-full"
+              :img-attrs="{ class: 'w-full h-full opacity-60 object-contain p-8 group-hover:scale-110 transition-transform duration-700 ease-out' }"
+            />
+          </div>
+
+          <div 
+						class="flex flex-col flex-grow justify-start"
+						:class="item.vertical ? 'pl-6 w-1/2' : 'pt-6 h-1/2'"
+					>
+            <div class="flex items-center mb-4 gap-3">
+              <span class="bg-green-100 text-green-700 px-3 py-1 border border-green-200 rounded-full text-[10px] shrink-0 font-black uppercase tracking-widest">
+                {{ item.category }}
+              </span>
+              <span class="text-xs text-zinc-400 font-bold tracking-wide">
+                {{ item.date }}
+              </span>
+            </div>
             
             <h3 class="font-black font-sans text-2xl text-zinc-900 tracking-tight leading-tight mb-3 group-hover:text-[#65a30d] transition-colors">
               {{ item.title }}
@@ -173,9 +245,9 @@ onMounted(() => {
             </p>
           </div>
         </div>
-
       </div>
-
     </div>
+
+		
   </div>
 </template>
