@@ -155,28 +155,35 @@ onMounted(() => {
 
 			document.body.style.overflow = 'hidden'
 
-			timeline.set(heroImage.value, {
+			timeline.fromTo(heroImage.value, {
+				scale: 1.2,
+				autoAlpha: 0,
 				filter: 'blur(20px)'
-			})
-
-			timeline.from(heroImage.value, {
-				scale: 1.15,
-				filter: 'blur(20px)',
+			}, {
+				scale: 1,
+				autoAlpha: 1,
+				filter: 'blur(0px)',
 				duration: 2.5,
 				ease: "expo.out"
 			});
 
-			timeline.from(textContent.value, {
+			timeline.fromTo(textContent.value, {
 				y: 20,
-				autoAlpha: 0,
+				autoAlpha: 0
+			},{
+				y: 0,
+				autoAlpha: 1,
 				duration: 1.5,
 				stagger: 0.3,
 				ease: "power2.out"
 			}, "-=1.5");
 
-			timeline.from(logoRef.value, {
+			timeline.fromTo(logoRef.value, {
 				scale: 0.8,
-				autoAlpha: 0, 
+				autoAlpha: 0
+			},{
+				scale: 1,
+				autoAlpha: 1, 
 				duration: 1,
 				ease: "back.out(1.7)",
 				onComplete: () => {
@@ -186,18 +193,24 @@ onMounted(() => {
 
 			timeline.add(startFloating, "-=1");
 
-			timeline.from(bannerRef.value, {
+			timeline.fromTo(bannerRef.value, {
 				y: -40,
-				duration: 1.5,
-				ease: 'elastic.out(1,0.5)',
 				autoAlpha: 0,
 				filter: 'blur(10px)'
+			},{
+				y: 0,
+				duration: 1.5,
+				ease: 'elastic.out(1,0.5)',
+				autoAlpha: 1,
+				filter: 'blur(0px)'
 			}, '-=1');
 
-			timeline.from(bannerTextRef.value, {
+			timeline.fromTo(bannerTextRef.value, {
+				autoAlpha: 0
+			},{
 				duration: 2,
 				ease: 'sine.out',
-				autoAlpha: 0
+				autoAlpha: 1
 			}, '<')
 			.to(bannerTextRef.value, {
 				repeat: -1,
@@ -355,7 +368,7 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
 
 <template>
   <div class="relative h-screen w-full flex items-end justify-center overflow-hidden bg-zinc-950">
-    <div ref="heroImage" class="absolute inset-0 z-0">
+    <div ref="heroImage" class="absolute inset-0 z-0 scale-[1.2] blur-[20px]">
       <NuxtPicture 
         src="/HelloHero.png" 
         class="h-full w-full object-cover"
@@ -363,8 +376,7 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
       />
     </div>
 
-    <div ref="textContent" class="relative z-10 text-center px-4 pb-32 mb-10 max-w-2xl">
-
+    <div ref="textContent" class="relative z-10 text-center px-4 pb-32 mb-10 max-w-2xl opacity-0">
 			<div ref="logoRef" class="recolor-logo h-[25vw] w-[30vw]">
 				<NuxtPicture
 					class="h-full w-full object-cover"
@@ -388,7 +400,7 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
     </div>
 	</div>
 
-	<div ref="bannerRef" class="relative w-full -mt-20 overflow-hidden py-10 -mb-16 z-30 pointer-events-none">
+	<div ref="bannerRef" class="relative w-full -mt-20 overflow-hidden py-10 -mb-16 z-30 pointer-events-none opacity-0">
     <div class="bg-[#3f6212] py-4 border-y-4 border-[#a3e635] w-full rotate-2 scale-110 relative flex items-center justify-center">
       <div ref="bannerTextRef" class="whitespace-nowrap translate-x-1/4 flex gap-4 text-[#ecfccb] text-4xl font-[900] uppercase italic tracking-tighter">
         <span v-for="n in 10" :key="n">
