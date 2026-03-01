@@ -2,6 +2,8 @@
 import { onMounted } from 'vue';
 import gsap from 'gsap';
 
+const hasPlayedIntro = useState('playedIntro', () => false);
+
 const headerRef = ref(null);
 const card1TextRef = ref<HTMLElement | null>(null);
 const card2TextRef = ref<HTMLElement | null>(null);
@@ -55,65 +57,74 @@ onMounted(() => {
     delay: 1
   });
 
-	const timeline = gsap.timeline();
+	watch(hasPlayedIntro, async (isDone) => {
+		if (isDone) {
+			await nextTick();
+			const timeline = gsap.timeline();
 
-	timeline.fromTo(headerRef.value, {
-		autoAlpha: 0,
-		y: -30
-	}, {
-		y: 0,
-		autoAlpha: 1,
-		duration: 1,
-		ease: 'expo.out'
-	})
+			requestAnimationFrame(() => {
+				requestAnimationFrame(() => {
+					timeline.fromTo(headerRef.value, {
+						autoAlpha: 0,
+						y: -30
+					}, {
+						y: 0,
+						autoAlpha: 1,
+						duration: 1,
+						ease: 'expo.out'
+					})
 
-	timeline.fromTo('.location-card', {
-		autoAlpha: 0, 
-		y: 60
-	}, {
-		y: 0,
-		autoAlpha: 1,
-		duration: 0.8,
-		stagger: 0.15,
-		ease: 'back.out(1.2)'
-	}, '-=0.5')
+					timeline.fromTo('.location-card', {
+						autoAlpha: 0, 
+						y: 60
+					}, {
+						y: 0,
+						autoAlpha: 1,
+						duration: 0.8,
+						stagger: 0.15,
+						ease: 'back.out(1.2)'
+					}, '-=0.5')
 
 
-	timeline.fromTo(['.location1-tag', '.location2-tag'], {
-    autoAlpha: 0,
-    scale: 0.5
-  }, {
-    scale: 1,
-    autoAlpha: 1,
-    duration: 0.8,
-    ease: 'elastic.out(1,0.7)'
-  }, '-=0.45')
-  
-	const children1 = card1TextRef.value ? Array.from(card1TextRef.value.children) : [];
-  const children2 = card2TextRef.value ? Array.from(card2TextRef.value.children) : [];
+					timeline.fromTo(['.location1-tag', '.location2-tag'], {
+						autoAlpha: 0,
+						scale: 0.5
+					}, {
+						scale: 1,
+						autoAlpha: 1,
+						duration: 0.8,
+						ease: 'elastic.out(1,0.7)'
+					}, '-=0.45')
+					
+					const children1 = card1TextRef.value ? Array.from(card1TextRef.value.children) : [];
+					const children2 = card2TextRef.value ? Array.from(card2TextRef.value.children) : [];
 
-	timeline.fromTo([...children1, ...children2], {
-    autoAlpha: 0,
-    x: -20
-  }, {
-    autoAlpha: 1,
-    x: 0,
-    duration: 0.6,
-    stagger: 0.08,
-    ease: 'power2.out'
-  }, "-=0.6")
-  .fromTo('.action-button', {
-    autoAlpha: 0,
-    y: 20,
-    scale: 0.95
-  }, {
-    autoAlpha: 1,
-    y: 0,
-    scale: 1,
-    duration: 0.6,
-    stagger: 0.1,
-    ease: 'back.out(1.5)'
-  }, "<+=0.15");
+					timeline.fromTo([...children1, ...children2], {
+						autoAlpha: 0,
+						x: -20
+					}, {
+						autoAlpha: 1,
+						x: 0,
+						duration: 0.6,
+						stagger: 0.08,
+						ease: 'power2.out'
+					}, "-=0.6")
+					.fromTo('.action-button', {
+						autoAlpha: 0,
+						y: 20,
+						scale: 0.95
+					}, {
+						autoAlpha: 1,
+						y: 0,
+						scale: 1,
+						duration: 0.6,
+						stagger: 0.1,
+						ease: 'back.out(1.5)'
+					}, "<+=0.15");
+				})
+			})
+		}
+	}, { immediate: true });
 });
 
 </script>
