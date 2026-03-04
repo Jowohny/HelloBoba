@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { watch, onMounted } from 'vue';
 import gsap from 'gsap';
 
 const backgroundItems = [
@@ -117,6 +117,8 @@ const destinationEmail = 'jvu1009@gmail.com';
 const cardRef = ref<HTMLElement>();
 const headerRef = ref('');
 
+const hasPlayedIntro = useState('playedIntro', () => false)
+
 const mailtoLink = computed(() => {
   const formattedBody = `Hi Hello Boba team,%0D%0A%0D%0A${message.value}%0D%0A%0D%0AFrom: ${name.value}%0D%0A${email.value}`;
   return `mailto:${destinationEmail}?subject=${encodeURIComponent(subject.value)}&body=${formattedBody}`;
@@ -146,39 +148,47 @@ onMounted(() => {
     });
   });
 
-	const timeline = gsap.timeline();
+	watch(hasPlayedIntro, async (isDone) => {
+		if (isDone) {
+			const timeline = gsap.timeline();
 
-	timeline.fromTo(headerRef.value, {
-		autoAlpha: 0,
-		y: -30
-	}, {
-		autoAlpha: 1,
-		y: 0,
-		duration: 1,
-		ease: 'expo.out'
-	})
+			requestAnimationFrame(() => {
+				requestAnimationFrame(() => {
+					timeline.fromTo(headerRef.value, {
+						autoAlpha: 0,
+						y: -30
+					}, {
+						autoAlpha: 1,
+						y: 0,
+						duration: 1,
+						ease: 'expo.out'
+					})
 
-	const contactElements = cardRef.value ? Array.from(cardRef.value.children) : []
+					const contactElements = cardRef.value ? Array.from(cardRef.value.children) : []
 
-	timeline.fromTo(cardRef.value!, {
-		autoAlpha: 0,
-		scale: 0
-	}, {
-		autoAlpha: 1,
-		scale: 1,
-		duration: 1.8,
-		ease: 'elastic.out(1,0.7)'
-	}, '<+=0.5')
-	.fromTo(contactElements, {
-		autoAlpha: 0,
-		y: -30
-	}, {
-		autoAlpha: 1,
-		y: 0,
-		duration: 0.6,
-		ease: 'sine.out',
-		stagger: 0.1
-	}, '<+=0.8')
+					timeline.fromTo(cardRef.value!, {
+						autoAlpha: 0,
+						scale: 0
+					}, {
+						autoAlpha: 1,
+						scale: 1,
+						duration: 0.9,
+						ease: 'back.out'
+					}, '<+=0.5')
+					.fromTo(contactElements, {
+						autoAlpha: 0,
+						y: -30
+					}, {
+						autoAlpha: 1,
+						y: 0,
+						duration: 0.6,
+						ease: 'sine.out',
+						stagger: 0.1
+					}, '<+=0.9')
+				})
+			})
+		}
+	}, { immediate: true });
 });
 </script>
 
@@ -186,7 +196,7 @@ onMounted(() => {
   <div class="min-h-screen pt-40 pb-24 px-6 relative z-10 overflow-hidden">
     <div class="fixed inset-0 w-full h-full -z-10 overflow-hidden">
 			<div
-				className="absolute inset-0 z-[5]"
+				class="absolute inset-0 z-[5]"
 				:style="{
 					backgroundImage: `
 						radial-gradient(125% 125% at 50% 10%, #ffffff 40%, #10b981 100%)
@@ -226,9 +236,9 @@ onMounted(() => {
 			</div>
 			<div 
 				ref="cardRef"
-				class="w-full flex flex-col gap-6 text-left mx-auto bg-white/60 backdrop-blur-xl rounded-3xl shadow-green-900/5 border border-3 border-zinc-400/50 p-10 shadow-2xl z-20"
+				class="w-full flex flex-col gap-6 text-left mx-auto bg-white/60 backdrop-blur-xl rounded-3xl shadow-green-900/5 border border-3 border-zinc-400/50 p-10 shadow-2xl z-20 opacity-0"
 			>
-				<div class="grid grid-cols-2 gap-6">
+				<div class="grid grid-cols-2 gap-6 opacity-0">
 					<div class="flex flex-col gap-2">
 						<label for="name" class="text-xs font-black uppercase tracking-widest text-green-700/70 ml-2">Name</label>
 						<input 
@@ -252,7 +262,7 @@ onMounted(() => {
 					</div>
 				</div>
 
-				<div class="flex flex-col col-span-2 gap-2">
+				<div class="flex flex-col col-span-2 gap-2 opacity-0">
 					<label for="email" class="text-xs font-black uppercase tracking-widest text-green-700/70 ml-2">Email</label>
 					<input 
 						id="email"
@@ -274,7 +284,7 @@ onMounted(() => {
 					/>
 				</div>
 
-				<div class="mt-2 flex justify-end">
+				<div class="mt-2 flex justify-end opacity-0">
 					<a 
 						:href="name && message ? mailtoLink : 'javascript:void(0)'"
 						:class="[
