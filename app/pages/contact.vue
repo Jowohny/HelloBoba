@@ -114,6 +114,9 @@ const email = ref('');
 const message = ref('');
 const destinationEmail = 'jvu1009@gmail.com';
 
+const cardRef = ref<HTMLElement>();
+const headerRef = ref('');
+
 const mailtoLink = computed(() => {
   const formattedBody = `Hi Hello Boba team,%0D%0A%0D%0A${message.value}%0D%0A%0D%0AFrom: ${name.value}%0D%0A${email.value}`;
   return `mailto:${destinationEmail}?subject=${encodeURIComponent(subject.value)}&body=${formattedBody}`;
@@ -142,6 +145,40 @@ onMounted(() => {
       delay: startDelay 
     });
   });
+
+	const timeline = gsap.timeline();
+
+	timeline.fromTo(headerRef.value, {
+		autoAlpha: 0,
+		y: -30
+	}, {
+		autoAlpha: 1,
+		y: 0,
+		duration: 1,
+		ease: 'expo.out'
+	})
+
+	const contactElements = cardRef.value ? Array.from(cardRef.value.children) : []
+
+	timeline.fromTo(cardRef.value!, {
+		autoAlpha: 0,
+		scale: 0
+	}, {
+		autoAlpha: 1,
+		scale: 1,
+		duration: 1.8,
+		ease: 'elastic.out(1,0.7)'
+	}, '<+=0.5')
+	.fromTo(contactElements, {
+		autoAlpha: 0,
+		y: -30
+	}, {
+		autoAlpha: 1,
+		y: 0,
+		duration: 0.6,
+		ease: 'sine.out',
+		stagger: 0.1
+	}, '<+=0.8')
 });
 </script>
 
@@ -172,8 +209,11 @@ onMounted(() => {
 				:key="ball.position"
 			/>
     </div>
-		<div class="max-w-7xl mx-auto relative z-50">      
-			<div class="text-center mb-16">
+		<div class="max-w-4xl mx-auto relative z-50">      
+			<div
+				ref="headerRef" 
+				class="text-center mb-16 opacity-0"
+			>
 				<span class="inline-block px-4 py-1.5 mb-4 rounded-full border border-green-500/20 bg-green-500/10 text-green-700 font-bold tracking-widest text-xs uppercase backdrop-blur-sm shadow-sm">
 					Reach Out
 				</span>
@@ -184,70 +224,69 @@ onMounted(() => {
 					Have a question, feedback, or want to inquire about any job openings? Just send us an email down below about anything you may want to know.
 				</p>
 			</div>
-			<div class="max-w-3xl mx-auto bg-white/60 backdrop-blur-xl rounded-3xl shadow-green-900/5 border border-3 border-green-300/50 p-10 shadow-2xl z-20">
-				<div class="w-full flex flex-col gap-6 text-left">
-					
-					<div class="grid grid-cols-2 gap-6">
-						<div class="flex flex-col gap-2">
-							<label for="name" class="text-xs font-black uppercase tracking-widest text-green-700/70 ml-2">Name</label>
-							<input 
-								id="name"
-								v-model="name" 
-								type="text" 
-								placeholder="Jane Doe"
-								class="w-full bg-white/50 border border-green-600/10 focus:border-green-500 rounded-2xl px-5 py-3 text-zinc-700 font-semibold outline-none transition-colors shadow-inner"
-							>
-						</div>
-
-						<div class="flex flex-col gap-2">
-							<label for="subject" class="text-xs font-black uppercase tracking-widest text-green-700/70 ml-2">Subject</label>
-							<input 
-								id="subject"
-								v-model="subject" 
-								type="text" 
-								placeholder="General Inquiry"
-								class="w-full bg-white/50 border border-green-600/10 focus:border-green-500 rounded-2xl px-5 py-3 text-zinc-700 font-semibold outline-none transition-colors shadow-inner"
-							>
-						</div>
-					</div>
-
-					<div class="flex flex-col col-span-2 gap-2">
-						<label for="email" class="text-xs font-black uppercase tracking-widest text-green-700/70 ml-2">Email</label>
+			<div 
+				ref="cardRef"
+				class="w-full flex flex-col gap-6 text-left mx-auto bg-white/60 backdrop-blur-xl rounded-3xl shadow-green-900/5 border border-3 border-zinc-400/50 p-10 shadow-2xl z-20"
+			>
+				<div class="grid grid-cols-2 gap-6">
+					<div class="flex flex-col gap-2">
+						<label for="name" class="text-xs font-black uppercase tracking-widest text-green-700/70 ml-2">Name</label>
 						<input 
-							id="email"
-							v-model="email" 
+							id="name"
+							v-model="name" 
 							type="text" 
-							placeholder="janedoe123@company.com"
-							class="w-full bg-white/50 border border-green-600/10 focus:border-green-500 rounded-2xl px-5 py-3 text-zinc-700 font-semibold outline-none transition-colors shadow-inner"
+							placeholder="Jane Doe"
+							class="w-full bg-white/50 border border-green-600/30 focus:border-green-500 rounded-2xl px-5 py-3 text-zinc-700 font-semibold outline-none transition-colors shadow-inner"
 						>
 					</div>
 
 					<div class="flex flex-col gap-2">
-						<label for="message" class="text-xs font-black uppercase tracking-widest text-green-700/70 ml-2">Message</label>
-						<textarea 
-							id="message"
-							v-model="message" 
-							rows="5"
-							placeholder="How can we help you today?"
-							class="w-full bg-white/50 border border-green-600/10 focus:border-green-500 rounded-2xl px-5 py-4 text-zinc-700 font-semibold outline-none transition-colors shadow-inner resize-none"
-						/>
-					</div>
-
-					<div class="mt-2 flex justify-end">
-						<a 
-							:href="name && message ? mailtoLink : 'javascript:void(0)'"
-							:class="[
-								'inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-sm tracking-wide transition-all duration-300',
-								name && message 
-									? 'bg-gradient-to-r from-[#65a30d] to-[#4d7c0f] text-white shadow-lg shadow-green-600/30 hover:scale-105 cursor-pointer' 
-									: 'bg-zinc-200/50 text-zinc-400 cursor-not-allowed'
-							]"
+						<label for="subject" class="text-xs font-black uppercase tracking-widest text-green-700/70 ml-2">Subject</label>
+						<input 
+							id="subject"
+							v-model="subject" 
+							type="text" 
+							placeholder="General Inquiry"
+							class="w-full bg-white/50 border border-green-600/30 focus:border-green-500 rounded-2xl px-5 py-3 text-zinc-700 font-semibold outline-none transition-colors shadow-inner"
 						>
-							Open in Mail App
-							<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-						</a>
 					</div>
+				</div>
 
+				<div class="flex flex-col col-span-2 gap-2">
+					<label for="email" class="text-xs font-black uppercase tracking-widest text-green-700/70 ml-2">Email</label>
+					<input 
+						id="email"
+						v-model="email" 
+						type="text" 
+						placeholder="janedoe123@company.com"
+						class="w-full bg-white/50 border border-green-600/30 focus:border-green-500 rounded-2xl px-5 py-3 text-zinc-700 font-semibold outline-none transition-colors shadow-inner"
+					>
+				</div>
+
+				<div class="flex flex-col gap-2">
+					<label for="message" class="text-xs font-black uppercase tracking-widest text-green-700/70 ml-2">Message</label>
+					<textarea 
+						id="message"
+						v-model="message" 
+						rows="10"
+						placeholder="How can we help you today?"
+						class="w-full bg-white/50 border border-green-600/30 focus:border-green-500 rounded-2xl px-5 py-4 text-zinc-700 font-semibold outline-none transition-colors shadow-inner resize-none"
+					/>
+				</div>
+
+				<div class="mt-2 flex justify-end">
+					<a 
+						:href="name && message ? mailtoLink : 'javascript:void(0)'"
+						:class="[
+							'inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-sm tracking-wide transition-all duration-300',
+							name && message 
+								? 'bg-gradient-to-r from-[#65a30d] to-[#4d7c0f] text-white shadow-lg shadow-green-600/30 hover:scale-105 cursor-pointer' 
+								: 'bg-zinc-200/50 text-zinc-400 cursor-not-allowed'
+						]"
+					>
+						Open in Mail App
+						<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+					</a>
 				</div>
 			</div>
 		</div>
