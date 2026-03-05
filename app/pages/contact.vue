@@ -112,7 +112,7 @@ const name = ref('');
 const subject = ref('');
 const email = ref('');
 const message = ref('');
-const destinationEmail = 'jvu1009@gmail.com';
+const destinationEmail = 'hello.hello.boba.boba@gmail.com';
 
 const cardRef = ref<HTMLElement>();
 const headerRef = ref('');

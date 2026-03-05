@@ -42,7 +42,7 @@ const currentNewsItems = [
     category: "Promotion",
     image: "/bobalogo.png",
     description: "Just a heads up! We will be closing early at 5:00 PM this Friday for a team building event. Normal hours resume Saturday.",
-    featured: 'col-span-3 row-span-1',
+    featured: 'col-span-4 row-span-1',
 		vertical: false
   }
 ];
