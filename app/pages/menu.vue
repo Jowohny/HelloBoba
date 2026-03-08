@@ -3,6 +3,11 @@ import { onMounted } from 'vue';
 import gsap from 'gsap';
 
 const menuItems = [
+	{ type: 'Creme Brulee Series', name: 'Creme Brulee Oreo Smoothie', price: { R: '🚫', L: '$7.85' }, desc: 'A lemonade-like beverage that contains mint leaves for the extra kick of freshness.', DF: false, CF: true, image: '' },
+	{ type: 'Creme Brulee Series', name: 'Creme Brulee Matcha Smoothie', price: { R: '🚫', L: '$7.85' }, desc: 'A lemonade-like beverage that contains mint leaves for the extra kick of freshness.', DF: false, CF: false, image: '' },
+	{ type: 'Creme Brulee Series', name: 'Creme Brulee Thai Tea', price: { R: '🚫', L: '$6.85' }, desc: 'A lemonade-like beverage that contains mint leaves for the extra kick of freshness.', DF: false, CF: false, image: '' },
+	{ type: 'Creme Brulee Series', name: 'Creme Brulee Brown Sugar Boba Milk', price: { R: '🚫', L: '$6.85' }, desc: 'A lemonade-like beverage that contains mint leaves for the extra kick of freshness.', DF: false, CF: true, image: '' },
+
   { type: 'Mojito', name: 'Original Mojito', price: { R: '$4.95', L: '$5.45' }, desc: 'A lemonade-like beverage that contains mint leaves for the extra kick of freshness.', DF: true, CF: true, image: '' },
   { type: 'Mojito', name: 'Mango Mojito', price: { R: '$5.20', L: '$5.70' }, desc: 'A lemonade-like beverage that contains a hint of mango syrup and some mint leaves for the extra kick of freshness.', DF: true, CF: true, image: '' },
   { type: 'Mojito', name: 'Strawberry Mojito', price: { R: '$5.20', L: '$5.70' }, desc: 'A lemonade-like beverage that contains a hint of strawberry syrup and some mint leaves for the extra kick of freshness.', DF: true, CF: true, image: '' },
@@ -56,6 +61,8 @@ const menuItems = [
   { type: 'Coffee', name: 'Caramel Coffee Latte (Iced)', price: { R: '$5.95', L: '$6.45' }, desc: 'Iced coffee and milk perfectly balanced with buttery caramel syrup.', DF: false, CF: false, image: '' },
 
 	{ type: 'Matcha Series', name: 'Mango Matcha Latte', price: { R: '🚫', L: '$6.60' }, desc: 'Earthy, premium matcha layered over sweet, tropical mango puree and milk.', DF: false, CF: false, image: '' },
+	{ type: 'Matcha Series', name: 'Creme Brulee Matcha Smoothie', price: { R: '🚫', L: '$7.85' }, desc: 'A lemonade-like beverage that contains mint leaves for the extra kick of freshness.', DF: false, CF: false, image: '' },
+  { type: 'Matcha Series', name: 'Matcha Boba Milk Tea', price: { R: '$5.85', L: '$6.35' }, desc: 'Earthy matcha and creamy milk perfectly paired with our signature boba.', DF: false, CF: false, image: '' },
   { type: 'Matcha Series', name: 'Strawberry Matcha Latte', price: { R: '🚫', L: '$6.60' }, desc: 'A beautiful layered drink of ceremonial matcha, milk, and fresh strawberry puree.', DF: false, CF: false, image: '' },
 
 	{ type: 'Butterfly Series', name: 'Butterfly Mango', price: { R: '🚫', L: '$6.60' }, desc: 'A mesmerizing, color-changing butterfly pea flower tea layered with sweet mango.', DF: false, CF: false, image: '' },
@@ -67,8 +74,31 @@ const menuItems = [
   { type: 'Boba Milk', name: 'Brown Sugar Boba Milk Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'Our classic black milk tea elevated with rich, roasted brown sugar boba.', DF: false, CF: false, image: '' },
   { type: 'Boba Milk', name: 'Strawberry Boba Milk', price: { R: '$5.85', L: '$6.35' }, desc: 'Creamy, caffeine-free milk mixed with sweet strawberry puree and boba.', DF: false, CF: true, image: '' },
   { type: 'Boba Milk', name: 'Matcha Boba Milk Tea', price: { R: '$5.85', L: '$6.35' }, desc: 'Earthy matcha and creamy milk perfectly paired with our signature boba.', DF: false, CF: false, image: '' },
-  { type: 'Boba Milk', name: 'Brown Sugar Roasted Oolong Milk Tea', price: { R: '$5.70', L: '$6.20' }, desc: 'Deeply roasted oolong milk tea enhanced with our warm brown sugar boba.', DF: false, CF: false, image: '' }
+  { type: 'Boba Milk', name: 'Brown Sugar Roasted Oolong Milk Tea', price: { R: '$5.70', L: '$6.20' }, desc: 'Deeply roasted oolong milk tea enhanced with our warm brown sugar boba.', DF: false, CF: false, image: '' },
 ];
+
+const toppings = [
+	{ name: 'Mango Jelly', desc: 'A chewy, gel-based topping infused with sweet tropical mango flavor.', image: ''},
+	{ name: 'Lychee Jelly', desc: 'Translucent, firm jelly bits with a delicate, floral grape-like sweetness.', image: ''},
+	{ name: 'Coffee Jelly', desc: 'Robust and slightly bitter cubes made from real coffee to balance sweet milk teas.', image: ''},
+	{ name: 'Grass Jelly', desc: 'A traditional, herbal jelly with a mild minty undertone and a silky texture.', image: ''},
+	{ name: 'Rainbow Jelly', desc: 'Colorful, multi-flavored coconut strips that offer a firm and playful chew.', image: ''},
+	{ name: 'Aloe Vera', desc: 'Refreshing, juicy cubes of real aloe plant that are light and naturally sweet.', image: ''},
+	{ name: 'Egg Pudding', desc: 'A smooth, custard-like topping with a rich vanilla and caramelized sugar taste.', image: ''},
+	{ name: 'Sea Salt Cream', desc: 'A thick, frothy milk foam layer with a savory saltiness that cuts through sweetness.', image: ''},
+	{ name: 'Creme Brulee', desc: 'A decadent, creamy swirl inspired by the classic French dessert with hints of toasted sugar.', image: ''}
+];
+
+
+const boba = [
+	{ name: 'Brown Sugar Boba', desc: 'Our base boba choice, made with tapioca starch, flavored with brown sugar and chewy in texture.', image: ''},
+	{ name: 'Strawberry Popping Boba', desc: 'Liquid-filled balls with the essence and goodness of strawberry with a juicy burst of flavor.', image: ''},
+	{ name: 'Peach Popping Boba', desc: 'Liquid-filled balls with the essence and goodness of peach with a juicy burst of flavor.', image: ''},
+	{ name: 'Black & White Boba', desc: 'A half & half mix of our crystal and brown sugar boba, for people who are indecisive.', image: ''},
+	{ name: 'Crystal Boba', desc: 'A clear, agar-based topping known for its light, crunchy texture.', image: ''}
+];
+
+const food = [];
 
 const groupedMenu = computed(() => {
   const dictionary: Record<string, typeof menuItems> = {};
@@ -156,7 +186,7 @@ onMounted(() => {
 					anyone who's hungry, we also have our small selection of cakes and cookies.
         </p>
       </div>
-			<div class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10">
+			<div class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10 mb-12">
         <div class="flex overflow-x-auto gap-3 pb-6 mb-6 border-b-2 border-green-500/20">
           <button
             v-for="cat in categories"
@@ -215,6 +245,66 @@ onMounted(() => {
                 <span class="font-black text-lg text-green-700">
                   {{ item.price.L }}
                 </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+			<div class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10 mb-12">
+        <h2 class="text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
+          Toppings
+        </h2>
+
+				<div class="flex grid grid-cols-2 gap-2 autorows-min">
+          <div 
+            v-for="topping in toppings" 
+            :key="topping.name" 
+            class="group flex flex-row justify-between items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-0"
+          >
+            <div class="flex flex-1 items-center gap-5 pr-4 w-full">
+              <div class="w-20 h-20 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
+                <img v-if="topping.image" :src="topping.image" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                <span v-else class="text-3xl opacity-50 grayscale">🧋</span>
+              </div>
+              <div class="flex-1">
+                <div class="flex flex-wrap items-center gap-3 mb-1">
+                  <h3 class="text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors">
+                    {{ topping.name }}
+                  </h3>
+                </div>
+                <p class="text-xs font-semibold text-zinc-500 max-w-2xl">
+                  {{ topping.desc }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+			<div class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10">
+        <h2 class="text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
+          Boba
+        </h2>
+
+				<div class="flex grid grid-cols-2 gap-2 auto-rows-min">
+          <div 
+            v-for="b in boba" 
+            :key="b.name" 
+            class="group flex flex-row justify-between items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-0"
+          >
+            <div class="flex items-center gap-5 w-full">
+              <div class="w-20 h-20 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
+                <img v-if="b.image" :src="b.image" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                <span v-else class="text-3xl opacity-50 grayscale">🧋</span>
+              </div>
+              <div class="flex-1">
+                <div class="flex flex-wrap items-center gap-3 mb-1">
+                  <h3 class="text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors">
+                    {{ b.name }}
+                  </h3>
+                </div>
+                <p class="text-xs font-semibold text-zinc-500">
+                  {{ b.desc }}
+                </p>
               </div>
             </div>
           </div>
