@@ -109,7 +109,8 @@ const toppingRef = ref(null);
 const bobaRef = ref(null);
 const foodRef = ref(null);
 
-const currentMenuConfigure = 'drinks';
+const currentMenuConfigure = ref<string>('drinks');
+const firstTime = ref<boolean>(false);
 
 const groupedMenu = computed(() => {
   const dictionary: Record<string, typeof menuItems> = {};
@@ -193,6 +194,17 @@ onMounted(() => {
 		ease: 'back.out'
 	}, '<+=0.4')
 
+	const menuSections = gsap.utils.toArray('.menu-section');
+
+	timeline.fromTo(menuSections, {
+		autoAlpha: 0,
+	}, {
+		autoAlpha: 1,
+		duration: 0.8,
+		ease: 'sine.out',
+		stagger: 0.1
+	}, '-=0.4')
+
 	const sections = gsap.utils.toArray('.section');
 
 	sections.forEach((section: any) => {
@@ -217,7 +229,8 @@ onMounted(() => {
 		autoAlpha: 1,
 		duration: 1.2,
 		ease: 'power4.out',
-		stagger: 0.04
+		stagger: 0.04,
+		onComplete: () => { firstTime.value = true; }
 	}, '<')
 
 	const drinkItems = gsap.utils.toArray('.drink-item');
@@ -259,21 +272,46 @@ onMounted(() => {
 					anyone who's hungry, we also have our small selection of cakes and cookies.
         </p>
       </div>
+			<div class="relative mb-32">
+				<div
+					class="menu-section absolute h-16 w-1/6 rounded-full border border-zinc-400/30 shadow-xl"
+					:class="currentMenuConfigure === 'drinks' ? '-translate-y-2/3 bg-green-300' : '-translate-y-1/3 bg-[#f6f6f6]'"
+					@click="currentMenuConfigure = 'drinks'"
+				>
+					<h3 class="text-2xl text-transparent bg-clip-text bg-gradient-to-b from-white to-[#8f1c67] font-[900] w-full h-full font-sans tracking-wide flex justify-center items-center">Drinks</h3>
+				</div>
+				<div
+					class="menu-section absolute top-0 left-1/2  -translate-x-1/2 h-16 w-1/6 rounded-full border border-zinc-400/30 shadow-xl"
+					:class="currentMenuConfigure === 'toppings' ? '-translate-y-2/3 bg-green-300' : '-translate-y-1/3 bg-[#f6f6f6]'"
+					@click="currentMenuConfigure = 'toppings'"
+				>
+					<h3 class="text-2xl text-transparent bg-clip-text bg-gradient-to-b from-white to-[#8f1c67] font-[900] w-full h-full font-sans tracking-wide flex justify-center items-center">Toppings</h3>
+				</div>
+				<div
+					class="menu-section absolute top-0 right-0 h-16 w-1/6 rounded-full border border-zinc-400/30 shadow-xl"
+					:class="currentMenuConfigure === 'bobas' ? '-translate-y-2/3 bg-green-300' : '-translate-y-1/3 bg-[#f6f6f6]'"
+					@click="currentMenuConfigure = 'bobas'"
+				>
+					<h3 class="text-2xl text-transparent bg-clip-text bg-gradient-to-b from-white to-[#1b0b1f] font-[900] w-full h-full font-sans tracking-wide flex justify-center items-center">Boba</h3>
+				</div>
+			</div>
 			<div 
 				ref="drinksRef" 
 				v-if="currentMenuConfigure === 'drinks'"
-				class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10 opacity-0"
+				class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10"
+				:class="firstTime ? '' : 'opacity-0'"
 			>
-        <div class="flex overflow-x-auto gap-3 pt-2 pb-8 mb-6 border-b-2 border-green-500/20">
+				<div class="flex overflow-x-auto gap-3 pt-2 pb-8 mb-6 border-b-2 border-green-500/20">
           <button
             v-for="cat in categories"
             :key="cat"
             @click="activeTab = cat"
             :class="[
-              'section px-5 py-2.5 rounded-2xl font-bold text-sm tracking-wide whitespace-nowrap transition-all duration-300 border border-zinc-500/30 opacity-0',
+              'section px-5 py-2.5 rounded-2xl font-bold text-sm tracking-wide whitespace-nowrap transition-all duration-300 border border-zinc-500/30',
               activeTab === cat
-                ? 'bg-green-600 text-white border-green-600 shadow-md shadow-green-600/30'
-                : 'bg-white/50 text-zinc-500 border-transparent hover:bg-white hover:text-zinc-800'
+                ? 'bg-green-600 text-white border-green-600 shadow-md shadow-green-600/50'
+                : 'bg-white/50 text-zinc-500 border-transparent hover:bg-white hover:text-zinc-800 shadow-md shadow-zinc-500/50',
+								firstTime ? '' : 'opacity-0'
             ]"
           >
             {{ cat }}
@@ -330,7 +368,7 @@ onMounted(() => {
 			<div 
 				ref="toppingsRef" 
 				v-else-if="currentMenuConfigure === 'toppings'"
-				class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10 opacity-0"
+				class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10"
 			>
         <h2 class="text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
           Toppings
@@ -363,8 +401,8 @@ onMounted(() => {
       </div>
 			<div 
 				ref="bobaRef"
-				v-else-if="currentMenuConfigure === 'boba'"
-				class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10 opacity-0"
+				v-else-if="currentMenuConfigure === 'bobas'"
+				class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10"
 			>
         <h2 class="text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
           Boba
