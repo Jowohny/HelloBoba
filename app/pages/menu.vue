@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import gsap from 'gsap';
+import { SplitText } from 'gsap/SplitText';
+
+gsap.registerPlugin(SplitText)
 
 const menuItems = [
 	{ type: 'Creme Brulee Series', name: 'Creme Brulee Oreo Smoothie', price: { R: '🚫', L: '$7.85' }, desc: 'A lemonade-like beverage that contains mint leaves for the extra kick of freshness.', DF: false, CF: true, image: '' },
@@ -100,6 +103,14 @@ const boba = [
 
 const food = [];
 
+const headerRef = ref(null);
+const drinksRef = ref(null);
+const toppingRef = ref(null);
+const bobaRef = ref(null);
+const foodRef = ref(null);
+
+const currentMenuConfigure = 'drinks';
+
 const groupedMenu = computed(() => {
   const dictionary: Record<string, typeof menuItems> = {};
   
@@ -159,6 +170,68 @@ onMounted(() => {
       delay: startDelay
     });
   });
+
+	const timeline = gsap.timeline();
+
+	timeline.fromTo(headerRef.value, {
+		autoAlpha: 0,
+		y: -30
+	}, {
+		autoAlpha: 1,
+		y: 0,
+		duration: 1,
+		ease: 'expo.out'
+	})
+
+	timeline.fromTo(drinksRef.value, {
+		autoAlpha: 0,
+		y: 60
+	}, {
+		autoAlpha: 1,
+		duration: 1,
+		y: 0,
+		ease: 'back.out'
+	}, '<+=0.4')
+
+	const sections = gsap.utils.toArray('.section');
+
+	sections.forEach((section: any) => {
+		timeline.fromTo(section, {
+			autoAlpha: 0,
+			x: 40,
+			rotate: gsap.utils.random(-5,5)
+		}, {
+			autoAlpha: 1,
+			rotate: 0,
+			x: 0,
+			duration: 0.4,
+			ease: 'none',
+		}, '<+=0.05')
+	})
+
+	const splitSectionTitle = new SplitText('.drink-section', { type: 'chars,words', charsClass: 'opacity-0' });
+
+	timeline.fromTo(splitSectionTitle.chars, {
+		autoAlpha: 0,
+	}, {
+		autoAlpha: 1,
+		duration: 1.2,
+		ease: 'power4.out',
+		stagger: 0.04
+	}, '<')
+
+	const drinkItems = gsap.utils.toArray('.drink-item');
+
+	timeline.fromTo(drinkItems, {
+		autoAlpha: 0,
+		x: 50
+	}, {
+		x: 0,
+		autoAlpha: 1,
+		duration: 1,
+		stagger: 0.2,
+		ease: 'power4.out'
+	}, '<+=0.3')	
 });
 </script>
 
@@ -174,7 +247,7 @@ onMounted(() => {
      	/>
     </div>
 		<div class="max-w-7xl mx-auto relative z-10">
-      <div ref="headerRef" class="text-center mb-16">
+      <div ref="headerRef" class="text-center mb-16 opacity-0">
         <span class="inline-block px-4 py-1.5 mb-4 rounded-full border border-green-500/20 bg-green-500/10 text-green-700 font-bold tracking-widest text-xs uppercase backdrop-blur-sm">
           Freshly Brewed
         </span>
@@ -186,14 +259,18 @@ onMounted(() => {
 					anyone who's hungry, we also have our small selection of cakes and cookies.
         </p>
       </div>
-			<div class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10 mb-12">
-        <div class="flex overflow-x-auto gap-3 pb-6 mb-6 border-b-2 border-green-500/20">
+			<div 
+				ref="drinksRef" 
+				v-if="currentMenuConfigure === 'drinks'"
+				class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10 opacity-0"
+			>
+        <div class="flex overflow-x-auto gap-3 pt-2 pb-8 mb-6 border-b-2 border-green-500/20">
           <button
             v-for="cat in categories"
             :key="cat"
             @click="activeTab = cat"
             :class="[
-              'px-5 py-2.5 rounded-2xl font-bold text-sm tracking-wide whitespace-nowrap transition-all duration-300 border border-zinc-500/30',
+              'section px-5 py-2.5 rounded-2xl font-bold text-sm tracking-wide whitespace-nowrap transition-all duration-300 border border-zinc-500/30 opacity-0',
               activeTab === cat
                 ? 'bg-green-600 text-white border-green-600 shadow-md shadow-green-600/30'
                 : 'bg-white/50 text-zinc-500 border-transparent hover:bg-white hover:text-zinc-800'
@@ -203,7 +280,7 @@ onMounted(() => {
           </button>
         </div>
 
-        <h2 class="text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
+        <h2 class="drink-section text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
           {{ activeTab }}
         </h2>
 
@@ -211,7 +288,7 @@ onMounted(() => {
           <div 
             v-for="item in currentDrinks" 
             :key="item.name" 
-            class="group flex flex-row justify-between items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-0"
+            class="drink-item group flex flex-row justify-between items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-0"
           >
             <div class="flex flex-1 items-center gap-5 pr-4 w-full">
               <div class="w-20 h-20 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
@@ -250,7 +327,11 @@ onMounted(() => {
           </div>
         </div>
       </div>
-			<div class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10 mb-12">
+			<div 
+				ref="toppingsRef" 
+				v-else-if="currentMenuConfigure === 'toppings'"
+				class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10 opacity-0"
+			>
         <h2 class="text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
           Toppings
         </h2>
@@ -280,7 +361,11 @@ onMounted(() => {
           </div>
         </div>
       </div>
-			<div class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10">
+			<div 
+				ref="bobaRef"
+				v-else-if="currentMenuConfigure === 'boba'"
+				class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10 opacity-0"
+			>
         <h2 class="text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
           Boba
         </h2>
