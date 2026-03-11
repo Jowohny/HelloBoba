@@ -248,6 +248,59 @@ onMounted(() => {
 		ease: 'power4.out'
 	}, '<+=0.3')	
 });
+
+const animateMenuIn = async (nextMenuConfigure: string) => {
+  if (currentMenuConfigure.value === nextMenuConfigure) return;
+
+  let oldMenuConfigure;
+
+	switch (currentMenuConfigure.value) {
+		case 'drinks':
+			oldMenuConfigure = drinksRef;
+			break;
+		case 'toppings':
+			oldMenuConfigure = toppingRef;
+			break;
+		default:
+			oldMenuConfigure = bobaRef;
+	}
+
+  await new Promise((resolve) => {
+    gsap.to(oldMenuConfigure.value, {
+      autoAlpha: 0,
+      y: -20,
+      duration: 0.3,
+      ease: 'power2.in',
+      onComplete: resolve
+    });
+  });
+
+  currentMenuConfigure.value = nextMenuConfigure;
+
+  await nextTick();
+
+  let newMenuConfigure;
+	switch (nextMenuConfigure) {
+		case 'drinks':
+			newMenuConfigure = drinksRef;
+			break;
+		case 'toppings':
+			newMenuConfigure = toppingRef;
+			break;
+		default:
+			newMenuConfigure = bobaRef;
+	}
+
+	gsap.fromTo(newMenuConfigure.value, {
+    autoAlpha: 0,
+    y: 50
+  }, {
+    autoAlpha: 1,
+    y: 0,
+    ease: 'power4.out',
+    duration: 0.5
+  });
+}
 </script>
 
 <template>
@@ -278,7 +331,7 @@ onMounted(() => {
         <div
           class="menu-section relative h-36 w-56 z-50 transition-all duration-500 opacity-0 cursor-pointer drop-shadow-xl"
           :class="currentMenuConfigure === section ? '-translate-y-[10%]' : ''"
-          @click="currentMenuConfigure = section"
+          @click="animateMenuIn(section)"
 					v-for="section in sections"
 					:key="section"
         >
@@ -371,9 +424,9 @@ onMounted(() => {
         </div>
       </div>
 			<div 
-				ref="toppingsRef" 
+				ref="toppingRef" 
 				v-else-if="currentMenuConfigure === 'toppings'"
-				class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10"
+				class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10 opacity-0"
 			>
         <h2 class="text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
           Toppings
@@ -407,7 +460,7 @@ onMounted(() => {
 			<div 
 				ref="bobaRef"
 				v-else-if="currentMenuConfigure === 'boba'"
-				class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10"
+				class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10 opacity-0"
 			>
         <h2 class="text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
           Boba
