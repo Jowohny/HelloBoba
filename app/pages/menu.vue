@@ -103,6 +103,8 @@ const boba = [
 
 const food = [];
 
+const sections = [ 'drinks', 'toppings', 'boba' ]
+
 const headerRef = ref(null);
 const drinksRef = ref(null);
 const toppingRef = ref(null);
@@ -272,29 +274,32 @@ onMounted(() => {
 					anyone who's hungry, we also have our small selection of cakes and cookies.
         </p>
       </div>
-			<div class="relative flex flex-row mb-4 justify-around px-8">
-				<div
-					class="menu-section h-16 w-1/6 rounded-full border border-zinc-400/30 shadow-xl transition-all duration-500 opacity-0"
-					:class="currentMenuConfigure === 'drinks' ? '-translate-y-1/4 bg-green-300' : 'bg-[#f6f6f6]'"
-					@click="currentMenuConfigure = 'drinks'"
-				>
-					<h3 class="text-2xl text-transparent bg-clip-text bg-gradient-to-b from-white to-[#8f1c67] font-[900] w-full h-full font-sans tracking-wide flex justify-center items-center">Drinks</h3>
-				</div>
-				<div
-					class="menu-section h-16 w-1/6 rounded-full border border-zinc-400/30 shadow-xl transition-all duration-500 opacity-0"
-					:class="currentMenuConfigure === 'toppings' ? '-translate-y-1/4 bg-green-300' : 'bg-[#f6f6f6]'"
-					@click="currentMenuConfigure = 'toppings'"
-				>
-					<h3 class="text-2xl text-transparent bg-clip-text bg-gradient-to-b from-white to-[#8f1c67] font-[900] w-full h-full font-sans tracking-wide flex justify-center items-center">Toppings</h3>
-				</div>
-				<div
-					class="menu-section h-16 w-1/6 rounded-full border border-zinc-400/30 shadow-xl transition-all duration-500 opacity-0"
-					:class="currentMenuConfigure === 'bobas' ? '-translate-y-1/4 bg-green-300' : 'bg-[#f6f6f6]'"
-					@click="currentMenuConfigure = 'bobas'"
-				>
-					<h3 class="text-2xl text-transparent bg-clip-text bg-gradient-to-b from-white to-[#1b0b1f] font-[900] w-full h-full font-sans tracking-wide flex justify-center items-center">Boba</h3>
-				</div>
-			</div>
+			<div class="relative flex flex-row -mb-3 justify-around px-8 z-50">
+        <div
+          class="menu-section relative h-36 w-56 z-50 transition-all duration-500 opacity-0 cursor-pointer drop-shadow-xl"
+          :class="currentMenuConfigure === section ? '-translate-y-[10%]' : ''"
+          @click="currentMenuConfigure = section"
+					v-for="section in sections"
+					:key="section"
+        >
+					<svg 
+            viewBox="0 0 240 140" 
+            class="absolute top-0 left-0 w-full h-full transition-colors duration-500 pointer-events-none"
+            :class="currentMenuConfigure === section ? 'text-green-300' : 'text-[#f6f6f6]'"
+          >
+            <circle cx="60" cy="55" r="35" fill="currentColor" />
+            <circle cx="120" cy="40" r="45" fill="currentColor" />
+            <circle cx="180" cy="55" r="35" fill="currentColor" />
+            <ellipse cx="120" cy="65" rx="85" ry="30" fill="currentColor" /> 
+
+            <circle cx="210" cy="100" r="10" fill="currentColor"/>
+            <circle cx="230" cy="110" r="6" fill="currentColor"/>
+          </svg>
+          <h3 class="relative z-10 text-2xl text-transparent -translate-y-[10%] bg-clip-text bg-gradient-to-b from-white to-[#8f1c67] font-[900] w-full h-full font-sans tracking-wide flex justify-center uppercase items-center">
+						{{ section }}
+					</h3>
+        </div>
+      </div>
 			<div 
 				ref="drinksRef" 
 				v-if="currentMenuConfigure === 'drinks'"
@@ -401,7 +406,7 @@ onMounted(() => {
       </div>
 			<div 
 				ref="bobaRef"
-				v-else-if="currentMenuConfigure === 'bobas'"
+				v-else-if="currentMenuConfigure === 'boba'"
 				class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10"
 			>
         <h2 class="text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
