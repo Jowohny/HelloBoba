@@ -111,6 +111,8 @@ const toppingRef = ref(null);
 const bobaRef = ref(null);
 const foodRef = ref(null);
 
+const hasPlayedIntro = useState('playedIntro', () => false) 
+
 const currentMenuConfigure = ref<string>('drinks');
 const firstTime = ref<boolean>(false);
 
@@ -174,79 +176,91 @@ onMounted(() => {
     });
   });
 
-	const timeline = gsap.timeline();
 
-	timeline.fromTo(headerRef.value, {
-		autoAlpha: 0,
-		y: -30
-	}, {
-		autoAlpha: 1,
-		y: 0,
-		duration: 1,
-		ease: 'expo.out'
+	watch(hasPlayedIntro, async (isDone) => {
+		if (isDone) {
+			await nextTick();
+			const timeline = gsap.timeline();
+
+			requestAnimationFrame(() => {
+				requestAnimationFrame(() => {
+					timeline.fromTo(headerRef.value, {
+						autoAlpha: 0,
+						y: -30
+					}, {
+						autoAlpha: 1,
+						y: 0,
+						duration: 1,
+						ease: 'expo.out'
+					})
+
+					timeline.fromTo(drinksRef.value, {
+						autoAlpha: 0,
+						y: 60
+					}, {
+						autoAlpha: 1,
+						duration: 1,
+						y: 0,
+						ease: 'back.out'
+					}, '<+=0.4')
+
+					const menuSections = gsap.utils.toArray('.menu-section');
+
+					timeline.fromTo(menuSections, {
+						autoAlpha: 0,
+					}, {
+						autoAlpha: 1,
+						duration: 0.8,
+						ease: 'sine.out',
+						stagger: 0.1
+					}, '<-=0.5')
+
+					const sections = gsap.utils.toArray('.section');
+
+					sections.forEach((section: any) => {
+						timeline.fromTo(section, {
+							autoAlpha: 0,
+							x: 40,
+							rotate: gsap.utils.random(-5,5)
+						}, {
+							autoAlpha: 1,
+							rotate: 0,
+							x: 0,
+							duration: 0.4,
+							ease: 'none',
+						}, '<+=0.05')
+					})
+
+					const splitSectionTitle = new SplitText('.drink-section', { type: 'chars,words', charsClass: 'opacity-0' });
+
+					timeline.fromTo(splitSectionTitle.chars, {
+						autoAlpha: 0,
+					}, {
+						autoAlpha: 1,
+						duration: 1.2,
+						ease: 'power4.out',
+						stagger: 0.04,
+						onComplete: () => { firstTime.value = true; }
+					}, '<')
+
+					const drinkItems = gsap.utils.toArray('.drink-item');
+
+					timeline.fromTo(drinkItems, {
+						autoAlpha: 0,
+						x: 50
+					}, {
+						x: 0,
+						autoAlpha: 1,
+						duration: 1,
+						stagger: 0.2,
+						ease: 'power4.out'
+					}, '<+=0.3')	
+				})
+			})
+		}	
 	})
 
-	timeline.fromTo(drinksRef.value, {
-		autoAlpha: 0,
-		y: 60
-	}, {
-		autoAlpha: 1,
-		duration: 1,
-		y: 0,
-		ease: 'back.out'
-	}, '<+=0.4')
 
-	const menuSections = gsap.utils.toArray('.menu-section');
-
-	timeline.fromTo(menuSections, {
-		autoAlpha: 0,
-	}, {
-		autoAlpha: 1,
-		duration: 0.8,
-		ease: 'sine.out',
-		stagger: 0.1
-	}, '<-=0.5')
-
-	const sections = gsap.utils.toArray('.section');
-
-	sections.forEach((section: any) => {
-		timeline.fromTo(section, {
-			autoAlpha: 0,
-			x: 40,
-			rotate: gsap.utils.random(-5,5)
-		}, {
-			autoAlpha: 1,
-			rotate: 0,
-			x: 0,
-			duration: 0.4,
-			ease: 'none',
-		}, '<+=0.05')
-	})
-
-	const splitSectionTitle = new SplitText('.drink-section', { type: 'chars,words', charsClass: 'opacity-0' });
-
-	timeline.fromTo(splitSectionTitle.chars, {
-		autoAlpha: 0,
-	}, {
-		autoAlpha: 1,
-		duration: 1.2,
-		ease: 'power4.out',
-		stagger: 0.04,
-		onComplete: () => { firstTime.value = true; }
-	}, '<')
-
-	const drinkItems = gsap.utils.toArray('.drink-item');
-
-	timeline.fromTo(drinkItems, {
-		autoAlpha: 0,
-		x: 50
-	}, {
-		x: 0,
-		autoAlpha: 1,
-		duration: 1,
-		stagger: 0.2,
-		ease: 'power4.out'
-	}, '<+=0.3')	
 });
 
 const animateMenuIn = async (nextMenuConfigure: string) => {
