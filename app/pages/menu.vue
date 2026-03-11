@@ -203,7 +203,7 @@ onMounted(() => {
 		duration: 0.8,
 		ease: 'sine.out',
 		stagger: 0.1
-	}, '-=0.4')
+	}, '<-=0.5')
 
 	const sections = gsap.utils.toArray('.section');
 
@@ -260,7 +260,7 @@ onMounted(() => {
      	/>
     </div>
 		<div class="max-w-7xl mx-auto relative z-10">
-      <div ref="headerRef" class="text-center mb-16 opacity-0">
+      <div ref="headerRef" class="text-center mb-8 opacity-0">
         <span class="inline-block px-4 py-1.5 mb-4 rounded-full border border-green-500/20 bg-green-500/10 text-green-700 font-bold tracking-widest text-xs uppercase backdrop-blur-sm">
           Freshly Brewed
         </span>
@@ -272,24 +272,24 @@ onMounted(() => {
 					anyone who's hungry, we also have our small selection of cakes and cookies.
         </p>
       </div>
-			<div class="relative mb-32">
+			<div class="relative flex flex-row mb-4 justify-around px-8">
 				<div
-					class="menu-section absolute h-16 w-1/6 rounded-full border border-zinc-400/30 shadow-xl"
-					:class="currentMenuConfigure === 'drinks' ? '-translate-y-2/3 bg-green-300' : '-translate-y-1/3 bg-[#f6f6f6]'"
+					class="menu-section h-16 w-1/6 rounded-full border border-zinc-400/30 shadow-xl transition-all duration-500 opacity-0"
+					:class="currentMenuConfigure === 'drinks' ? '-translate-y-1/4 bg-green-300' : 'bg-[#f6f6f6]'"
 					@click="currentMenuConfigure = 'drinks'"
 				>
 					<h3 class="text-2xl text-transparent bg-clip-text bg-gradient-to-b from-white to-[#8f1c67] font-[900] w-full h-full font-sans tracking-wide flex justify-center items-center">Drinks</h3>
 				</div>
 				<div
-					class="menu-section absolute top-0 left-1/2  -translate-x-1/2 h-16 w-1/6 rounded-full border border-zinc-400/30 shadow-xl"
-					:class="currentMenuConfigure === 'toppings' ? '-translate-y-2/3 bg-green-300' : '-translate-y-1/3 bg-[#f6f6f6]'"
+					class="menu-section h-16 w-1/6 rounded-full border border-zinc-400/30 shadow-xl transition-all duration-500 opacity-0"
+					:class="currentMenuConfigure === 'toppings' ? '-translate-y-1/4 bg-green-300' : 'bg-[#f6f6f6]'"
 					@click="currentMenuConfigure = 'toppings'"
 				>
 					<h3 class="text-2xl text-transparent bg-clip-text bg-gradient-to-b from-white to-[#8f1c67] font-[900] w-full h-full font-sans tracking-wide flex justify-center items-center">Toppings</h3>
 				</div>
 				<div
-					class="menu-section absolute top-0 right-0 h-16 w-1/6 rounded-full border border-zinc-400/30 shadow-xl"
-					:class="currentMenuConfigure === 'bobas' ? '-translate-y-2/3 bg-green-300' : '-translate-y-1/3 bg-[#f6f6f6]'"
+					class="menu-section h-16 w-1/6 rounded-full border border-zinc-400/30 shadow-xl transition-all duration-500 opacity-0"
+					:class="currentMenuConfigure === 'bobas' ? '-translate-y-1/4 bg-green-300' : 'bg-[#f6f6f6]'"
 					@click="currentMenuConfigure = 'bobas'"
 				>
 					<h3 class="text-2xl text-transparent bg-clip-text bg-gradient-to-b from-white to-[#1b0b1f] font-[900] w-full h-full font-sans tracking-wide flex justify-center items-center">Boba</h3>
