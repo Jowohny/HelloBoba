@@ -258,7 +258,7 @@ onMounted(() => {
 				})
 			})
 		}	
-	})
+	}, { immediate: true })
 
 
 });

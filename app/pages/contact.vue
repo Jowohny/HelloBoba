@@ -168,11 +168,11 @@ onMounted(() => {
 
 					timeline.fromTo(cardRef.value!, {
 						autoAlpha: 0,
-						scale: 0
+						y: 50
 					}, {
 						autoAlpha: 1,
-						scale: 1,
-						duration: 0.9,
+						y: 0,
+						duration: 1,
 						ease: 'back.out'
 					}, '<+=0.5')
 					.fromTo(contactElements, {
@@ -184,7 +184,7 @@ onMounted(() => {
 						duration: 0.6,
 						ease: 'sine.out',
 						stagger: 0.1
-					}, '<+=0.9')
+					}, '<+=0.4')
 				})
 			})
 		}
