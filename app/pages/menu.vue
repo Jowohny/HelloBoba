@@ -101,9 +101,31 @@ const boba = [
 	{ name: 'Crystal Boba', desc: 'A clear, agar-based topping known for its light, crunchy texture.', image: ''}
 ];
 
-const food = [];
-
-const sections = [ 'drinks', 'toppings', 'boba' ]
+const food = [
+  {
+    type: 'Macarons',
+    items: [
+      { name: 'Vanilla', image: '' },
+      { name: 'Chocolate', image: '' },
+      { name: 'Raspberry', image: '' },
+      { name: 'Birthday Cake', image: '' },
+      { name: 'Taro', image: '' },
+      { name: 'Strawberrys n Cream', image: '' },
+      { name: 'Cookies n Cream', image: '' },
+      { name: 'Coffee', image: '' }
+    ]
+  },
+  {
+    type: 'Cakes',
+    items: [
+      { name: 'Cheesecake', image: '' },
+      { name: 'Chocolate', image: '' },
+      { name: 'Tres Leches', image: '' },
+      { name: 'Tiramisu', image: '' }
+    ]
+  }
+];
+const sections = [ 'drinks', 'toppings', 'boba', 'food' ]
 
 const headerRef = ref(null);
 const drinksRef = ref(null);
@@ -275,6 +297,9 @@ const animateMenuIn = async (nextMenuConfigure: string) => {
 		case 'toppings':
 			oldMenuConfigure = toppingRef;
 			break;
+		case 'food':
+			oldMenuConfigure = foodRef;
+			break;
 		default:
 			oldMenuConfigure = bobaRef;
 	}
@@ -300,6 +325,9 @@ const animateMenuIn = async (nextMenuConfigure: string) => {
 			break;
 		case 'toppings':
 			newMenuConfigure = toppingRef;
+			break;
+		case 'food':
+			newMenuConfigure = foodRef;
 			break;
 		default:
 			newMenuConfigure = bobaRef;
@@ -445,7 +473,6 @@ const animateMenuIn = async (nextMenuConfigure: string) => {
         <h2 class="text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
           Toppings
         </h2>
-
 				<div class="flex grid grid-cols-2 gap-2 autorows-min">
           <div 
             v-for="topping in toppings" 
@@ -475,11 +502,10 @@ const animateMenuIn = async (nextMenuConfigure: string) => {
 				ref="bobaRef"
 				v-else-if="currentMenuConfigure === 'boba'"
 				class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10 opacity-0"
-			>
-        <h2 class="text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
+			>	
+				<h2 class="text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
           Boba
         </h2>
-
 				<div class="flex grid grid-cols-2 gap-2 auto-rows-min">
           <div 
             v-for="b in boba" 
@@ -503,6 +529,33 @@ const animateMenuIn = async (nextMenuConfigure: string) => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+			<div 
+        ref="foodRef"
+        v-else-if="currentMenuConfigure === 'food'"
+        class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10 opacity-0"
+      >
+        <div v-for="f in food" :key="f.type" class="mb-12">
+          <h2 class="text-4xl font-black text-center font-sans text-green-800 mb-4 pb-2 border-b-2 border-green-500/10">
+            {{ f.type }}
+          </h2>
+          <div class="grid grid-cols-4 gap-2">
+            <div 
+              v-for="flavor in f.items" 
+              :key="flavor.name"
+              class="group flex flex-col items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-4"
+            >
+              <div class="w-24 h-24 rounded-full overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center shadow-inner">
+                <img v-if="flavor.image" :src="flavor.image" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                <span v-else class="text-4xl opacity-50 grayscale">🍰</span>
+              </div>
+              <h3 class="text-lg font-bold text-center text-zinc-800 group-hover:text-green-700 transition-colors leading-tight">
+                {{ flavor.name }}
+              </h3>
+            </div>
+          </div>
+          
         </div>
       </div>
     </div>
