@@ -20,7 +20,7 @@ const menuItems = [
   { type: 'Mojito', name: 'Lychee Mojito', price: { R: '$5.20', L: '$5.70' }, desc: 'A lemonade-like beverage that contains a hint of lychee syrup and some mint leaves for the extra kick of freshness.', DF: true, CF: true, image: '' },
   { type: 'Mojito', name: 'Peach Mojito', price: { R: '$5.20', L: '$5.70' }, desc: 'A lemonade-like beverage that contains a hint of peach syrup and some mint leaves for the extra kick of freshness.', DF: true, CF: true, image: '' },
 
-	{ type: 'Fresh Tea', name: 'Jasmine Green Tea', price: { R: '$4.85', L: '$5.35' }, desc: 'Freshly brewed floral jasmine green tea, served perfectly chilled.', DF: true, CF: false, image: '' },
+	{ type: 'Fresh Tea', name: 'Jasmine Green Tea', price: { R: '$4.85', L: '$5.35' }, desc: 'Freshly brewed floral jasmine green tea, served perfectly chilled.', DF: true, CF: false, image: '/drinks/IMG_8039.HEIC' },
   { type: 'Fresh Tea', name: 'Honey Jasmine Green Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'Floral jasmine green tea lightly sweetened with pure, natural honey.', DF: true, CF: false, image: '' },
   { type: 'Fresh Tea', name: 'Roasted Oolong Tea', price: { R: '$4.85', L: '$5.35' }, desc: 'Deeply aromatic oolong tea with a rich, roasted flavor profile.', DF: true, CF: false, image: '' },
   { type: 'Fresh Tea', name: 'Sea Cream Green Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'Our classic green tea topped with a thick, savory-sweet sea salt cheese foam.', DF: false, CF: false, image: '' },
@@ -40,7 +40,7 @@ const menuItems = [
   { type: 'Milk Tea Classic', name: 'Royal Milk Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'Our premium house black tea blended with rich cream for a luxurious texture.', DF: false, CF: false, image: '' },
   { type: 'Milk Tea Classic', name: 'Caramel Milk Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'Classic milk tea layered with deep, buttery caramel notes.', DF: false, CF: false, image: '' },
   { type: 'Milk Tea Classic', name: 'Jasmine Milk Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'A delicate, floral milk tea made from our premium jasmine green tea leaves.', DF: false, CF: false, image: '' },
-  { type: 'Milk Tea Classic', name: 'Thai Iced Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'Authentic, sweet, and spiced Thai tea topped with a float of cream.', DF: false, CF: false, image: '' },
+  { type: 'Milk Tea Classic', name: 'Thai Iced Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'Authentic, sweet, and spiced Thai tea topped with a float of cream.', DF: false, CF: false, image: '/drinks/IMG_8035.HEIC' },
   { type: 'Milk Tea Classic', name: 'Thai Green Milk Tea', price: { R: '$5.85', L: '$6.35' }, desc: 'A floral, vibrant green tea variation of our classic sweet Thai iced tea.', DF: false, CF: false, image: '' },
   { type: 'Milk Tea Classic', name: 'Earl Grey Milk Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'Fragrant black tea infused with bergamot orange and blended with milk.', DF: false, CF: false, image: '' },
   { type: 'Milk Tea Classic', name: 'Taro Milk Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'Creamy milk tea blended with the sweet, starchy goodness of taro.', DF: true, CF: false, image: '' },
@@ -51,10 +51,10 @@ const menuItems = [
   { type: 'Slushie', name: 'Very Strawberry', price: { R: '🚫', L: '$6.60' }, desc: 'A perfectly blended, ice-cold strawberry slushie that is sweet and tart.', DF: true, CF: true, image: '' },
   { type: 'Slushie', name: 'Chamango Mango', price: { R: '🚫', L: '$6.60' }, desc: 'A sweet and spicy mango slushie swirled with savory chamoy and Tajín.', DF: true, CF: true, image: '' },
 
-	{ type: 'Smoothie', name: 'Taro Taro', price: { R: '🚫', L: '$6.60' }, desc: 'A rich, thick, and creamy smoothie packed with sweet taro flavor.', DF: false, CF: true, image: '' },
-  { type: 'Smoothie', name: 'Horchata', price: { R: '🚫', L: '$6.60' }, desc: 'A creamy, cinnamon-spiced smoothie inspired by the classic Mexican drink.', DF: false, CF: true, image: '' },
-  { type: 'Smoothie', name: 'Nana Berry', price: { R: '🚫', L: '$6.60' }, desc: 'A smooth, classic blend of ripe bananas and sweet strawberries.', DF: false, CF: true, image: '' },
-  { type: 'Smoothie', name: 'Caramel Macchiato', price: { R: '🚫', L: '$6.60' }, desc: 'An icy, blended coffee smoothie layered with rich caramel drizzle.', DF: false, CF: false, image: '' },
+	{ type: 'Smoothie', name: 'Taro Taro', price: { R: '🚫', L: '$6.60' }, desc: 'A rich, thick, and creamy smoothie packed with sweet taro flavor.', DF: false, CF: true, image: '/drinks/IMG_8041.HEIC' },
+  { type: 'Smoothie', name: 'Horchata', price: { R: '🚫', L: '$6.60' }, desc: 'A creamy, cinnamon-spiced smoothie inspired by the classic Mexican drink.', DF: false, CF: true, image: '/drinks/IMG_8036.HEIC' },
+  { type: 'Smoothie', name: 'Nana Berry', price: { R: '🚫', L: '$6.60' }, desc: 'A smooth, classic blend of ripe bananas and sweet strawberries.', DF: false, CF: true, image: '/drinks/IMG_8042.HEIC' },
+  { type: 'Smoothie', name: 'Caramel Macchiato', price: { R: '🚫', L: '$6.60' }, desc: 'An icy, blended coffee smoothie layered with rich caramel drizzle.', DF: false, CF: false, image: '/drinks/IMG_8037.HEIC' },
   { type: 'Smoothie', name: 'Caramel Thai', price: { R: '🚫', L: '$6.60' }, desc: 'Sweet Thai tea blended into a frosty smoothie and swirled with caramel.', DF: false, CF: true, image: '' },
 
 	{ type: 'Coffee', name: 'Coffee Milk Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'The perfect pick-me-up combining our classic milk tea with a shot of strong coffee.', DF: false, CF: false, image: '' },
@@ -68,13 +68,13 @@ const menuItems = [
   { type: 'Matcha Series', name: 'Matcha Boba Milk Tea', price: { R: '$5.85', L: '$6.35' }, desc: 'Earthy matcha and creamy milk perfectly paired with our signature boba.', DF: false, CF: false, image: '' },
   { type: 'Matcha Series', name: 'Strawberry Matcha Latte', price: { R: '🚫', L: '$6.60' }, desc: 'A beautiful layered drink of ceremonial matcha, milk, and fresh strawberry puree.', DF: false, CF: false, image: '' },
 
-	{ type: 'Butterfly Series', name: 'Butterfly Mango', price: { R: '🚫', L: '$6.60' }, desc: 'A mesmerizing, color-changing butterfly pea flower tea layered with sweet mango.', DF: false, CF: false, image: '' },
+	{ type: 'Butterfly Series', name: 'Butterfly Mango', price: { R: '🚫', L: '$6.60' }, desc: 'A mesmerizing, color-changing butterfly pea flower tea layered with sweet mango.', DF: false, CF: false, image: '/drinks/IMG_8040.HEIC' },
   { type: 'Butterfly Series', name: 'Butterfly Strawberry', price: { R: '🚫', L: '$6.60' }, desc: 'Vibrant butterfly pea tea poured over a refreshing strawberry base.', DF: false, CF: false, image: '' },
   { type: 'Butterfly Series', name: 'Butterfly Lychee', price: { R: '🚫', L: '$6.60' }, desc: 'A magical, color-changing floral tea perfectly paired with sweet lychee.', DF: false, CF: false, image: '' },
   { type: 'Butterfly Series', name: 'Butterfly Coconut', price: { R: '🚫', L: '$6.60' }, desc: 'Tropical coconut milk layered with our striking, deep blue butterfly pea tea.', DF: false, CF: false, image: '' },
 
-	{ type: 'Boba Milk', name: 'Brown Sugar Boba Milk', price: { R: '$5.35', L: '$5.95' }, desc: 'Warm, slow-cooked brown sugar boba swirled with ice-cold organic milk.', DF: false, CF: true, image: '' },
-  { type: 'Boba Milk', name: 'Brown Sugar Boba Milk Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'Our classic black milk tea elevated with rich, roasted brown sugar boba.', DF: false, CF: false, image: '' },
+	{ type: 'Boba Milk', name: 'Brown Sugar Boba Milk', price: { R: '$5.35', L: '$5.95' }, desc: 'Warm, slow-cooked brown sugar boba swirled with ice-cold organic milk.', DF: false, CF: true, image: '/drinks/IMG_8043.HEIC' },
+  { type: 'Boba Milk', name: 'Brown Sugar Boba Milk Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'Our classic black milk tea elevated with rich, roasted brown sugar boba.', DF: false, CF: false, image: '/drinks/IMG_8038.HEIC' },
   { type: 'Boba Milk', name: 'Strawberry Boba Milk', price: { R: '$5.85', L: '$6.35' }, desc: 'Creamy, caffeine-free milk mixed with sweet strawberry puree and boba.', DF: false, CF: true, image: '' },
   { type: 'Boba Milk', name: 'Matcha Boba Milk Tea', price: { R: '$5.85', L: '$6.35' }, desc: 'Earthy matcha and creamy milk perfectly paired with our signature boba.', DF: false, CF: false, image: '' },
   { type: 'Boba Milk', name: 'Brown Sugar Roasted Oolong Milk Tea', price: { R: '$5.70', L: '$6.20' }, desc: 'Deeply roasted oolong milk tea enhanced with our warm brown sugar boba.', DF: false, CF: false, image: '' },
@@ -430,7 +430,7 @@ const animateMenuIn = async (nextMenuConfigure: string) => {
           >
             <div class="flex flex-1 items-center gap-5 pr-4 w-full">
               <div class="w-20 h-20 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
-                <img v-if="item.image" :src="item.image" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                <img v-if="item.image" :src="item.image" class="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-[1.1]" />
                 <span v-else class="text-3xl opacity-50 grayscale">🧋</span>
               </div>
               <div class="flex-1">
