@@ -1,244 +1,257 @@
 <script setup lang="ts">
-  import { ref, onMounted, nextTick } from 'vue'
-  import gsap from 'gsap'
-	import { SplitText } from "gsap/SplitText";
+import { ref, onMounted, nextTick } from 'vue'
+import gsap from 'gsap'
+import { SplitText } from "gsap/SplitText";
 
-	gsap.registerPlugin(SplitText) 
+gsap.registerPlugin(SplitText) 
 
-  const tabs = [
-		{ tabName: 'Home', link: '/'},
-    { tabName: 'News', link: '/news' },
-    { tabName: 'Menu', link: '/menu' },
-    { tabName: 'Locations', link: '/locations' },
-    { tabName: 'Contact Us', link: '/contact' }
-  ]
+const tabs = [
+	{ tabName: 'Home', link: '/'},
+	{ tabName: 'News', link: '/news' },
+	{ tabName: 'Menu', link: '/menu' },
+	{ tabName: 'Locations', link: '/locations' },
+	{ tabName: 'Contact Us', link: '/contact' }
+]
 
-  const navbarRef = ref(null);
-  const bobaRef = ref(null);
-  const nameRef = ref(null);
-  const pageRefs = ref<any[]>([]);
-  const orderRef = ref(null);
+const navbarRef = ref(null);
+const bobaRef = ref(null);
+const nameRef = ref(null);
+const pageRefs = ref<any[]>([]);
+const orderRef = ref(null);
 
-	const helloTextRef = ref(null);
-	const bobaTextRef = ref(null);
+const cursorRef = ref(null);
+const cursorFollowerRef = ref(null);
 
-	const hasPlayedIntro = useState('playedIntro', () => false)
+const helloTextRef = ref(null);
+const bobaTextRef = ref(null);
 
-  const getEl = (refValue: any) => refValue?.$el || refValue;
+const hasPlayedIntro = useState('playedIntro', () => false)
 
-  function setPageRef(el: any, index: number) {
-    if (el) {
-      pageRefs.value[index] = el.$el || el;
-    }
-  }
+const getEl = (refValue: any) => refValue?.$el || refValue;
 
-  onMounted(async() => {
-    await nextTick();
+function setPageRef(el: any, index: number) {
+	if (el) {
+		pageRefs.value[index] = el.$el || el;
+	}
+}
 
-    if (!navbarRef.value) return;
+onMounted(async() => {
+	await nextTick();
 
-    const bobaEl = getEl(bobaRef.value);
-    const nameEl = getEl(nameRef.value);
-    const orderEl = getEl(orderRef.value);
-    const linksEls = pageRefs.value;
+	if (!navbarRef.value) return;
 
-		let splitHello = new SplitText(helloTextRef.value, { type: 'chars' })
-		let splitBoba = new SplitText(bobaTextRef.value, { type: 'chars' })
+	const bobaEl = getEl(bobaRef.value);
+	const nameEl = getEl(nameRef.value);
+	const orderEl = getEl(orderRef.value);
+	const linksEls = pageRefs.value;
 
-		const enableHover = () => {
-			nameEl.addEventListener('mouseenter', () => {
-				gsap.to(nameEl, { 
-					scale: 1.3, 
-					duration: 0.3,
-					ease: 'power2.out' 
-				});
+	let splitHello = new SplitText(helloTextRef.value, { type: 'chars' })
+	let splitBoba = new SplitText(bobaTextRef.value, { type: 'chars' })
+
+	const enableHover = () => {
+		nameEl.addEventListener('mouseenter', () => {
+			gsap.to(nameEl, { 
+				scale: 1.3, 
+				duration: 0.3,
+				ease: 'power2.out' 
 			});
+		});
 
-			nameEl.addEventListener('mouseleave', () => {
-				gsap.to(nameEl, { 
-					scale: 1.2, 
-					duration: 0.3, 
-					ease: 'power2.in' 
-				});
+		nameEl.addEventListener('mouseleave', () => {
+			gsap.to(nameEl, { 
+				scale: 1.2, 
+				duration: 0.3, 
+				ease: 'power2.in' 
 			});
+		});
 
-			bobaEl.addEventListener('mouseenter', () => {
-				gsap.to(bobaEl, { 
-					scale: 1.6, 
-					rotate: 20,
-					duration: 0.3,
-					ease: 'power2.out' 
-				});
+		bobaEl.addEventListener('mouseenter', () => {
+			gsap.to(bobaEl, { 
+				scale: 1.6, 
+				rotate: 20,
+				duration: 0.3,
+				ease: 'power2.out' 
 			});
+		});
 
-			bobaEl.addEventListener('mouseleave', () => {
-				gsap.to(bobaEl, { 
-					scale: 1.3, 
-					rotate: 0,
-					duration: 0.3, 
-					ease: 'power2.in' 
-				});
+		bobaEl.addEventListener('mouseleave', () => {
+			gsap.to(bobaEl, { 
+				scale: 1.3, 
+				rotate: 0,
+				duration: 0.3, 
+				ease: 'power2.in' 
 			});
+		});
 
-			orderEl.addEventListener('mouseenter', () => {
-				gsap.to(orderEl, { 
-					scale: 1.2, 
-					duration: 0.3,
-					ease: 'power2.out' 
-				});
+		orderEl.addEventListener('mouseenter', () => {
+			gsap.to(orderEl, { 
+				scale: 1.2, 
+				duration: 0.3,
+				ease: 'power2.out' 
 			});
+		});
 
-			orderEl.addEventListener('mouseleave', () => {
-				gsap.to(orderEl, { 
-					scale: 1, 
-					duration: 0.3, 
-					ease: 'power2.in' 
-				});
+		orderEl.addEventListener('mouseleave', () => {
+			gsap.to(orderEl, { 
+				scale: 1, 
+				duration: 0.3, 
+				ease: 'power2.in' 
 			});
-  	};
+		});
+	};
 
 
-    const timeline = gsap.timeline()
+	const timeline = gsap.timeline()
 
-    timeline.set([bobaEl, linksEls, orderEl], { 
-      autoAlpha: 0 
-    })
-		.set(nameEl, {
-			scale: 4,
-			x: '16vw'
-		})
+	timeline.set([bobaEl, linksEls, orderEl], { 
+		autoAlpha: 0 
+	})
+	.set(nameEl, {
+		scale: 4,
+		x: '16vw'
+	})
 
-    timeline.set(navbarRef.value, { 
-      transformOrigin: "center center" ,
-			width: '100vw',
-			height: '100vh',
-			top: '0%',
-			left: '50%',
-			borderRadius: '100px'
-    })
-		timeline.set(bobaEl, {
-			x: '25vh',
-			yPercent: 150,
-			xPercent: -50,
-			scale: 14
-		})
-		timeline.set(splitHello.chars, {
-      autoAlpha: 0,
-      x: -10,
-      y: -10
-    })
-		.set(splitBoba.chars, {
-      autoAlpha: 0,
-      x: 10,
-      y: -10
-    })
+	timeline.set(navbarRef.value, { 
+		transformOrigin: "center center" ,
+		width: '100vw',
+		height: '100vh',
+		top: '0%',
+		left: '50%',
+		borderRadius: '100px'
+	})
+	timeline.set(bobaEl, {
+		x: '25vh',
+		yPercent: 150,
+		xPercent: -50,
+		scale: 14
+	})
+	timeline.set(splitHello.chars, {
+		autoAlpha: 0,
+		x: -10,
+		y: -10
+	})
+	.set(splitBoba.chars, {
+		autoAlpha: 0,
+		x: 10,
+		y: -10
+	})
 
-		timeline.to(navbarRef.value, {
-			width: '50vh',
-			top: '50%',
-			left: '50%',
-			xPercent: -50,
-			yPercent: -50,
-			duration: 0.5,
-			ease: 'power4.out',
-			delay: 0.2
-		})
-		.to(navbarRef.value, {
-			height: '60vh',
-			duration: 2,
-			ease: 'elastic.out(1,0.75)'
-		}, '-=0.2')
+	timeline.to(navbarRef.value, {
+		width: '50vh',
+		top: '50%',
+		left: '50%',
+		xPercent: -50,
+		yPercent: -50,
+		duration: 0.5,
+		ease: 'power4.out',
+		delay: 0.2
+	})
+	.to(navbarRef.value, {
+		height: '60vh',
+		duration: 2,
+		ease: 'elastic.out(1,0.75)'
+	}, '-=0.2')
 
-    timeline.to(bobaEl, {  
-			autoAlpha: 1,
-      duration: 1, 
-      ease: 'power4.inOut' 
-    }, '-=1.5')
-		.to(bobaEl, {
-			scale: 5,
-			autoAlpha: 0,
-			duration: 0.5,
-			ease: 'power4.out' 
-		}, '-=0.5');
+	timeline.to(bobaEl, {  
+		autoAlpha: 1,
+		duration: 1, 
+		ease: 'power4.inOut' 
+	}, '-=1.5')
+	.to(bobaEl, {
+		scale: 5,
+		autoAlpha: 0,
+		duration: 0.5,
+		ease: 'power4.out' 
+	}, '-=0.5');
 
-		timeline.to(navbarRef.value, {
-			height: '20vh',
-			duration: 0.8,
-			borderRadius: '75px',
-			ease: 'power4.inOut' 
-		}, '-=0.7')
-		.to(navbarRef.value, {
-			width: '50vw',
-			duration: 0.7,
-			ease: 'power4.inOut' 
-		}, '-=0.4');
+	timeline.to(navbarRef.value, {
+		height: '20vh',
+		duration: 0.8,
+		borderRadius: '75px',
+		ease: 'power4.inOut' 
+	}, '-=0.7')
+	.to(navbarRef.value, {
+		width: '50vw',
+		duration: 0.7,
+		ease: 'power4.inOut' 
+	}, '-=0.4');
 
-		timeline.to(splitHello.chars, {
-      duration: 1,
-      stagger: 0.1,
-      autoAlpha: 1,
-      x: 0,
-      y: 0,
-			ease: 'elastic.out(1,1)'
-    })
-		.to(splitBoba.chars, {
-      duration: 1,
-      stagger: -0.1,
-      autoAlpha: 1,
-      x: 0,
-      y: 0,
-			ease: 'elastic.out(1,1)'
-    }, '<');
+	timeline.to(splitHello.chars, {
+		duration: 1,
+		stagger: 0.1,
+		autoAlpha: 1,
+		x: 0,
+		y: 0,
+		ease: 'elastic.out(1,1)'
+	})
+	.to(splitBoba.chars, {
+		duration: 1,
+		stagger: -0.1,
+		autoAlpha: 1,
+		x: 0,
+		y: 0,
+		ease: 'elastic.out(1,1)'
+	}, '<');
 
-		timeline.to(navbarRef.value, {
-			top: '8vh',
-			height: '10vh',
-			width: '80vw',
-			duration: 1,
-			ease: 'power4.inOut',
-			onComplete: () => { hasPlayedIntro.value = true; }
-		}, '-=0.3')
+	timeline.to(navbarRef.value, {
+		top: '8vh',
+		height: '10vh',
+		width: '80vw',
+		duration: 1,
+		ease: 'power4.inOut',
+		onComplete: () => { hasPlayedIntro.value = true; }
+	}, '-=0.3')
 
-		timeline.to(nameEl, {
-			scale: 1.2,
-			x: 0,
-			xPercent: 15,
-			yPercent: 5
-		}, '<')
-		.to(bobaEl, {
-			scale: 0,
-			xPercent: 0,
-			yPercent: 0,
-			x: 0,
-			duration: 0
-		}, '-=0.2')
-		.to(bobaEl, {
-			autoAlpha: 1,
-			scale: 1.3,
-			duration: 1,
-			ease: 'elastic.out(1,0.5)',
-			onComplete: () => enableHover()
-		}, '<')
+	timeline.to(nameEl, {
+		scale: 1.2,
+		x: 0,
+		xPercent: 15,
+		yPercent: 5
+	}, '<')
+	.to(bobaEl, {
+		scale: 0,
+		xPercent: 0,
+		yPercent: 0,
+		x: 0,
+		duration: 0
+	}, '-=0.2')
+	.to(bobaEl, {
+		autoAlpha: 1,
+		scale: 1.3,
+		duration: 1,
+		ease: 'elastic.out(1,0.5)',
+		onComplete: () => enableHover()
+	}, '<')
 
 
-		timeline.fromTo(linksEls, {
-			y: -10
-		}, {
-			y: 0,
-			stagger: 0.1,
-			autoAlpha: 1,
-			duration: 0.5
-		}, '-=0.3')
+	timeline.fromTo(linksEls, {
+		y: -10
+	}, {
+		y: 0,
+		stagger: 0.1,
+		autoAlpha: 1,
+		duration: 0.5
+	}, '-=0.3')
 
-		timeline.fromTo(orderEl, {
-			scale: 2
-		}, {
-			autoAlpha: 1,
-			scale: 1,
-			duration: 2,
-			ease: 'elastic.out(1,0.5)'
-		})
-  })
+	timeline.fromTo(orderEl, {
+		scale: 2
+	}, {
+		autoAlpha: 1,
+		scale: 1,
+		duration: 2,
+		ease: 'elastic.out(1,0.5)'
+	})
+
+	window.addEventListener('mousemove', moveCursor);
+})
+
+const moveCursor = (e: any) => {
+	if (!cursorRef.value || !cursorFollowerRef.value) return;
+	
+	gsap.to(cursorRef.value, { x: e.clientX - 16, y: e.clientY - 16, duration: 0 });
+	
+	gsap.to(cursorFollowerRef.value, { x: e.clientX - 8, y: e.clientY - 8, duration: 0.8, ease: "power2.out" });
+};
 </script>
 
 <template>
@@ -271,7 +284,12 @@
 		</NuxtLink>
   </div>
 
-  <div class="min-h-screen min-w-full bg-[#f6f6f6]">
+  <div class="min-h-screen min-w-full bg-[#f6f6f6] cursor-none">
+		<div ref="cursorRef" class="fixed top-0 left-0 w-8 h-8 bg-[#3f6212] rounded-full z-[9999] pointer-events-none mix-blend-multiply opacity-80 flex items-center justify-center text-white text-[10px] font-bold shadow-xl">
+      🥝
+    </div>
+    <div ref="cursorFollowerRef" class="fixed top-0 left-0 w-4 h-4 bg-[#84cc16] rounded-full z-[9998] pointer-events-none opacity-50"/>
+
     <slot />
   </div>
 </template>
