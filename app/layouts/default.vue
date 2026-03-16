@@ -5,6 +5,8 @@ import { SplitText } from "gsap/SplitText";
 
 gsap.registerPlugin(SplitText) 
 
+const currentHover = useState('hovering', () => false)
+
 const tabs = [
 	{ tabName: 'Home', link: '/'},
 	{ tabName: 'News', link: '/news' },
@@ -21,9 +23,6 @@ const orderRef = ref(null);
 
 const cursorRef = ref(null);
 const cursorFollowerRef = ref(null);
-
-const helloTextRef = ref(null);
-const bobaTextRef = ref(null);
 
 const hasPlayedIntro = useState('playedIntro', () => false)
 
@@ -101,10 +100,30 @@ const moveCursor = (e: any) => {
 		ease: "power2.out"
 	});
 };
+
+watch(currentHover, () => {
+	if (cursorRef.value) {		
+		if(currentHover.value === true) {
+			gsap.to(cursorRef.value, { 
+				scale: 1.5, 
+				backgroundColor: "#ecfccb", 
+				mixBlendMode: "normal", 
+				duration: 0.3 
+			});
+		} else {
+			gsap.to(cursorRef.value, { 
+				scale: 1, 
+				backgroundColor: "#3f6212", 
+				mixBlendMode: "multiply", 
+				duration: 0.3 
+			});
+		}
+	}
+})
 </script>
 
 <template>
-  <div ref="navbarRef" class="fixed top-4 left-1/2 -translate-x-1/2 z-[999] backdrop-blur-lg flex items-center bg-white/20 justify-between gap-6 w-[80%] h-[10%] px-6 rounded-full border shadow-xl shadow-green-500/20 overflow-hidden opacity-0">
+  <div ref="navbarRef" class="fixed top-4 left-1/2 -translate-x-1/2 z-[999] backdrop-blur-lg flex items-center bg-white/20 justify-between gap-6 w-[80%] h-[10%] px-6 rounded-full border shadow-xl shadow-green-500/20 overflow-hidden opacity-0 cursor-none">
     <div class="flex flex-row">
 			<span ref='bobaRef' class="h-9 w-9 shrink-0 overflow-hidden rounded-full opacity-0">
 				<NuxtPicture class="h-full w-full object-cover cursor-pointer" src="bobalogo.png"/>
@@ -120,14 +139,16 @@ const moveCursor = (e: any) => {
         :key="tab.tabName"
         :ref="(el) => setPageRef(el, index)"
         :to="tab.link"
-        class="px-4 py-2 rounded-full font-bold text-md text-gray-700 transition-colors hover:bg-green-600/80 duration-400 opacity-0"
+				@mouseenter="currentHover = true"
+				@mouseleave="currentHover = false"
+        class="px-4 py-2 rounded-full font-bold text-md text-gray-700 transition-colors hover:bg-green-600/80 duration-400 opacity-0 cursor-none"
         active-class="bg-green-500/70 text-green-800"
       >
         {{ tab.tabName }}
       </NuxtLink>
     </div>
 
-		<NuxtLink ref="orderRef" to="#" class="px-5 py-2 rounded-full font-black text-md text-white cursor-not-allowed bg-gradient-to-r from-green-500 to-green-600 shadow-lg opacity-0">
+		<NuxtLink ref="orderRef" to="#" class="px-5 py-2 rounded-full font-black text-md text-white cursor-none bg-gradient-to-r from-green-500 to-green-600 shadow-lg opacity-0">
 			TBA
 		</NuxtLink>
   </div>

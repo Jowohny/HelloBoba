@@ -133,7 +133,8 @@ const toppingRef = ref(null);
 const bobaRef = ref(null);
 const foodRef = ref(null);
 
-const hasPlayedIntro = useState('playedIntro', () => false) 
+const hasPlayedIntro = useState('playedIntro', () => false);
+const currentHover = useState('hovering', () => false);
 
 const currentMenuConfigure = ref<string>('drinks');
 const firstTime = ref<boolean>(false);
@@ -369,11 +370,13 @@ const animateMenuIn = async (nextMenuConfigure: string) => {
 					anyone who's hungry, we also have our small selection of cakes and cookies.
         </p>
       </div>
-			<div class="relative flex flex-row -mb-3 justify-around px-8 z-50">
+			<div class="relative flex flex-row -mb-3 justify-around px-8 z-5">
         <div
-          class="menu-section relative h-36 w-56 z-50 transition-all duration-500 opacity-0 cursor-pointer drop-shadow-xl"
+          class="menu-section relative h-36 w-56 z-50 transition-all duration-500 opacity-0 cursor-none drop-shadow-xl"
           :class="currentMenuConfigure === section ? '-translate-y-[10%]' : ''"
           @click="animateMenuIn(section)"
+					@mouseenter="currentHover = true"
+					@mouseleave="currentHover = false"
 					v-for="section in sections"
 					:key="section"
         >
@@ -406,8 +409,10 @@ const animateMenuIn = async (nextMenuConfigure: string) => {
             v-for="cat in categories"
             :key="cat"
             @click="activeTab = cat"
+						@mouseenter="currentHover = true"
+						@mouseleave="currentHover = false"
             :class="[
-              'section px-5 py-2.5 rounded-2xl font-bold text-sm tracking-wide whitespace-nowrap transition-all duration-300 border border-zinc-500/30',
+              'section px-5 py-2.5 rounded-2xl font-bold text-sm tracking-wide whitespace-nowrap transition-all duration-300 border border-zinc-500/30 cursor-none',
               activeTab === cat
                 ? 'bg-green-600 text-white border-green-600 shadow-md shadow-green-600/50'
                 : 'bg-white/50 text-zinc-500 border-transparent hover:bg-white hover:text-zinc-800 shadow-md shadow-zinc-500/50',

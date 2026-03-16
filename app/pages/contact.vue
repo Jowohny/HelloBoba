@@ -118,6 +118,7 @@ const cardRef = ref<HTMLElement>();
 const headerRef = ref('');
 
 const hasPlayedIntro = useState('playedIntro', () => false)
+const currentHover = useState('hovering', () => false)
 
 const mailtoLink = computed(() => {
   const formattedBody = `Hi Hello Boba team,%0D%0A%0D%0A${message.value}%0D%0A%0D%0AFrom: ${name.value}%0D%0A${email.value}`;
@@ -240,47 +241,55 @@ onMounted(() => {
 			>
 				<div class="grid grid-cols-2 gap-6 opacity-0">
 					<div class="flex flex-col gap-2">
-						<label for="name" class="text-xs font-black uppercase tracking-widest text-green-700/70 ml-2">Name</label>
+						<label for="name" class="text-xs font-black uppercase tracking-widest text-green-700/70 ml-2 cursor-none">Name</label>
 						<input 
 							id="name"
 							v-model="name" 
 							type="text" 
 							placeholder="Jane Doe"
-							class="w-full bg-white/50 border border-green-600/30 focus:border-green-500 rounded-2xl px-5 py-3 text-zinc-700 font-semibold outline-none transition-colors shadow-inner"
+							class="w-full bg-white/50 border border-green-600/30 focus:border-green-500 rounded-2xl px-5 py-3 text-zinc-700 font-semibold outline-none transition-colors shadow-inner cursor-none"
+							@mouseenter="currentHover = true"
+							@mouseleave="currentHover = false"
 						>
 					</div>
 
 					<div class="flex flex-col gap-2">
-						<label for="subject" class="text-xs font-black uppercase tracking-widest text-green-700/70 ml-2">Subject</label>
+						<label for="subject" class="text-xs font-black uppercase tracking-widest text-green-700/70 ml-2 cursor-none">Subject</label>
 						<input 
 							id="subject"
 							v-model="subject" 
 							type="text" 
 							placeholder="General Inquiry"
-							class="w-full bg-white/50 border border-green-600/30 focus:border-green-500 rounded-2xl px-5 py-3 text-zinc-700 font-semibold outline-none transition-colors shadow-inner"
+							class="w-full bg-white/50 border border-green-600/30 focus:border-green-500 rounded-2xl px-5 py-3 text-zinc-700 font-semibold outline-none transition-colors shadow-inner cursor-none"
+							@mouseenter="currentHover = true"
+							@mouseleave="currentHover = false"
 						>
 					</div>
 				</div>
 
 				<div class="flex flex-col col-span-2 gap-2 opacity-0">
-					<label for="email" class="text-xs font-black uppercase tracking-widest text-green-700/70 ml-2">Email</label>
+					<label for="email" class="text-xs font-black uppercase tracking-widest text-green-700/70 ml-2 cursor-none">Email</label>
 					<input 
 						id="email"
 						v-model="email" 
 						type="text" 
 						placeholder="janedoe123@company.com"
-						class="w-full bg-white/50 border border-green-600/30 focus:border-green-500 rounded-2xl px-5 py-3 text-zinc-700 font-semibold outline-none transition-colors shadow-inner"
+						class="w-full bg-white/50 border border-green-600/30 focus:border-green-500 rounded-2xl px-5 py-3 text-zinc-700 font-semibold outline-none transition-colors shadow-inner cursor-none"
+						@mouseenter="currentHover = true"
+						@mouseleave="currentHover = false"
 					>
 				</div>
 
 				<div class="flex flex-col gap-2">
-					<label for="message" class="text-xs font-black uppercase tracking-widest text-green-700/70 ml-2">Message</label>
+					<label for="message" class="text-xs font-black uppercase tracking-widest text-green-700/70 ml-2 cursor-none">Message</label>
 					<textarea 
 						id="message"
 						v-model="message" 
 						rows="10"
 						placeholder="How can we help you today?"
-						class="w-full bg-white/50 border border-green-600/30 focus:border-green-500 rounded-2xl px-5 py-4 text-zinc-700 font-semibold outline-none transition-colors shadow-inner resize-none"
+						class="w-full bg-white/50 border border-green-600/30 focus:border-green-500 rounded-2xl px-5 py-4 text-zinc-700 font-semibold outline-none transition-colors shadow-inner resize-none cursor-none"
+						@mouseenter="currentHover = true"
+						@mouseleave="currentHover = false"
 					/>
 				</div>
 
@@ -288,11 +297,13 @@ onMounted(() => {
 					<a 
 						:href="name && message ? mailtoLink : 'javascript:void(0)'"
 						:class="[
-							'inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-sm tracking-wide transition-all duration-300',
+							'inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-sm tracking-wide transition-all duration-300 cursor-none',
 							name && message 
-								? 'bg-gradient-to-r from-[#65a30d] to-[#4d7c0f] text-white shadow-lg shadow-green-600/30 hover:scale-105 cursor-pointer' 
-								: 'bg-zinc-200/50 text-zinc-400 cursor-not-allowed'
+								? 'bg-gradient-to-r from-[#65a30d] to-[#4d7c0f] text-white shadow-lg shadow-green-600/30 hover:scale-105' 
+								: 'bg-zinc-200/50 text-zinc-400'
 						]"
+						@mouseenter="(name && message) ? currentHover = true : currentHover = false"
+						@mouseleave="currentHover = false"
 					>
 						Open in Mail App
 						<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
