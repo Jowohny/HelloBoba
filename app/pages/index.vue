@@ -13,9 +13,12 @@ const bannerRef = ref(null);
 const bannerTextRef = ref(null);
 const kiwiRef = ref(null);
 const bouncingContainerRef = ref<HTMLDivElement | null>(null);
+let resizeTimer: ReturnType<typeof setTimeout>;
 
 const hasPlayedIntro = useState('playedIntro', () => false);
 const currentHover = useState('hovering', () => false);
+
+const fruitAmount = ref<number>(20);
 
 interface BouncingIcon {
   id: number;
@@ -121,6 +124,9 @@ const flavorTest = [
 ]
 
 onMounted(() => {
+	updateDisplayAmount();
+  window.addEventListener('resize', updateDisplayAmount);
+
   const startFloating = () => {
     gsap.to(logoRef.value, {
       y: -15,       
@@ -294,8 +300,44 @@ onMounted(() => {
 	createAndAnimateIcons();
 });
 
+const updateDisplayAmount = () => {
+	clearTimeout(resizeTimer);
+
+  if (typeof window !== 'undefined') {
+    if (window.innerWidth < 768) {
+      fruitAmount.value = 8; 
+    } else if (window.innerWidth < 1024) {
+      fruitAmount.value = 12; 
+    } else {
+      fruitAmount.value = 20;
+    }
+  }
+	
+	resizeTimer = setTimeout(() => {
+    
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth < 768) {
+        fruitAmount.value = 8; 
+      } else if (window.innerWidth < 1024) {
+        fruitAmount.value = 12; 
+      } else {
+        fruitAmount.value = 20;
+      }
+    }
+    
+    backgroundIcons.value.forEach(icon => {
+      gsap.killTweensOf(icon);
+    });
+
+		backgroundIcons.value = [];
+    createAndAnimateIcons();
+    
+  }, 250);
+};
+
 onUnmounted(() => {
 	document.body.style.overflow = '';
+	window.removeEventListener('resize', updateDisplayAmount);
 })
 
 const createAndAnimateIcons = () => {
@@ -303,9 +345,8 @@ const createAndAnimateIcons = () => {
   if (!container) return;
 
   const bounds = container.getBoundingClientRect();
-  const numIcons = 20;
 
-  for (let i = 0; i < numIcons; i++) {
+  for (let i = 0; i < fruitAmount.value; i++) {
     const iconData: BouncingIcon = {
       id: i,
       icon: flavorTest[Math.floor(Math.random() * flavorTest.length)]!,
@@ -368,7 +409,7 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
 </script>
 
 <template>
-  <div class="relative h-screen w-full flex items-end justify-center overflow-hidden bg-zinc-950">
+  <div class="relative h-[65svh] md:h-screen w-full flex items-end justify-center overflow-hidden bg-zinc-950">
     <div ref="heroImage" class="absolute inset-0 z-0 scale-[1.2] blur-[20px]">
       <NuxtPicture 
         src="/HelloHero.png" 
@@ -377,149 +418,152 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
       />
     </div>
 
-    <div ref="textContent" class="relative z-10 text-center px-4 pb-32 mb-10 max-w-2xl opacity-0">
-			<div ref="logoRef" class="recolor-logo h-[25vw] w-[30vw]">
-				<NuxtPicture
-					class="h-full w-full object-cover"
-					src="/HelloBobaLogo.png"
-					:img-attrs="{ class: 'h-full w-full object-cover' }"
-				/>
-			</div>
+    <div ref="textContent" class="relative z-10 text-center px-4 pb-20 md:pb-32 mb-10 max-w-4xl opacity-0">
+      <div ref="logoRef" class="recolor-logo h-[35vw] w-[50vw] md:h-[25vw] md:w-[30vw] mx-auto">
+        <NuxtPicture
+          class="h-full w-full"
+          src="/HelloBobaLogo.png"
+          :img-attrs="{ class: 'h-full w-full object-cover' }"
+        />
+      </div>
 
       <div class="inline-block px-4 py-1.5 mb-6 rounded-full border border-green-500/20 bg-green-500/5 backdrop-blur-xl">
-        <span class="text-green-400 font-bold tracking-wide text-sm uppercase">El Monte • Established 2020</span>
+        <span class="text-green-400 font-bold tracking-wide text-xs md:text-sm uppercase">El Monte • Established 2020</span>
       </div>
       
-      <h2 class="text-white/80 font-light text-2xl tracking-tight mb-4">
+      <h2 class="text-white/80 font-light text-xl md:text-2xl tracking-tight mb-4">
         Crafting <span class="font-black text-green-500 italic">the perfect</span> sip.
       </h2>
       
-      <p class="text-zinc-300 text-sm leading-relaxed italic">
-        Temporary caption for now because I don't know what to put, <br>
-				hopefully something along the length of this.
+      <p class="text-zinc-300 text-xs md:text-sm leading-relaxed italic">
+        Temporary caption for now because I don't know what to put, <br class="hidden md:block">
+        hopefully something along the length of this.
       </p>
     </div>
-	</div>
+  </div>
 
-	<div ref="bannerRef" class="relative w-full -mt-20 overflow-hidden py-10 -mb-16 z-30 pointer-events-none opacity-0">
+  <div ref="bannerRef" class="relative w-full -mt-16 md:-mt-20 overflow-hidden py-10 -mb-16 z-30 pointer-events-none opacity-0">
     <div class="bg-[#3f6212] py-4 border-y-4 border-[#a3e635] w-full rotate-2 scale-110 relative flex items-center justify-center">
-      <div ref="bannerTextRef" class="whitespace-nowrap translate-x-1/4 flex gap-4 text-[#ecfccb] text-4xl font-[900] uppercase italic tracking-tighter">
+      <div ref="bannerTextRef" class="whitespace-nowrap translate-x-1/4 flex gap-4 text-[#ecfccb] text-2xl md:text-4xl font-[900] uppercase italic tracking-tighter">
         <span v-for="n in 10" :key="n">
-          boba comes free with any drink &nbsp;•
+          boba comes free with any drink  •
         </span>
       </div>
     </div>
-	</div>
+  </div>
 
-	<div ref="bouncingContainerRef" class="relative">
-		<div class="absolute inset-0 w-full bg-white h-full pointer-events-none z-0">
-			<img 
-				v-for="icon in backgroundIcons" 
-				:key="icon.id"
-				:name="icon.icon"
-				:src="icon.icon"
-				class="absolute"
-				:style="{
-						left: `${icon.x}px`,
-						top: `${icon.y}px`,
-						width: `${icon.size}px`,
-						opacity: icon.opacity,
-						transform: `rotate(${icon.rotation}deg)`
-				}"
-			/>
-		</div>
-		<Carousel :items="top10Drinks"/>
-		<svg class="absolute -scale-y-100 bottom-0 left-0 w-full text-[#3f6212] fill-current h-32" viewBox="0 0 1440 320" preserveAspectRatio="none">
-				<path d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
-		</svg>
-	</div>
+  <div ref="bouncingContainerRef" class="relative">
+    <div class="absolute inset-0 w-full bg-white h-full pointer-events-none z-0">
+      <img 
+        v-for="icon in backgroundIcons" 
+        :key="icon.id"
+        :name="icon.icon"
+        :src="icon.icon"
+        class="absolute"
+        :style="{
+            left: `${icon.x}px`,
+            top: `${icon.y}px`,
+            width: `${icon.size}px`,
+            opacity: icon.opacity,
+            transform: `rotate(${icon.rotation}deg)`
+        }"
+      />
+    </div>
+    <Carousel :items="top10Drinks"/>
+    <svg class="absolute -scale-y-100 bottom-0 left-0 w-full text-[#3f6212] fill-current h-16 md:h-32" viewBox="0 0 1440 320" preserveAspectRatio="none">
+        <path d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+    </svg>
+  </div>
 
-	<div class="relative bg-[#3f6212] pt-8 pb-12 overflow-hidden text-[#ecfccb]">
-		<div class="max-w-7xl mx-auto px-6 text-center relative z-10">
-			<div class="grid grid-cols-3 gap-10 items-center w-full max-w-5xl mx-auto mb-12">
+  <div class="relative bg-[#3f6212] pt-8 pb-12 overflow-hidden text-[#ecfccb]">
+    <div class="max-w-7xl mx-auto px-6 text-center relative z-10">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-center w-full max-w-5xl mx-auto mb-12">
   
-				<div class="text-right flex flex-col justify-center">
-					<h3 class="hours-text text-white font-black font-sans uppercase tracking-widest text-xl mb-4">Hours</h3>
-					<ul class="space-y-2 text-sm font-bold tracking-wide">
-						<li class="days-text" v-for="day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday']">{{ day }}: <span class="font-normal opacity-80">11:00 AM - 9:00 PM</span></li>
-						<li class="days-text" v-for="day in ['Friday', 'Saturday', 'Sunday']">{{ day }}: <span class="font-normal opacity-80">11:00 AM - 10:00 PM</span></li>
-					</ul>
-				</div>
+        <div class="text-center lg:text-right flex flex-col justify-center order-2 lg:order-1">
+          <h3 class="hours-text text-white font-black font-sans uppercase tracking-widest text-xl mb-4">Hours</h3>
+          <ul class="space-y-2 text-sm font-bold tracking-wide">
+            <li class="days-text" v-for="day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday']">{{ day }}: <span class="font-normal opacity-80">11:00 AM - 9:00 PM</span></li>
+            <li class="days-text" v-for="day in ['Friday', 'Saturday', 'Sunday']">{{ day }}: <span class="font-normal opacity-80">11:00 AM - 10:00 PM</span></li>
+          </ul>
+        </div>
 
-				<div class="kiwi-circle flex justify-center">
-					<div ref="kiwiRef" class="w-48 h-48 px-8 py-11 rounded-full bg-[#ecfccb] border-8 border-[#84cc16] shadow-2xl flex items-center justify-center">
-						<NuxtPicture class="aspect-square h-full w-full" src="/kiwiboba.png" />
-					</div>
-				</div>
+        <div class="kiwi-circle flex justify-center order-1 lg:order-2">
+          <div ref="kiwiRef" class="w-32 h-32 md:w-48 md:h-48 px-4 py-6 md:px-8 md:py-11 rounded-full bg-[#ecfccb] border-8 border-[#84cc16] shadow-2xl flex items-center justify-center">
+            <NuxtPicture class="aspect-square h-full w-full" src="/kiwiboba.png" />
+          </div>
+        </div>
 
-				<div class="text-left flex flex-col justify-center">
-					<h3 class="visit-text text-white font-black font-sans uppercase tracking-widest text-xl mb-4">Visit Us</h3>
-					<div class="text-sm gap-6 flex flex-col font-normal opacity-80 space-y-1">
-						<div class="flex flex-row gap-4">
-							<NuxtPicture :img-attrs="{ class: 'location-tag h-16 w-auto object-cover invert' }" src="/locationpointer.png"/>
-							<div class="flex flex-col">
-								<NuxtLink
-									class="hover:text-green-400 transition-colors duration-300 cursor-none"
-									to="https://www.google.com/maps/place/Hello+Boba/data=!4m7!3m6!1s0x80c2d1db6c36bda3:0x1fdf3db0b5303a86!8m2!3d34.062467!4d-118.0311685!16s%2Fg%2F11ftxdfmv7!19sChIJo702bNvRwoARhjowtbA93x8?authuser=0&hl=en&rclk=1"
-									@mouseenter="currentHover = true"
-									@mouseleave="currentHover = false"
-								>
-									<p class="address-text">11230 Garvey Ave #C</p>
-									<p class="address-text">El Monte, CA 91733</p>
-								</NuxtLink>
-								<a 
-									href="tel:+16263617058" class="address-text inline-block mt-1 text-sm font-bold tracking-widest text-white hover:text-green-400 transition-colors duration-300 cursor-none"
-									@mouseenter="currentHover = true"
-									@mouseleave="currentHover = false"
-								>
-									+16263617058
-								</a>
-							</div>
-						</div>
-						<div class="flex flex-row gap-4">
-							<NuxtPicture :img-attrs="{ class: 'location-tag h-16 w-auto object-cover invert' }" src="/locationpointer.png"/>
-							<div class="flex flex-col">
-								<NuxtLink
-									class="hover:text-green-400 transition-colors duration-300 cursor-none"
-									to="https://www.google.com/maps/place/Hello+Boba/data=!4m7!3m6!1s0x80c2d91f75934401:0x7f2669691ab068dc!8m2!3d34.0899773!4d-118.0139066!16s%2Fg%2F11y64hq1f9!19sChIJAUSTdR_ZwoAR3GiwGmlpJn8?authuser=0&hl=en&rclk=1"
-									@mouseenter="currentHover = true"
-									@mouseleave="currentHover = false"
-								>
-									<p class="address-text">4788 Peck Rd</p>
-									<p class="address-text">El Monte, CA 91732</p>
-								</NuxtLink>
-								<a 
-									href="tel:+16263617055" 
-									class="address-text inline-block mt-1 text-sm font-bold tracking-widest text-white hover:text-green-400 transition-colors duration-300 cursor-none"
-									@mouseenter="currentHover = true"
-									@mouseleave="currentHover = false"	
-								>
-									+16263617055
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
+        <div class="text-center lg:text-left flex flex-col justify-center items-center lg:items-start order-3">
+          <h3 class="visit-text text-white font-black font-sans uppercase tracking-widest text-xl mb-4">Visit Us</h3>
+          <div class="text-sm gap-6 flex flex-col font-normal opacity-80 space-y-1">
+            <div class="flex flex-row justify-center lg:justify-start gap-4 text-left">
+              <NuxtPicture :img-attrs="{ class: 'location-tag h-12 md:h-16 w-auto object-cover invert' }" src="/locationpointer.png"/>
+              <div class="flex flex-col">
+                <NuxtLink
+                  class="hover:text-green-400 transition-colors duration-300 cursor-none"
+                  to="https://www.google.com/maps/place/Hello+Boba/data=!4m7!3m6!1s0x80c2d1db6c36bda3:0x1fdf3db0b5303a86!8m2!3d34.062467!4d-118.0311685!16s%2Fg%2F11ftxdfmv7!19sChIJo702bNvRwoARhjowtbA93x8?authuser=0&hl=en&rclk=1"
+                  @mouseenter="currentHover = true"
+                  @mouseleave="currentHover = false"
+                >
+                  <p class="address-text">11230 Garvey Ave #C</p>
+                  <p class="address-text">El Monte, CA 91733</p>
+                </NuxtLink>
+                <a 
+                  href="tel:+16263617058" class="address-text inline-block mt-1 text-sm font-bold tracking-widest text-white hover:text-green-400 transition-colors duration-300 cursor-none"
+                  @mouseenter="currentHover = true"
+                  @mouseleave="currentHover = false"
+                >
+                  +16263617058
+                </a>
+              </div>
+            </div>
+            <div class="flex flex-row justify-center lg:justify-start gap-4 text-left">
+              <NuxtPicture :img-attrs="{ class: 'location-tag h-12 md:h-16 w-auto object-cover invert' }" src="/locationpointer.png"/>
+              <div class="flex flex-col">
+                <NuxtLink
+                  class="hover:text-green-400 transition-colors duration-300 cursor-none"
+                  to="https://www.google.com/maps/place/Hello+Boba/data=!4m7!3m6!1s0x80c2d91f75934401:0x7f2669691ab068dc!8m2!3d34.0899773!4d-118.0139066!16s%2Fg%2F11y64hq1f9!19sChIJAUSTdR_ZwoAR3GiwGmlpJn8?authuser=0&hl=en&rclk=1"
+                  @mouseenter="currentHover = true"
+                  @mouseleave="currentHover = false"
+                >
+                  <p class="address-text">4788 Peck Rd</p>
+                  <p class="address-text">El Monte, CA 91732</p>
+                </NuxtLink>
+                <a 
+                  href="tel:+16263617055" 
+                  class="address-text inline-block mt-1 text-sm font-bold tracking-widest text-white hover:text-green-400 transition-colors duration-300 cursor-none"
+                  @mouseenter="currentHover = true"
+                  @mouseleave="currentHover = false"  
+                >
+                  +16263617055
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
 
-			</div>
-			<h2 class="footer-boba text-9xl font-sans font-[900] tracking-tighter mb-8 ">
-				Hello Boba
-			</h2>
-			<div class="flex justify-center gap-8 text-sm font-bold tracking-[0.3em] uppercase opacity-70">
-				<NuxtLink 
-					v-for="social in socialMediaLinks"
-					:key="social.media"
-					:to="social.link"
-					target="_blank"
-					rel="noopenner noreferrer"
-					class="social-media text-zinc-400 transition-colors hover:text-green-400 cursor-none"	
-					@mouseenter="currentHover = true"
-					@mouseleave="currentHover = false"
-				>{{ social.media }}</NuxtLink>
-			</div>
-		</div>
-		<h1 class="mt-8 font-sans font-[700] text-xl text-zinc-500 tracking-wide text-center">© 2026 Hello Boba. All rights reserved.</h1>
-	</div>
+      </div>
+      
+      <h2 class="footer-boba text-6xl md:text-9xl font-sans font-[900] tracking-tighter mb-8">
+        Hello Boba
+      </h2>
+      
+      <div class="flex flex-wrap justify-center gap-4 md:gap-8 text-xs md:text-sm font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase opacity-70">
+        <NuxtLink 
+          v-for="social in socialMediaLinks"
+          :key="social.media"
+          :to="social.link"
+          target="_blank"
+          rel="noopenner noreferrer"
+          class="social-media text-zinc-400 transition-colors hover:text-green-400 cursor-none" 
+          @mouseenter="currentHover = true"
+          @mouseleave="currentHover = false"
+        >{{ social.media }}</NuxtLink>
+      </div>
+    </div>
+    <h1 class="mt-8 font-sans font-[700] text-sm md:text-xl text-zinc-500 tracking-wide text-center">© 2026 Hello Boba. All rights reserved.</h1>
+  </div>
 </template>
 
 <style scoped>
