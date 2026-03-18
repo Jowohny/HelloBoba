@@ -15,8 +15,7 @@ const currentNewsItems = [
     category: "Promotion",
     image: "/flavors/watermelon.png",
     description: "",
-    featured: 'col-span-6 row-span-1',
-		vertical: true
+    featured: true
   },
   {
     title: "We are now Catering!",
@@ -24,8 +23,15 @@ const currentNewsItems = [
     category: "Events",
     image: "/kiwiboba.png",
     description: "Weddings, birthdays, or corporate events—Hello Boba is hitting the road. Book our mobile setup for your next party.",
-    featured: 'col-span-4 row-span-1',
-		vertical: false
+    featured: false
+  },
+	{
+    title: "10% Off Any Order",
+    date: "Saturday-Sunday: 7PM - 10PM",
+    category: "Promotion",
+    image: "/bobalogo.png",
+    description: "Just a heads up! We will be closing early at 5:00 PM this Friday for a team building event. Normal hours resume Saturday.",
+    featured: false
   },
   {
     title: "Game Night",
@@ -33,17 +39,7 @@ const currentNewsItems = [
     category: "Promotion",
     image: "/bobalogo.png",
     description: "Just a heads up! We will be closing early at 5:00 PM this Friday for a team building event. Normal hours resume Saturday.",
-    featured: 'col-span-3 row-span-1',
-		vertical: false
-  },
-  {
-    title: "10% Off Any Order",
-    date: "Saturday-Sunday: 7PM - 10PM",
-    category: "Promotion",
-    image: "/bobalogo.png",
-    description: "Just a heads up! We will be closing early at 5:00 PM this Friday for a team building event. Normal hours resume Saturday.",
-    featured: 'col-span-4 row-span-1',
-		vertical: false
+    featured: true
   }
 ];
 
@@ -53,9 +49,7 @@ const previousNewsItems = [
     date: "January 1, 2026 - Present",
     category: "Challenge",
     image: "/kiwiboba.png", 
-    description: "You asked, we delivered. The official Hello Boba heavy-cotton oversized tees are now in stock behind the register.",
-    featured: 'col-span-4 row-span-1',
-		vertical: false
+    description: "You asked, we delivered. The official Hello Boba heavy-cotton oversized tees are now in stock behind the register."
   }
 ];
 
@@ -166,18 +160,15 @@ onMounted(() => {
         </p>
       </div>
 
-      <div class="grid grid-cols-10 auto-rows-[400px] mb-20 gap-8">
+      <div class="grid grid-cols-3 auto-rows-[450px] mb-20 gap-8">
         <div 
           v-for="(item, index) in currentNewsItems" 
           :key="index"
           ref="currentCardsRef" 
-          class="opacity-0 group relative bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl shadow-zinc-200/50 border border-zinc-100 p-6 flex"
-          :class="[item.featured, item.vertical ? 'flex-row' : 'flex-col']"
+          class="opacity-0 group relative bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl shadow-zinc-200/50 border border-zinc-100 p-6 flex flex-col"
+					:class="item.featured ? 'col-span-2' : ''"
         >
-          <div 
-						class="relative bg-zinc-50 rounded-2xl overflow-hidden shrink-0 border"
-						:class="item.vertical ? 'h-full w-1/2' : 'w-full h-1/2'"
-					>
+          <div class="relative bg-zinc-50 rounded-2xl overflow-hidden shrink-0 border w-full h-1/2">
             <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10"></div>
             <NuxtPicture 
               :src="item.image" 
@@ -187,8 +178,8 @@ onMounted(() => {
           </div>
 
           <div 
-						class="flex flex-col flex-grow justify-start"
-						:class="item.vertical ? 'pl-6 w-1/2' : 'pt-6 h-1/2'"
+						class="flex flex-col flex-grow justify-start pt-6 h-1/2"
+						:class="item.featured ? ' text-center items-center' : ''"
 					>
             <div class="flex items-center mb-4 gap-3">
               <span class="bg-green-100 text-green-700 px-3 py-1 border border-green-200 rounded-full text-[10px] shrink-0 font-black uppercase tracking-widest">
@@ -212,18 +203,14 @@ onMounted(() => {
 				Past Events
 			</span>
 
-			<div class="grid grid-cols-10 auto-rows-[400px] gap-8">
+			<div class="grid grid-cols-3 auto-rows-[450px] gap-8">
         <div 
           v-for="(item, index) in previousNewsItems" 
           :key="index"
           ref="pastCardsRef" 
-          class="opacity-0 group relative bg-black/70 backdrop-blur-sm rounded-3xl shadow-2xl shadow-zinc-200 border border-zinc-100 p-6 flex"
-          :class="[item.featured, item.vertical ? 'flex-row' : 'flex-col']"
+          class="opacity-0 group relative bg-black/70 backdrop-blur-sm rounded-3xl shadow-2xl shadow-zinc-200 border border-zinc-100 p-6 flex flex-col"
         >
-          <div 
-						class="relative bg-zinc-50 rounded-2xl overflow-hidden shrink-0 border"
-						:class="item.vertical ? 'h-full w-1/2' : 'w-full h-1/2'"
-					>
+          <div class="relative bg-zinc-50 rounded-2xl overflow-hidden shrink-0 border w-full h-1/2">
             <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10"></div>
             <NuxtPicture 
               :src="item.image" 
@@ -232,10 +219,7 @@ onMounted(() => {
             />
           </div>
 
-          <div 
-						class="flex flex-col flex-grow justify-start"
-						:class="item.vertical ? 'pl-6 w-1/2' : 'pt-6 h-1/2'"
-					>
+          <div class="flex flex-col flex-grow justify-start pt-6 h-1/2">
             <div class="flex items-center mb-4 gap-3">
               <span class="bg-green-100 text-green-700 px-3 py-1 border border-green-200 rounded-full text-[10px] shrink-0 font-black uppercase tracking-widest">
                 {{ item.category }}
