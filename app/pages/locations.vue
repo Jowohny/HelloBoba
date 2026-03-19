@@ -131,7 +131,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen pt-32 md:pt-40 pb-24 px-4 md:px-6 relative z-10 overflow-hidden bg-[#f6f6f6]">
+  <div class="min-h-screen pt-40 pb-24 px-4 md:px-6 relative z-10 overflow-hidden bg-[#f6f6f6]">
     
     <div class="fixed inset-0 w-full h-full z-0 pointer-events-none overflow-hidden flex flex-col justify-center">
       <div class="absolute inset-0 flex flex-col justify-center gap-16 opacity-[0.06] blur-[1.5px] scale-110 -rotate-[2deg]">

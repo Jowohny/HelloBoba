@@ -409,7 +409,7 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
 </script>
 
 <template>
-  <div class="relative h-[65svh] md:h-screen w-full flex items-end justify-center overflow-hidden bg-zinc-950">
+  <div class="relative h-[65svh] pt-40 md:h-screen w-full flex items-end justify-center overflow-hidden bg-zinc-950">
     <div ref="heroImage" class="absolute inset-0 z-0 scale-[1.2] blur-[20px]">
       <NuxtPicture 
         src="/HelloHero.png" 
