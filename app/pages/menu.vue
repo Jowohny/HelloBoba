@@ -6,10 +6,10 @@ import { SplitText } from 'gsap/SplitText';
 gsap.registerPlugin(SplitText)
 
 const menuItems = [
-	{ type: 'Creme Brulee Series', name: 'Creme Brulee Oreo Smoothie', price: { R: '🚫', L: '$7.85' }, desc: 'A lemonade-like beverage that contains mint leaves for the extra kick of freshness.', DF: false, CF: true, image: '' },
-	{ type: 'Creme Brulee Series', name: 'Creme Brulee Matcha Smoothie', price: { R: '🚫', L: '$7.85' }, desc: 'A lemonade-like beverage that contains mint leaves for the extra kick of freshness.', DF: false, CF: false, image: '' },
-	{ type: 'Creme Brulee Series', name: 'Creme Brulee Thai Tea', price: { R: '🚫', L: '$6.85' }, desc: 'A lemonade-like beverage that contains mint leaves for the extra kick of freshness.', DF: false, CF: false, image: '' },
-	{ type: 'Creme Brulee Series', name: 'Creme Brulee Brown Sugar Boba Milk', price: { R: '🚫', L: '$6.85' }, desc: 'A lemonade-like beverage that contains mint leaves for the extra kick of freshness.', DF: false, CF: true, image: '' },
+  { type: 'Creme Brulee Series', name: 'Creme Brulee Oreo Smoothie', price: { R: '🚫', L: '$7.85' }, desc: 'A lemonade-like beverage that contains mint leaves for the extra kick of freshness.', DF: false, CF: true, image: '' },
+  { type: 'Creme Brulee Series', name: 'Creme Brulee Matcha Smoothie', price: { R: '🚫', L: '$7.85' }, desc: 'A lemonade-like beverage that contains mint leaves for the extra kick of freshness.', DF: false, CF: false, image: '' },
+  { type: 'Creme Brulee Series', name: 'Creme Brulee Thai Tea', price: { R: '🚫', L: '$6.85' }, desc: 'A lemonade-like beverage that contains mint leaves for the extra kick of freshness.', DF: false, CF: false, image: '' },
+  { type: 'Creme Brulee Series', name: 'Creme Brulee Brown Sugar Boba Milk', price: { R: '🚫', L: '$6.85' }, desc: 'A lemonade-like beverage that contains mint leaves for the extra kick of freshness.', DF: false, CF: true, image: '' },
 
   { type: 'Mojito', name: 'Original Mojito', price: { R: '$4.95', L: '$5.45' }, desc: 'A lemonade-like beverage that contains mint leaves for the extra kick of freshness.', DF: true, CF: true, image: '' },
   { type: 'Mojito', name: 'Mango Mojito', price: { R: '$5.20', L: '$5.70' }, desc: 'A lemonade-like beverage that contains a hint of mango syrup and some mint leaves for the extra kick of freshness.', DF: true, CF: true, image: '' },
@@ -20,7 +20,7 @@ const menuItems = [
   { type: 'Mojito', name: 'Lychee Mojito', price: { R: '$5.20', L: '$5.70' }, desc: 'A lemonade-like beverage that contains a hint of lychee syrup and some mint leaves for the extra kick of freshness.', DF: true, CF: true, image: '' },
   { type: 'Mojito', name: 'Peach Mojito', price: { R: '$5.20', L: '$5.70' }, desc: 'A lemonade-like beverage that contains a hint of peach syrup and some mint leaves for the extra kick of freshness.', DF: true, CF: true, image: '' },
 
-	{ type: 'Fresh Tea', name: 'Jasmine Green Tea', price: { R: '$4.85', L: '$5.35' }, desc: 'Freshly brewed floral jasmine green tea, served perfectly chilled.', DF: true, CF: false, image: '/drinks/IMG_8039.HEIC' },
+  { type: 'Fresh Tea', name: 'Jasmine Green Tea', price: { R: '$4.85', L: '$5.35' }, desc: 'Freshly brewed floral jasmine green tea, served perfectly chilled.', DF: true, CF: false, image: '/drinks/IMG_8039.HEIC' },
   { type: 'Fresh Tea', name: 'Honey Jasmine Green Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'Floral jasmine green tea lightly sweetened with pure, natural honey.', DF: true, CF: false, image: '' },
   { type: 'Fresh Tea', name: 'Roasted Oolong Tea', price: { R: '$4.85', L: '$5.35' }, desc: 'Deeply aromatic oolong tea with a rich, roasted flavor profile.', DF: true, CF: false, image: '' },
   { type: 'Fresh Tea', name: 'Sea Cream Green Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'Our classic green tea topped with a thick, savory-sweet sea salt cheese foam.', DF: false, CF: false, image: '' },
@@ -35,7 +35,7 @@ const menuItems = [
   { type: 'Fruit Tea', name: 'Peach Green Tea', price: { R: '$4.85', L: '$5.35' }, desc: 'Sweet, juicy peach flavors mixed with our signature green tea.', DF: true, CF: false, image: '' },
   { type: 'Fruit Tea', name: 'Pink Lychee', price: { R: '$5.45', L: '$5.95' }, desc: 'A beautiful, refreshing blend of lychee and secret floral notes.', DF: true, CF: false, image: '' },
 
-	{ type: 'Milk Tea Classic', name: 'Roasted Oolong Milk Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'Our deeply roasted oolong tea blended with creamy, rich milk.', DF: false, CF: false, image: '' },
+  { type: 'Milk Tea Classic', name: 'Roasted Oolong Milk Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'Our deeply roasted oolong tea blended with creamy, rich milk.', DF: false, CF: false, image: '' },
   { type: 'Milk Tea Classic', name: 'Honey Jasmine Milk Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'Floral jasmine milk tea sweetened naturally with rich honey.', DF: false, CF: false, image: '' },
   { type: 'Milk Tea Classic', name: 'Royal Milk Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'Our premium house black tea blended with rich cream for a luxurious texture.', DF: false, CF: false, image: '' },
   { type: 'Milk Tea Classic', name: 'Caramel Milk Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'Classic milk tea layered with deep, buttery caramel notes.', DF: false, CF: false, image: '' },
@@ -47,33 +47,33 @@ const menuItems = [
   { type: 'Milk Tea Classic', name: 'Rose Milk Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'A beautifully floral milk tea infused with delicate rose syrup.', DF: false, CF: false, image: '' },
   { type: 'Milk Tea Classic', name: 'Oreo Garden Milk Tea', price: { R: '🚫', L: '$6.10' }, desc: 'A decadent milk tea topped with crushed Oreo cookies for a dessert-like treat.', DF: false, CF: false, image: '' },
 
-	{ type: 'Slushie', name: 'Mango Mango', price: { R: '🚫', L: '$6.60' }, desc: 'An icy, refreshing slushie bursting with double the tropical mango flavor.', DF: true, CF: true, image: '' },
+  { type: 'Slushie', name: 'Mango Mango', price: { R: '🚫', L: '$6.60' }, desc: 'An icy, refreshing slushie bursting with double the tropical mango flavor.', DF: true, CF: true, image: '' },
   { type: 'Slushie', name: 'Very Strawberry', price: { R: '🚫', L: '$6.60' }, desc: 'A perfectly blended, ice-cold strawberry slushie that is sweet and tart.', DF: true, CF: true, image: '' },
   { type: 'Slushie', name: 'Chamango Mango', price: { R: '🚫', L: '$6.60' }, desc: 'A sweet and spicy mango slushie swirled with savory chamoy and Tajín.', DF: true, CF: true, image: '' },
 
-	{ type: 'Smoothie', name: 'Taro Taro', price: { R: '🚫', L: '$6.60' }, desc: 'A rich, thick, and creamy smoothie packed with sweet taro flavor.', DF: false, CF: true, image: '/drinks/IMG_8041.HEIC' },
+  { type: 'Smoothie', name: 'Taro Taro', price: { R: '🚫', L: '$6.60' }, desc: 'A rich, thick, and creamy smoothie packed with sweet taro flavor.', DF: false, CF: true, image: '/drinks/IMG_8041.HEIC' },
   { type: 'Smoothie', name: 'Horchata', price: { R: '🚫', L: '$6.60' }, desc: 'A creamy, cinnamon-spiced smoothie inspired by the classic Mexican drink.', DF: false, CF: true, image: '/drinks/IMG_8036.HEIC' },
   { type: 'Smoothie', name: 'Nana Berry', price: { R: '🚫', L: '$6.60' }, desc: 'A smooth, classic blend of ripe bananas and sweet strawberries.', DF: false, CF: true, image: '/drinks/IMG_8042.HEIC' },
   { type: 'Smoothie', name: 'Caramel Macchiato', price: { R: '🚫', L: '$6.60' }, desc: 'An icy, blended coffee smoothie layered with rich caramel drizzle.', DF: false, CF: false, image: '/drinks/IMG_8037.HEIC' },
   { type: 'Smoothie', name: 'Caramel Thai', price: { R: '🚫', L: '$6.60' }, desc: 'Sweet Thai tea blended into a frosty smoothie and swirled with caramel.', DF: false, CF: true, image: '' },
 
-	{ type: 'Coffee', name: 'Coffee Milk Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'The perfect pick-me-up combining our classic milk tea with a shot of strong coffee.', DF: false, CF: false, image: '' },
+  { type: 'Coffee', name: 'Coffee Milk Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'The perfect pick-me-up combining our classic milk tea with a shot of strong coffee.', DF: false, CF: false, image: '' },
   { type: 'Coffee', name: 'Chocolate Cream Mocha', price: { R: '$5.85', L: '$6.35' }, desc: 'Rich chocolate and robust coffee blended with milk for a decadent treat.', DF: false, CF: false, image: '' },
   { type: 'Coffee', name: 'Vietnamese Coffee (Iced)', price: { R: '$5.85', L: '$6.35' }, desc: 'Strong, traditional slow-dripped robusta coffee mixed with sweetened condensed milk. (No Ice, +$3)', DF: false, CF: false, image: '' },
   { type: 'Coffee', name: 'Vanilla Coffee Latte (Iced)', price: { R: '$5.95', L: '$6.45' }, desc: 'Smooth espresso and chilled milk sweetened with aromatic vanilla.', DF: false, CF: false, image: '' },
   { type: 'Coffee', name: 'Caramel Coffee Latte (Iced)', price: { R: '$5.95', L: '$6.45' }, desc: 'Iced coffee and milk perfectly balanced with buttery caramel syrup.', DF: false, CF: false, image: '' },
 
-	{ type: 'Matcha Series', name: 'Mango Matcha Latte', price: { R: '🚫', L: '$6.60' }, desc: 'Earthy, premium matcha layered over sweet, tropical mango puree and milk.', DF: false, CF: false, image: '' },
-	{ type: 'Matcha Series', name: 'Creme Brulee Matcha Smoothie', price: { R: '🚫', L: '$7.85' }, desc: 'A lemonade-like beverage that contains mint leaves for the extra kick of freshness.', DF: false, CF: false, image: '' },
+  { type: 'Matcha Series', name: 'Mango Matcha Latte', price: { R: '🚫', L: '$6.60' }, desc: 'Earthy, premium matcha layered over sweet, tropical mango puree and milk.', DF: false, CF: false, image: '' },
+  { type: 'Matcha Series', name: 'Creme Brulee Matcha Smoothie', price: { R: '🚫', L: '$7.85' }, desc: 'A lemonade-like beverage that contains mint leaves for the extra kick of freshness.', DF: false, CF: false, image: '' },
   { type: 'Matcha Series', name: 'Matcha Boba Milk Tea', price: { R: '$5.85', L: '$6.35' }, desc: 'Earthy matcha and creamy milk perfectly paired with our signature boba.', DF: false, CF: false, image: '' },
   { type: 'Matcha Series', name: 'Strawberry Matcha Latte', price: { R: '🚫', L: '$6.60' }, desc: 'A beautiful layered drink of ceremonial matcha, milk, and fresh strawberry puree.', DF: false, CF: false, image: '' },
 
-	{ type: 'Butterfly Series', name: 'Butterfly Mango', price: { R: '🚫', L: '$6.60' }, desc: 'A mesmerizing, color-changing butterfly pea flower tea layered with sweet mango.', DF: false, CF: false, image: '/drinks/IMG_8040.HEIC' },
+  { type: 'Butterfly Series', name: 'Butterfly Mango', price: { R: '🚫', L: '$6.60' }, desc: 'A mesmerizing, color-changing butterfly pea flower tea layered with sweet mango.', DF: false, CF: false, image: '/drinks/IMG_8040.HEIC' },
   { type: 'Butterfly Series', name: 'Butterfly Strawberry', price: { R: '🚫', L: '$6.60' }, desc: 'Vibrant butterfly pea tea poured over a refreshing strawberry base.', DF: false, CF: false, image: '' },
   { type: 'Butterfly Series', name: 'Butterfly Lychee', price: { R: '🚫', L: '$6.60' }, desc: 'A magical, color-changing floral tea perfectly paired with sweet lychee.', DF: false, CF: false, image: '' },
   { type: 'Butterfly Series', name: 'Butterfly Coconut', price: { R: '🚫', L: '$6.60' }, desc: 'Tropical coconut milk layered with our striking, deep blue butterfly pea tea.', DF: false, CF: false, image: '' },
 
-	{ type: 'Boba Milk', name: 'Brown Sugar Boba Milk', price: { R: '$5.35', L: '$5.95' }, desc: 'Warm, slow-cooked brown sugar boba swirled with ice-cold organic milk.', DF: false, CF: true, image: '/drinks/IMG_8043.HEIC' },
+  { type: 'Boba Milk', name: 'Brown Sugar Boba Milk', price: { R: '$5.35', L: '$5.95' }, desc: 'Warm, slow-cooked brown sugar boba swirled with ice-cold organic milk.', DF: false, CF: true, image: '/drinks/IMG_8043.HEIC' },
   { type: 'Boba Milk', name: 'Brown Sugar Boba Milk Tea', price: { R: '$5.60', L: '$6.10' }, desc: 'Our classic black milk tea elevated with rich, roasted brown sugar boba.', DF: false, CF: false, image: '/drinks/IMG_8038.HEIC' },
   { type: 'Boba Milk', name: 'Strawberry Boba Milk', price: { R: '$5.85', L: '$6.35' }, desc: 'Creamy, caffeine-free milk mixed with sweet strawberry puree and boba.', DF: false, CF: true, image: '' },
   { type: 'Boba Milk', name: 'Matcha Boba Milk Tea', price: { R: '$5.85', L: '$6.35' }, desc: 'Earthy matcha and creamy milk perfectly paired with our signature boba.', DF: false, CF: false, image: '' },
@@ -81,24 +81,24 @@ const menuItems = [
 ];
 
 const toppings = [
-	{ name: 'Mango Jelly', desc: 'A chewy, gel-based topping infused with sweet tropical mango flavor.', image: ''},
-	{ name: 'Lychee Jelly', desc: 'Translucent, firm jelly bits with a delicate, floral grape-like sweetness.', image: ''},
-	{ name: 'Coffee Jelly', desc: 'Robust and slightly bitter cubes made from real coffee to balance sweet milk teas.', image: ''},
-	{ name: 'Grass Jelly', desc: 'A traditional, herbal jelly with a mild minty undertone and a silky texture.', image: ''},
-	{ name: 'Rainbow Jelly', desc: 'Colorful, multi-flavored coconut strips that offer a firm and playful chew.', image: ''},
-	{ name: 'Aloe Vera', desc: 'Refreshing, juicy cubes of real aloe plant that are light and naturally sweet.', image: ''},
-	{ name: 'Egg Pudding', desc: 'A smooth, custard-like topping with a rich vanilla and caramelized sugar taste.', image: ''},
-	{ name: 'Sea Salt Cream', desc: 'A thick, frothy milk foam layer with a savory saltiness that cuts through sweetness.', image: ''},
-	{ name: 'Creme Brulee', desc: 'A decadent, creamy swirl inspired by the classic French dessert with hints of toasted sugar.', image: ''}
+  { name: 'Mango Jelly', desc: 'A chewy, gel-based topping infused with sweet tropical mango flavor.', image: ''},
+  { name: 'Lychee Jelly', desc: 'Translucent, firm jelly bits with a delicate, floral grape-like sweetness.', image: ''},
+  { name: 'Coffee Jelly', desc: 'Robust and slightly bitter cubes made from real coffee to balance sweet milk teas.', image: ''},
+  { name: 'Grass Jelly', desc: 'A traditional, herbal jelly with a mild minty undertone and a silky texture.', image: ''},
+  { name: 'Rainbow Jelly', desc: 'Colorful, multi-flavored coconut strips that offer a firm and playful chew.', image: ''},
+  { name: 'Aloe Vera', desc: 'Refreshing, juicy cubes of real aloe plant that are light and naturally sweet.', image: ''},
+  { name: 'Egg Pudding', desc: 'A smooth, custard-like topping with a rich vanilla and caramelized sugar taste.', image: ''},
+  { name: 'Sea Salt Cream', desc: 'A thick, frothy milk foam layer with a savory saltiness that cuts through sweetness.', image: ''},
+  { name: 'Creme Brulee', desc: 'A decadent, creamy swirl inspired by the classic French dessert with hints of toasted sugar.', image: ''}
 ];
 
 
 const boba = [
-	{ name: 'Brown Sugar Boba', desc: 'Our base boba choice, made with tapioca starch, flavored with brown sugar and chewy in texture.', image: ''},
-	{ name: 'Strawberry Popping Boba', desc: 'Liquid-filled balls with the essence and goodness of strawberry with a juicy burst of flavor.', image: ''},
-	{ name: 'Peach Popping Boba', desc: 'Liquid-filled balls with the essence and goodness of peach with a juicy burst of flavor.', image: ''},
-	{ name: 'Black & White Boba', desc: 'A half & half mix of our crystal and brown sugar boba, for people who are indecisive.', image: ''},
-	{ name: 'Crystal Boba', desc: 'A clear, agar-based topping known for its light, crunchy texture.', image: ''}
+  { name: 'Brown Sugar Boba', desc: 'Our base boba choice, made with tapioca starch, flavored with brown sugar and chewy in texture.', image: ''},
+  { name: 'Strawberry Popping Boba', desc: 'Liquid-filled balls with the essence and goodness of strawberry with a juicy burst of flavor.', image: ''},
+  { name: 'Peach Popping Boba', desc: 'Liquid-filled balls with the essence and goodness of peach with a juicy burst of flavor.', image: ''},
+  { name: 'Black & White Boba', desc: 'A half & half mix of our crystal and brown sugar boba, for people who are indecisive.', image: ''},
+  { name: 'Crystal Boba', desc: 'A clear, agar-based topping known for its light, crunchy texture.', image: ''}
 ];
 
 const food = [
@@ -200,90 +200,88 @@ onMounted(() => {
   });
 
 
-	watch(hasPlayedIntro, async (isDone) => {
-		if (isDone) {
-			await nextTick();
-			const timeline = gsap.timeline();
+  watch(hasPlayedIntro, async (isDone) => {
+    if (isDone) {
+      await nextTick();
+      const timeline = gsap.timeline();
 
-			requestAnimationFrame(() => {
-				requestAnimationFrame(() => {
-					timeline.fromTo(headerRef.value, {
-						autoAlpha: 0,
-						y: -30
-					}, {
-						autoAlpha: 1,
-						y: 0,
-						duration: 1,
-						ease: 'expo.out'
-					})
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          timeline.fromTo(headerRef.value, {
+            autoAlpha: 0,
+            y: -30
+          }, {
+            autoAlpha: 1,
+            y: 0,
+            duration: 1,
+            ease: 'expo.out'
+          })
 
-					timeline.fromTo(drinksRef.value, {
-						autoAlpha: 0,
-						y: 60
-					}, {
-						autoAlpha: 1,
-						duration: 1,
-						y: 0,
-						ease: 'back.out'
-					}, '<+=0.4')
+          timeline.fromTo(drinksRef.value, {
+            autoAlpha: 0,
+            y: 60
+          }, {
+            autoAlpha: 1,
+            duration: 1,
+            y: 0,
+            ease: 'back.out'
+          }, '<+=0.4')
 
-					const menuSections = gsap.utils.toArray('.menu-section');
+          const menuSections = gsap.utils.toArray('.menu-section');
 
-					timeline.fromTo(menuSections, {
-						autoAlpha: 0,
-					}, {
-						autoAlpha: 1,
-						duration: 0.8,
-						ease: 'sine.out',
-						stagger: 0.1
-					}, '<-=0.5')
+          timeline.fromTo(menuSections, {
+            autoAlpha: 0,
+          }, {
+            autoAlpha: 1,
+            duration: 0.8,
+            ease: 'sine.out',
+            stagger: 0.1
+          }, '<-=0.5')
 
-					const sections = gsap.utils.toArray('.section');
+          const sections = gsap.utils.toArray('.section');
 
-					sections.forEach((section: any) => {
-						timeline.fromTo(section, {
-							autoAlpha: 0,
-							x: 40,
-							rotate: gsap.utils.random(-5,5)
-						}, {
-							autoAlpha: 1,
-							rotate: 0,
-							x: 0,
-							duration: 0.4,
-							ease: 'none',
-						}, '<+=0.05')
-					})
+          sections.forEach((section: any) => {
+            timeline.fromTo(section, {
+              autoAlpha: 0,
+              x: 40,
+              rotate: gsap.utils.random(-5,5)
+            }, {
+              autoAlpha: 1,
+              rotate: 0,
+              x: 0,
+              duration: 0.4,
+              ease: 'none',
+            }, '<+=0.05')
+          })
 
-					const splitSectionTitle = new SplitText('.drink-section', { type: 'chars,words', charsClass: 'opacity-0' });
+          const splitSectionTitle = new SplitText('.drink-section', { type: 'chars,words', charsClass: 'opacity-0' });
 
-					timeline.fromTo(splitSectionTitle.chars, {
-						autoAlpha: 0,
-					}, {
-						autoAlpha: 1,
-						duration: 1.2,
-						ease: 'power4.out',
-						stagger: 0.04,
-						onComplete: () => { firstTime.value = true; }
-					}, '<')
+          timeline.fromTo(splitSectionTitle.chars, {
+            autoAlpha: 0,
+          }, {
+            autoAlpha: 1,
+            duration: 1.2,
+            ease: 'power4.out',
+            stagger: 0.04,
+            onComplete: () => { firstTime.value = true; }
+          }, '<')
 
-					const drinkItems = gsap.utils.toArray('.drink-item');
+          const drinkItems = gsap.utils.toArray('.drink-item');
 
-					timeline.fromTo(drinkItems, {
-						autoAlpha: 0,
-						x: 50
-					}, {
-						x: 0,
-						autoAlpha: 1,
-						duration: 1,
-						stagger: 0.2,
-						ease: 'power4.out'
-					}, '<+=0.3')	
-				})
-			})
-		}	
-	}, { immediate: true })
-
-
+          timeline.fromTo(drinkItems, {
+            autoAlpha: 0,
+            x: 50
+          }, {
+            x: 0,
+            autoAlpha: 1,
+            duration: 1,
+            stagger: 0.2,
+            ease: 'power4.out'
+          }, '<+=0.3')  
+        })
+      })
+    } 
+  }, { immediate: true })
 });
 
 const animateMenuIn = async (nextMenuConfigure: string) => {
@@ -291,19 +289,19 @@ const animateMenuIn = async (nextMenuConfigure: string) => {
 
   let oldMenuConfigure;
 
-	switch (currentMenuConfigure.value) {
-		case 'drinks':
-			oldMenuConfigure = drinksRef;
-			break;
-		case 'toppings':
-			oldMenuConfigure = toppingRef;
-			break;
-		case 'food':
-			oldMenuConfigure = foodRef;
-			break;
-		default:
-			oldMenuConfigure = bobaRef;
-	}
+  switch (currentMenuConfigure.value) {
+    case 'drinks':
+      oldMenuConfigure = drinksRef;
+      break;
+    case 'toppings':
+      oldMenuConfigure = toppingRef;
+      break;
+    case 'food':
+      oldMenuConfigure = foodRef;
+      break;
+    default:
+      oldMenuConfigure = bobaRef;
+  }
 
   await new Promise((resolve) => {
     gsap.to(oldMenuConfigure.value, {
@@ -320,21 +318,21 @@ const animateMenuIn = async (nextMenuConfigure: string) => {
   await nextTick();
 
   let newMenuConfigure;
-	switch (nextMenuConfigure) {
-		case 'drinks':
-			newMenuConfigure = drinksRef;
-			break;
-		case 'toppings':
-			newMenuConfigure = toppingRef;
-			break;
-		case 'food':
-			newMenuConfigure = foodRef;
-			break;
-		default:
-			newMenuConfigure = bobaRef;
-	}
+  switch (nextMenuConfigure) {
+    case 'drinks':
+      newMenuConfigure = drinksRef;
+      break;
+    case 'toppings':
+      newMenuConfigure = toppingRef;
+      break;
+    case 'food':
+      newMenuConfigure = foodRef;
+      break;
+    default:
+      newMenuConfigure = bobaRef;
+  }
 
-	gsap.fromTo(newMenuConfigure.value, {
+  gsap.fromTo(newMenuConfigure.value, {
     autoAlpha: 0,
     y: 50
   }, {
@@ -347,7 +345,7 @@ const animateMenuIn = async (nextMenuConfigure: string) => {
 </script>
 
 <template>
-  <div class="min-h-screen pt-40 pb-24 px-6 relative z-10 overflow-hidden">
+  <div class="min-h-screen pt-32 md:pt-40 pb-24 px-4 md:px-6 relative z-10 overflow-hidden">
     <div class="fixed inset-0 w-full h-full pointer-events-none overflow-hidden bg-gradient-to-b from-[#18ffe7]/40 to-[#fa1d1c]/30">
       <div
         v-for="boba in bobas"
@@ -355,32 +353,32 @@ const animateMenuIn = async (nextMenuConfigure: string) => {
         class="boba-pearl absolute top-0 rounded-full bg-[#1a1311]"
         :class="[boba.size, boba.depth]"
         :style="{ left: boba.left }"
-     	/>
+      />
     </div>
-		<div class="max-w-7xl mx-auto relative z-10">
+    <div class="max-w-7xl mx-auto relative z-10">
       <div ref="headerRef" class="text-center mb-8 opacity-0">
-        <span class="inline-block px-4 py-1.5 mb-4 rounded-full border border-green-500/20 bg-green-500/10 text-green-700 font-bold tracking-widest text-xs uppercase backdrop-blur-sm">
+        <span class="inline-block px-4 py-1.5 mb-4 rounded-full border border-green-500/20 bg-green-500/10 text-green-700 font-bold tracking-widest text-xs md:text-sm uppercase backdrop-blur-sm">
           Freshly Brewed
         </span>
-        <h1 class="text-transparent bg-clip-text bg-gradient-to-r from-[#65a30d] to-[#3f6212] text-8xl tracking-tighter font-black font-sans pb-2">
+        <h1 class="text-transparent bg-clip-text bg-gradient-to-r from-[#65a30d] to-[#3f6212] text-5xl md:text-8xl tracking-tighter font-black font-sans pb-2">
           Menu Items
         </h1>
-        <p class="text-zinc-500 font-semibold mt-4 max-w-lg mx-auto">
+        <p class="text-zinc-500 font-semibold mt-4 max-w-lg mx-auto text-sm md:text-base">
           Take a look at all our freshly brewed teas, milk tea variations, smoothies, and other specialty drinks. For
-					anyone who's hungry, we also have our small selection of cakes and cookies.
+          anyone who's hungry, we also have our small selection of cakes and cookies.
         </p>
       </div>
-			<div class="relative flex flex-row -mb-3 justify-around px-8 z-5">
+      <div class="relative flex flex-wrap lg:flex-nowrap -mb-3 justify-center lg:justify-around px-2 md:px-8 z-5 gap-4 lg:gap-0">
         <div
-          class="menu-section relative h-36 w-56 z-50 transition-all duration-500 opacity-0 cursor-none drop-shadow-xl"
+          class="menu-section relative h-36 w-40 md:w-56 z-50 transition-all duration-500 opacity-0 cursor-none drop-shadow-xl"
           :class="currentMenuConfigure === section ? '-translate-y-[10%]' : ''"
           @click="animateMenuIn(section)"
-					@mouseenter="currentHover = true"
-					@mouseleave="currentHover = false"
-					v-for="section in sections"
-					:key="section"
+          @mouseenter="currentHover = true"
+          @mouseleave="currentHover = false"
+          v-for="section in sections"
+          :key="section"
         >
-					<svg 
+          <svg 
             viewBox="0 0 240 140" 
             class="absolute top-0 left-0 w-full h-full transition-colors duration-500 pointer-events-none"
             :class="currentMenuConfigure === section ? 'text-green-300' : 'text-[#f6f6f6]'"
@@ -393,76 +391,76 @@ const animateMenuIn = async (nextMenuConfigure: string) => {
             <circle cx="210" cy="100" r="10" fill="currentColor"/>
             <circle cx="230" cy="110" r="6" fill="currentColor"/>
           </svg>
-          <h3 class="relative z-10 text-2xl text-transparent -translate-y-[10%] bg-clip-text bg-gradient-to-b from-white to-[#8f1c67] font-[900] w-full h-full font-sans tracking-wide flex justify-center uppercase items-center">
-						{{ section }}
-					</h3>
+          <h3 class="relative z-10 text-xl md:text-2xl text-transparent -translate-y-[10%] bg-clip-text bg-gradient-to-b from-white to-[#8f1c67] font-[900] w-full h-full font-sans tracking-wide flex justify-center uppercase items-center">
+            {{ section }}
+          </h3>
         </div>
       </div>
-			<div 
-				ref="drinksRef" 
-				v-if="currentMenuConfigure === 'drinks'"
-				class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10"
-				:class="firstTime ? '' : 'opacity-0'"
-			>
-				<div class="flex overflow-x-auto gap-3 pt-2 pb-8 mb-6 border-b-2 border-green-500/20">
+      <div 
+        ref="drinksRef" 
+        v-if="currentMenuConfigure === 'drinks'"
+        class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10"
+        :class="firstTime ? '' : 'opacity-0'"
+      >
+        <div class="flex overflow-x-auto gap-3 pt-2 pb-8 mb-6 border-b-2 border-green-500/20">
           <button
             v-for="cat in categories"
             :key="cat"
             @click="activeTab = cat"
-						@mouseenter="currentHover = true"
-						@mouseleave="currentHover = false"
+            @mouseenter="currentHover = true"
+            @mouseleave="currentHover = false"
             :class="[
-              'section px-5 py-2.5 rounded-2xl font-bold text-sm tracking-wide whitespace-nowrap transition-all duration-300 border border-zinc-500/30 cursor-none',
+              'section px-4 md:px-5 py-2 md:py-2.5 rounded-2xl font-bold text-xs md:text-sm tracking-wide whitespace-nowrap transition-all duration-300 border border-zinc-500/30 cursor-none',
               activeTab === cat
                 ? 'bg-green-600 text-white border-green-600 shadow-md shadow-green-600/50'
                 : 'bg-white/50 text-zinc-500 border-transparent hover:bg-white hover:text-zinc-800 shadow-md shadow-zinc-500/50',
-								firstTime ? '' : 'opacity-0'
+                firstTime ? '' : 'opacity-0'
             ]"
           >
             {{ cat }}
           </button>
         </div>
 
-        <h2 class="drink-section text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
+        <h2 class="drink-section text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
           {{ activeTab }}
         </h2>
 
-				<div class="flex flex-col gap-2 min-h-[500px]">
+        <div class="flex flex-col gap-2 min-h-[500px]">
           <div 
             v-for="item in currentDrinks" 
             :key="item.name" 
-            class="drink-item group flex flex-row justify-between items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-0"
+            class="drink-item group flex flex-col lg:flex-row justify-between items-start lg:items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-4 lg:gap-0"
           >
-            <div class="flex flex-1 items-center gap-5 pr-4 w-full">
-              <div class="w-20 h-20 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
+            <div class="flex flex-1 items-start md:items-center gap-4 md:gap-5 pr-0 lg:pr-4 w-full">
+              <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
                 <img v-if="item.image" :src="item.image" class="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-[1.1]" />
-                <span v-else class="text-3xl opacity-50 grayscale">🧋</span>
+                <span v-else class="text-2xl md:text-3xl opacity-50 grayscale">🧋</span>
               </div>
               <div class="flex-1">
-                <div class="flex flex-wrap items-center gap-3 mb-2">
-                  <h3 class="text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors">
+                <div class="flex flex-col md:flex-row md:flex-wrap items-start md:items-center gap-2 md:gap-3 mb-2">
+                  <h3 class="text-lg md:text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors">
                     {{ item.name }}
                   </h3>
-                  <div class="flex gap-2">
+                  <div class="flex gap-2 flex-wrap">
                     <span v-if="item.DF" class="px-2 py-1 rounded-md bg-orange-100/80 text-orange-700 text-[10px] font-black tracking-widest border border-orange-200">Dairy Free</span>
                     <span v-if="item.CF" class="px-2 py-1 rounded-md bg-purple-100/80 text-purple-700 text-[10px] font-black tracking-widest border border-purple-200">Caffeine Free</span>
                   </div>
                 </div>
-                <p class="text-sm font-semibold text-zinc-500 max-w-2xl">
+                <p class="text-xs md:text-sm font-semibold text-zinc-500 max-w-2xl">
                   {{ item.desc }}
                 </p>
               </div>
             </div>
-            <div class="flex gap-6 self-auto pl-4">
+            <div class="flex w-full lg:w-auto justify-center lg:justify-start gap-6 lg:pl-4 mt-2 lg:mt-0 pt-2 lg:pt-0 border-t border-zinc-100 lg:border-t-0">
               <div class="flex flex-col items-center">
                 <span class="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-1">Reg (16oz)</span>
-                <span class="font-black text-lg text-zinc-800">
+                <span class="font-black text-base md:text-lg text-zinc-800">
                   {{ item.price.R }}
                 </span>
               </div>
               <div class="flex flex-col items-center">
                 <span class="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-1">Lrg (24oz)</span>
-                <span class="font-black text-lg text-green-700">
+                <span class="font-black text-base md:text-lg text-green-700">
                   {{ item.price.L }}
                 </span>
               </div>
@@ -470,32 +468,32 @@ const animateMenuIn = async (nextMenuConfigure: string) => {
           </div>
         </div>
       </div>
-			<div 
-				ref="toppingRef" 
-				v-else-if="currentMenuConfigure === 'toppings'"
-				class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10 opacity-0"
-			>
-        <h2 class="text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
+      <div 
+        ref="toppingRef" 
+        v-else-if="currentMenuConfigure === 'toppings'"
+        class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 opacity-0"
+      >
+        <h2 class="text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
           Toppings
         </h2>
-				<div class="flex grid grid-cols-2 gap-2 autorows-min">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 auto-rows-min">
           <div 
             v-for="topping in toppings" 
             :key="topping.name" 
             class="group flex flex-row justify-between items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-0"
           >
-            <div class="flex flex-1 items-center gap-5 pr-4 w-full">
-              <div class="w-20 h-20 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
+            <div class="flex flex-1 items-center gap-4 md:gap-5 pr-0 md:pr-4 w-full">
+              <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
                 <img v-if="topping.image" :src="topping.image" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                <span v-else class="text-3xl opacity-50 grayscale">🧋</span>
+                <span v-else class="text-2xl md:text-3xl opacity-50 grayscale">🧋</span>
               </div>
               <div class="flex-1">
-                <div class="flex flex-wrap items-center gap-3 mb-1">
-                  <h3 class="text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors">
+                <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-1">
+                  <h3 class="text-lg md:text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors">
                     {{ topping.name }}
                   </h3>
                 </div>
-                <p class="text-xs font-semibold text-zinc-500 max-w-2xl">
+                <p class="text-xs md:text-sm font-semibold text-zinc-500 max-w-2xl">
                   {{ topping.desc }}
                 </p>
               </div>
@@ -503,32 +501,32 @@ const animateMenuIn = async (nextMenuConfigure: string) => {
           </div>
         </div>
       </div>
-			<div 
-				ref="bobaRef"
-				v-else-if="currentMenuConfigure === 'boba'"
-				class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10 opacity-0"
-			>	
-				<h2 class="text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
+      <div 
+        ref="bobaRef"
+        v-else-if="currentMenuConfigure === 'boba'"
+        class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 opacity-0"
+      > 
+        <h2 class="text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
           Boba
         </h2>
-				<div class="flex grid grid-cols-2 gap-2 auto-rows-min">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 auto-rows-min">
           <div 
             v-for="b in boba" 
             :key="b.name" 
             class="group flex flex-row justify-between items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-0"
           >
-            <div class="flex items-center gap-5 w-full">
-              <div class="w-20 h-20 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
+            <div class="flex items-center gap-4 md:gap-5 w-full">
+              <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
                 <img v-if="b.image" :src="b.image" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                <span v-else class="text-3xl opacity-50 grayscale">🧋</span>
+                <span v-else class="text-2xl md:text-3xl opacity-50 grayscale">🧋</span>
               </div>
               <div class="flex-1">
-                <div class="flex flex-wrap items-center gap-3 mb-1">
-                  <h3 class="text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors">
+                <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-1">
+                  <h3 class="text-lg md:text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors">
                     {{ b.name }}
                   </h3>
                 </div>
-                <p class="text-xs font-semibold text-zinc-500">
+                <p class="text-xs md:text-sm font-semibold text-zinc-500">
                   {{ b.desc }}
                 </p>
               </div>
@@ -536,26 +534,26 @@ const animateMenuIn = async (nextMenuConfigure: string) => {
           </div>
         </div>
       </div>
-			<div 
+      <div 
         ref="foodRef"
         v-else-if="currentMenuConfigure === 'food'"
-        class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-12 shadow-2xl shadow-green-900/10 opacity-0"
+        class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 opacity-0"
       >
         <div v-for="f in food" :key="f.type" class="mb-12">
-          <h2 class="text-4xl font-black text-center font-sans text-green-800 mb-4 pb-2 border-b-2 border-green-500/10">
+          <h2 class="text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-4 pb-2 border-b-2 border-green-500/10">
             {{ f.type }}
           </h2>
-          <div class="grid grid-cols-4 gap-2">
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
             <div 
               v-for="flavor in f.items" 
               :key="flavor.name"
               class="group flex flex-col items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-4"
             >
-              <div class="w-24 h-24 rounded-full overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center shadow-inner">
+              <div class="w-20 h-20 md:w-24 md:h-24 shrink-0 rounded-full overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center shadow-inner">
                 <img v-if="flavor.image" :src="flavor.image" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                <span v-else class="text-4xl opacity-50 grayscale">🍰</span>
+                <span v-else class="text-3xl md:text-4xl opacity-50 grayscale">🍰</span>
               </div>
-              <h3 class="text-lg font-bold text-center text-zinc-800 group-hover:text-green-700 transition-colors leading-tight">
+              <h3 class="text-base md:text-lg font-bold text-center text-zinc-800 group-hover:text-green-700 transition-colors leading-tight">
                 {{ flavor.name }}
               </h3>
             </div>
