@@ -409,7 +409,7 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
 </script>
 
 <template>
-  <div class="relative h-[65svh] pt-40 md:h-screen w-full flex items-end justify-center overflow-hidden bg-zinc-950">
+  <div class="relative h-[100svh] pt-40 md:h-screen w-full flex items-center justify-center overflow-hidden bg-zinc-950">
     <div ref="heroImage" class="absolute inset-0 z-0 scale-[1.2] blur-[20px]">
       <NuxtPicture 
         src="/HelloHero.png" 
@@ -419,7 +419,7 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
     </div>
 
     <div ref="textContent" class="relative z-10 text-center px-4 pb-20 md:pb-32 mb-10 max-w-4xl opacity-0">
-      <div ref="logoRef" class="recolor-logo h-[35vw] w-[50vw] md:h-[25vw] md:w-[30vw] mx-auto">
+      <div ref="logoRef" class="recolor-logo h-[45vw] w-[50vw] md:h-[25vw] md:w-[30vw] mx-auto">
         <NuxtPicture
           class="h-full w-full"
           src="/HelloBobaLogo.png"
