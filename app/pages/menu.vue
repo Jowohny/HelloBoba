@@ -416,9 +416,9 @@ onUnmounted(() => {
           anyone who's hungry, we also have our small selection of cakes and cookies.
         </p>
       </div>
-      <div class="relative flex flex-wrap lg:flex-nowrap -mb-3 justify-center lg:justify-around px-2 md:px-8 z-5 gap-4 lg:gap-0">
+      <div class="relative flex flex-wrap lg:flex-nowrap justify-center lg:justify-around px-2 md:px-8 z-5">
         <div
-          class="menu-section relative h-36 w-40 md:w-56 z-50 transition-all duration-500 opacity-0 cursor-none drop-shadow-xl"
+          class="menu-section relative h-32 w-40 md:w-56 z-50 -mb-2 transition-all duration-500 opacity-0 cursor-none drop-shadow-xl"
           :class="currentMenuConfigure === section ? '-translate-y-[10%]' : ''"
           @click="animateMenuIn(section)"
           @mouseenter="currentHover = true"
@@ -431,15 +431,15 @@ onUnmounted(() => {
             class="absolute top-0 left-0 w-full h-full transition-colors duration-500 pointer-events-none"
             :class="currentMenuConfigure === section ? 'text-green-300' : 'text-[#f6f6f6]'"
           >
-            <circle cx="60" cy="55" r="35" fill="currentColor" />
-            <circle cx="120" cy="40" r="45" fill="currentColor" />
-            <circle cx="180" cy="55" r="35" fill="currentColor" />
-            <ellipse cx="120" cy="65" rx="85" ry="30" fill="currentColor" /> 
+            <circle cx="60" cy="65" r="35" fill="currentColor" />
+            <circle cx="120" cy="50" r="45" fill="currentColor" />
+            <circle cx="180" cy="65" r="35" fill="currentColor" />
+            <ellipse cx="120" cy="75" rx="85" ry="30" fill="currentColor" /> 
 
-            <circle cx="210" cy="100" r="10" fill="currentColor"/>
-            <circle cx="230" cy="110" r="6" fill="currentColor"/>
+            <circle cx="212" cy="105" r="10" fill="currentColor"/>
+            <circle cx="230" cy="115" r="6" fill="currentColor"/>
           </svg>
-          <h3 class="relative z-10 text-xl md:text-2xl text-transparent -translate-y-[10%] bg-clip-text bg-gradient-to-b from-white to-[#8f1c67] font-[900] w-full h-full font-sans tracking-wide flex justify-center uppercase items-center">
+          <h3 class="relative z-10 text-xl md:text-2xl text-transparent -translate-y-[10%] bg-clip-text bg-gradient-to-b from-white to-[#8f1c67] font-[900] w-full h-full font-sans tracking-wide mt-2 flex justify-center uppercase items-center">
             {{ section }}
           </h3>
         </div>
