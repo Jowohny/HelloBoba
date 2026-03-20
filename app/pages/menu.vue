@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
@@ -92,7 +92,6 @@ const toppings = [
   { name: 'Creme Brulee', desc: 'A decadent, creamy swirl inspired by the classic French dessert with hints of toasted sugar.', image: ''}
 ];
 
-
 const boba = [
   { name: 'Brown Sugar Boba', desc: 'Our base boba choice, made with tapioca starch, flavored with brown sugar and chewy in texture.', image: ''},
   { name: 'Strawberry Popping Boba', desc: 'Liquid-filled balls with the essence and goodness of strawberry with a juicy burst of flavor.', image: ''},
@@ -125,6 +124,7 @@ const food = [
     ]
   }
 ];
+
 const sections = [ 'drinks', 'toppings', 'boba', 'food' ]
 
 const headerRef = ref(null);
@@ -138,6 +138,9 @@ const currentHover = useState('hovering', () => false);
 
 const currentMenuConfigure = ref<string>('drinks');
 const firstTime = ref<boolean>(false);
+
+const totalBoba = ref<number>(60);
+let resizeTimer: ReturnType<typeof setTimeout>;
 
 const groupedMenu = computed(() => {
   const dictionary: Record<string, typeof menuItems> = {};
@@ -158,30 +161,60 @@ const activeTab = ref(categories.value[0]);
 
 const currentDrinks = computed(() => groupedMenu.value[activeTab.value!] || []);
 
-const bobas = Array.from({ length: 60 }).map((_, i) => {
-  const sizeClass = ['w-3 h-3', 'w-5 h-5', 'w-8 h-8', 'w-12 h-12', 'w-16 h-16', 'w-20 h-20'][i % 5];
-  
-  const leftPos = (i * 13) % 100; 
-  
-  let depthClass = 'opacity-90 z-20 blur-[0.9px]';
-  if (i % 3 === 0) depthClass = 'blur-[3px] opacity-40 z-0';
-  if (i % 4 === 0) depthClass = 'blur-[1px] opacity-70 z-10'; 
+const bobas = ref<any[]>([]);
 
-  return {
-    id: i,
-    size: sizeClass,
-    left: `${leftPos}%`,
-    depth: depthClass
-  };
-});
+const updateDisplayAmount = () => {
+  clearTimeout(resizeTimer);
+  
+  resizeTimer = setTimeout(async () => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth < 768) {
+        totalBoba.value = 20; 
+      } else if (window.innerWidth < 1024) {
+        totalBoba.value = 40; 
+      } else {
+        totalBoba.value = 60;
+      }
+    }
+    
+    gsap.killTweensOf('.boba-pearl');
 
-onMounted(() => {
+    bobas.value = [];
+    createRandomBoba();
+
+    await nextTick();
+    animateBobaElements();
+  }, 250);
+};
+
+const createRandomBoba = () => {
+  const newBobas = []; 
+  
+  for (let i = 0; i < totalBoba.value; i++) {
+    const sizeClass = ['w-3 h-3', 'w-5 h-5', 'w-8 h-8', 'w-12 h-12', 'w-16 h-16', 'w-20 h-20'][i % 5];
+    const leftPos = (i * 13) % 100; 
+    
+    let depthClass = 'opacity-90 z-20 blur-[0.9px]';
+    if (i % 3 === 0) depthClass = 'blur-[3px] opacity-40 z-0';
+    if (i % 4 === 0) depthClass = 'blur-[1px] opacity-70 z-10'; 
+    
+    newBobas.push({
+      id: Math.random(),
+      size: sizeClass,
+      left: `${leftPos}%`,
+      depth: depthClass
+    });
+  }
+
+  bobas.value = newBobas;
+}
+
+const animateBobaElements = () => {
   const bobaElements = gsap.utils.toArray('.boba-pearl');
 
   bobaElements.forEach((boba: any) => {
     const speed = gsap.utils.random(5, 15);    
     const drift = gsap.utils.random(-40, 40);
-    
     const startDelay = gsap.utils.random(-speed, 0); 
 
     gsap.fromTo(boba, {
@@ -198,7 +231,17 @@ onMounted(() => {
       delay: startDelay
     });
   });
+}
 
+onMounted(() => {
+  updateDisplayAmount();
+  createRandomBoba();
+  
+  nextTick(() => {
+    animateBobaElements();
+  });
+
+  window.addEventListener('resize', updateDisplayAmount);
 
   watch(hasPlayedIntro, async (isDone) => {
     if (isDone) {
@@ -342,6 +385,11 @@ const animateMenuIn = async (nextMenuConfigure: string) => {
     duration: 0.5
   });
 }
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateDisplayAmount);
+})
+
 </script>
 
 <template>
@@ -451,7 +499,7 @@ const animateMenuIn = async (nextMenuConfigure: string) => {
                 </p>
               </div>
             </div>
-            <div class="flex w-full lg:w-auto justify-center lg:justify-start gap-6 lg:pl-4 mt-2 lg:mt-0 pt-2 lg:pt-0 border-t border-zinc-100 lg:border-t-0">
+            <div class="flex w-full lg:w-auto justify-center lg:justify-start gap-6 lg:pl-4 mt-2 lg:mt-0 pt-2 lg:pt-0 border-t border-zinc-300 lg:border-t-0">
               <div class="flex flex-col items-center">
                 <span class="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-1">Reg (16oz)</span>
                 <span class="font-black text-base md:text-lg text-zinc-800">
