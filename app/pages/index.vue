@@ -112,20 +112,7 @@ const top10Drinks = [
 	}
 ]
 
-const flavorTest = [
-	'/flavors/lychee.png',
-	'/flavors/mango.png',
-	'/flavors/mint.png',
-	'/flavors/oreo.png',
-	'/flavors/passionfruit.png',
-	'/flavors/peach.png',
-	'/flavors/strawberry.png',
-	'/flavors/watermelon.png'
-]
-
 onMounted(() => {
-	updateDisplayAmount();
-  window.addEventListener('resize', updateDisplayAmount);
 
   const startFloating = () => {
     gsap.to(logoRef.value, {
@@ -297,119 +284,17 @@ onMounted(() => {
 		}
 	}, { immediate: true });
 
-	createAndAnimateIcons();
 });
 
-const updateDisplayAmount = () => {
-	clearTimeout(resizeTimer);
-
-  if (typeof window !== 'undefined') {
-    if (window.innerWidth < 768) {
-      fruitAmount.value = 8; 
-    } else if (window.innerWidth < 1024) {
-      fruitAmount.value = 12; 
-    } else {
-      fruitAmount.value = 20;
-    }
-  }
-	
-	resizeTimer = setTimeout(() => {
-    
-    if (typeof window !== 'undefined') {
-      if (window.innerWidth < 768) {
-        fruitAmount.value = 8; 
-      } else if (window.innerWidth < 1024) {
-        fruitAmount.value = 12; 
-      } else {
-        fruitAmount.value = 20;
-      }
-    }
-    
-    backgroundIcons.value.forEach(icon => {
-      gsap.killTweensOf(icon);
-    });
-
-		backgroundIcons.value = [];
-    createAndAnimateIcons();
-    
-  }, 250);
-};
 
 onUnmounted(() => {
 	document.body.style.overflow = '';
-	window.removeEventListener('resize', updateDisplayAmount);
 })
 
-const createAndAnimateIcons = () => {
-  const container = bouncingContainerRef.value;
-  if (!container) return;
-
-  const bounds = container.getBoundingClientRect();
-
-  for (let i = 0; i < fruitAmount.value; i++) {
-    const iconData: BouncingIcon = {
-      id: i,
-      icon: flavorTest[Math.floor(Math.random() * flavorTest.length)]!,
-      x: Math.random() * bounds.width,
-      y: Math.random() * bounds.height,
-      vx:	(Math.random() - 0.5) * 300, 
-      vy: (Math.random() - 0.5) * 300,
-      size: 200 + Math.random() * 100,
-			opacity: 0.5 + Math.random() * 0.5,
-			rotation: 0
-    };
-    backgroundIcons.value.push(iconData);
-    const reactiveIcon = backgroundIcons.value[i];
-    animateIcon(reactiveIcon!, bounds);
-  }
-}
-
-const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
-  const timeToXWall = icon.vx > 0 ? (bounds.width - icon.x - icon.size) / icon.vx : -icon.x / icon.vx;
-  const timeToYWall = icon.vy > 0 ? (bounds.height - icon.y - icon.size) / icon.vy : -icon.y / icon.vy;
-
-  const duration = Math.min(timeToXWall, timeToYWall);
-
-  gsap.to(icon, {
-    x: icon.x + icon.vx * duration,
-    y: icon.y + icon.vy * duration,
-    duration: duration,
-    ease: 'none', 
-    onComplete: () => {
-			let hitWall = false;
-
-			if (duration === timeToXWall) {
-				icon.vx *= -1; 
-				hitWall = true;
-			}
-
-			if (duration === timeToYWall) {
-				icon.vy *= -1; 
-				hitWall = true;
-			}
-
-			if (hitWall) {
-				const speed = Math.sqrt(icon.vx * icon.vx + icon.vy * icon.vy);
-				
-				const spinDirection = Math.random() > 0.5 ? 1 : -1;
-				const spinAmount = speed * 0.8 * spinDirection;
-
-				gsap.to(icon, {
-					rotation: `+=${spinAmount}`, 
-					duration: 5,      
-					ease: 'expo.out',
-					overwrite: 'auto'
-				});
-			}
-
-			animateIcon(icon, bounds);
-    }
-  });
-}
 </script>
 
 <template>
-  <div class="relative h-[100svh] pt-40 md:h-screen w-full flex items-center justify-center overflow-hidden bg-zinc-950">
+  <div class="relative h-[100svh] pt-40 md:h-screen w-full flex items-center justify-center overflow-hidden bg-zinc-950 z-40">
     <div ref="heroImage" class="absolute inset-0 z-0 scale-[1.2] blur-[20px]">
       <NuxtPicture 
         src="/HelloHero.png" 
@@ -442,7 +327,7 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
     </div>
   </div>
 
-  <div ref="bannerRef" class="relative w-full -mt-16 md:-mt-20 overflow-hidden py-10 -mb-16 z-30 pointer-events-none opacity-0">
+  <div ref="bannerRef" class="relative w-full -mt-16 md:-mt-20 overflow-hidden py-10 -mb-16 z-30 pointer-events-none opacity-0 z-50">
     <div class="bg-[#3f6212] py-4 border-y-4 border-[#a3e635] w-full rotate-2 scale-110 relative flex items-center justify-center">
       <div ref="bannerTextRef" class="whitespace-nowrap translate-x-1/4 flex gap-4 text-[#ecfccb] text-2xl md:text-4xl font-[900] uppercase italic tracking-tighter">
         <span v-for="n in 10" :key="n">
@@ -452,28 +337,26 @@ const animateIcon = (icon: BouncingIcon, bounds: DOMRect) => {
     </div>
   </div>
 
-  <div ref="bouncingContainerRef" class="relative">
-    <div class="absolute inset-0 w-full bg-white h-full pointer-events-none z-0">
-      <img 
-        v-for="icon in backgroundIcons" 
-        :key="icon.id"
-        :name="icon.icon"
-        :src="icon.icon"
-        class="absolute"
-        :style="{
-            left: `${icon.x}px`,
-            top: `${icon.y}px`,
-            width: `${icon.size}px`,
-            opacity: icon.opacity,
-            transform: `rotate(${icon.rotation}deg)`
-        }"
-      />
-    </div>
-    <Carousel :items="top10Drinks"/>
-    <svg class="absolute -scale-y-100 bottom-0 left-0 w-full text-[#3f6212] fill-current h-16 md:h-32" viewBox="0 0 1440 320" preserveAspectRatio="none">
-        <path d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
-    </svg>
-  </div>
+	<div class="relative bg-white boba-pattern overflow-hidden">
+
+		<div
+			className="absolute inset-0 opacity-[0.2]"
+			:style="{
+				backgroundImage: `
+					linear-gradient(45deg, transparent 49%, #00cc00 49%, #00cc00 51%, transparent 51%),
+					linear-gradient(-45deg, transparent 49%, #00cc00 49%, #00cc00 51%, transparent 51%)
+				`,
+				backgroundSize: `40px 40px`,
+			}"
+		/>
+
+
+		<Carousel :items="top10Drinks"/>
+
+		<svg class="absolute -scale-y-100 bottom-0 left-0 w-full text-[#3f6212] fill-current h-16 md:h-32 z-0" viewBox="0 0 1440 320" preserveAspectRatio="none">
+				<path d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+		</svg>
+	</div>
 
   <div class="relative bg-[#3f6212] pt-8 pb-12 overflow-hidden text-[#ecfccb]">
     <div class="max-w-7xl mx-auto px-6 text-center relative z-10">
