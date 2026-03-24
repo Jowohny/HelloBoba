@@ -340,7 +340,7 @@ onUnmounted(() => {
 	<div class="relative bg-white boba-pattern overflow-hidden">
 
 		<div
-			className="absolute inset-0 opacity-[0.2]"
+			class="absolute inset-0 opacity-[0.2]"
 			:style="{
 				backgroundImage: `
 					linear-gradient(45deg, transparent 49%, #00cc00 49%, #00cc00 51%, transparent 51%),
