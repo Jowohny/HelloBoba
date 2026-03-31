@@ -13,32 +13,40 @@ const currentNewsItems = [
     title: "Buy One, Get One 50% Off",
     date: "Monday-Friday: 4PM - 7PM",
     category: "Promotion",
-    image: "/flavors/watermelon.png",
-    description: "",
+    image: "/HappyHour.png",
+    description: "During the assigned hours, come in and order 2 drinks from the poster and get 50% off the second drink.",
     featured: true
   },
   {
     title: "We are now Catering!",
     date: "Open Hours, Anyday",
     category: "Events",
-    image: "/kiwiboba.png",
-    description: "Weddings, birthdays, or corporate events—Hello Boba is hitting the road. Book our mobile setup for your next party.",
+    image: "/Catering.png",
+    description: "Weddings, birthdays, or corporate events, Hello Boba is hitting the road. Book our mobile setup for your next party.",
     featured: false
   },
   {
     title: "10% Off Any Order",
-    date: "Saturday-Sunday: 7PM - 10PM",
+    date: "Open Hours, Anyday",
     category: "Promotion",
-    image: "/bobalogo.png",
-    description: "Just a heads up! We will be closing early at 5:00 PM this Friday for a team building event. Normal hours resume Saturday.",
+    image: "/Reviews.png",
+    description: "To get 10% off your entire order, give us a review on Google and/or Yelp, it helps us get our name around and helps you spend less!",
     featured: false
   },
   {
     title: "Game Night",
     date: "Saturday-Sunday: 7PM - 10PM",
     category: "Promotion",
-    image: "/bobalogo.png",
-    description: "Just a heads up! We will be closing early at 5:00 PM this Friday for a team building event. Normal hours resume Saturday.",
+    image: "/GameNight.png",
+    description: "On the weekends, drop by during the final hours and get special discounts and rates on token to play our merchandisers!",
+    featured: true
+  },
+  {
+    title: "10% Off Any Order",
+    date: "Open Hours, Anyday",
+    category: "Promotion",
+    image: "/School.png",
+    description: "If you are a student, feel free to show us your student ID to get a 10% discount off your entire order!",
     featured: true
   }
 ];
@@ -46,10 +54,24 @@ const currentNewsItems = [
 const previousNewsItems = [
   {
     title: "The Lemon Challenge",
-    date: "January 1, 2026 - Present",
+    date: "January 1, 2026 - January 31, 2026",
     category: "Challenge",
-    image: "/kiwiboba.png", 
-    description: "You asked, we delivered. The official Hello Boba heavy-cotton oversized tees are now in stock behind the register."
+    image: "/LemonChallenge.png", 
+    description: "Come by and try your luck to balance a quarter on top of a lemon for a free drink. If you succeed in doing so, you get a picture on the wall and a free drink of your choice!"
+  },
+  {
+    title: "Christmas Day Special",
+    date: "December 25, 2025",
+    category: "Announcement",
+    image: "/Christmas.png", 
+    description: "Come in on Christmas Day and get 25% off 1 drink on any order of 2 or more drinks from our Matcha Series!"
+  },
+  {
+    title: "Christmas Eve Special",
+    date: "December 24, 2025",
+    category: "Announcement",
+    image: "/ChristmasEve.png", 
+    description: "Come in on Christmas Day and get 50% off 1 drink on any order of 2 or more drinks from our Creme Brulee Series!"
   }
 ];
 
@@ -160,39 +182,35 @@ onMounted(() => {
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-[450px] mb-20 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-20 gap-8">
         <div 
           v-for="(item, index) in currentNewsItems" 
           :key="index"
           ref="currentCardsRef" 
-          class="opacity-0 group relative bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl shadow-zinc-200/50 border border-zinc-100 p-6 flex flex-col"
-          :class="item.featured ? 'md:col-span-2' : ''"
+          class="opacity-0 group relative bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl shadow-zinc-200/50 border border-zinc-100 flex flex-col overflow-hidden h-full"
         >
-          <div class="relative bg-zinc-50 rounded-2xl overflow-hidden shrink-0 border w-full h-1/2">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10"></div>
+          <div class="relative bg-zinc-50 shrink-0 border-b border-zinc-200 w-full aspect-[9/11] overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10 pointer-events-none"></div>
             <NuxtPicture 
               :src="item.image" 
               class="w-full h-full"
-              :img-attrs="{ class: 'w-full h-full object-contain p-8 group-hover:scale-110 transition-transform duration-700 ease-out' }"
+              :img-attrs="{ class: 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out' }"
             />
           </div>
 
-          <div 
-            class="flex flex-col flex-grow justify-start pt-6 h-1/2"
-            :class="item.featured ? ' text-center items-center' : ''"
-          >
-            <div class="flex items-center mb-4 gap-3">
-              <span class="bg-green-100 text-green-700 px-3 py-1 border border-green-200 rounded-full text-[10px] shrink-0 font-black uppercase tracking-widest">
+          <div class="flex flex-col flex-grow justify-start p-6">
+            <div class="flex items-center mb-3 gap-3 shrink-0">
+              <span class="bg-green-100 text-green-700 px-3 py-1 border border-green-200 rounded-full text-[10px] font-black uppercase tracking-widest">
                 {{ item.category }}
               </span>
-              <span class="text-xs text-zinc-400 font-bold tracking-wide">
+              <span class="text-xs text-zinc-400 font-bold tracking-wide truncate">
                 {{ item.date }}
               </span>
             </div>
-            <h3 class="font-black font-sans text-xl md:text-2xl text-zinc-900 tracking-tight leading-tight mb-3 group-hover:text-[#65a30d] transition-colors">
+            <h3 class="font-black font-sans text-xl md:text-2xl text-zinc-900 tracking-tight leading-tight mb-2 group-hover:text-[#65a30d] transition-colors line-clamp-2">
               {{ item.title }}
             </h3>
-            <p class="text-xs md:text-sm text-zinc-500 font-semibold leading-relaxed mb-6">
+            <p class="text-xs md:text-sm text-zinc-500 font-semibold leading-relaxed">
               {{ item.description }}
             </p>
           </div>
@@ -203,37 +221,35 @@ onMounted(() => {
         Past Events
       </span>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-[450px] gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-20 gap-8 opacity-50">
         <div 
           v-for="(item, index) in previousNewsItems" 
           :key="index"
-          ref="pastCardsRef" 
-          class="opacity-0 group relative bg-black/70 backdrop-blur-sm rounded-3xl shadow-2xl shadow-zinc-200 border border-zinc-100 p-6 flex flex-col"
+          ref="currentCardsRef" 
+          class="opacity-0 group relative bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl shadow-zinc-200/50 border border-zinc-100 flex flex-col overflow-hidden h-full"
         >
-          <div class="relative bg-zinc-50 rounded-2xl overflow-hidden shrink-0 border w-full h-1/2">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10"></div>
+          <div class="relative bg-zinc-50 shrink-0 border-b border-zinc-200 w-full aspect-[4/5] overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10 pointer-events-none"></div>
             <NuxtPicture 
               :src="item.image" 
               class="w-full h-full"
-              :img-attrs="{ class: 'w-full h-full opacity-60 object-contain p-8 group-hover:scale-110 transition-transform duration-700 ease-out' }"
+              :img-attrs="{ class: 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out' }"
             />
           </div>
 
-          <div class="flex flex-col flex-grow justify-start pt-6 h-1/2">
-            <div class="flex items-center mb-4 gap-3">
-              <span class="bg-green-100 text-green-700 px-3 py-1 border border-green-200 rounded-full text-[10px] shrink-0 font-black uppercase tracking-widest">
+          <div class="flex flex-col flex-grow justify-start p-6">
+            <div class="flex items-center mb-3 gap-3 shrink-0">
+              <span class="bg-green-100 text-green-700 px-3 py-1 border border-green-200 rounded-full text-[10px] font-black uppercase tracking-widest">
                 {{ item.category }}
               </span>
-              <span class="text-xs text-zinc-400 font-bold tracking-wide">
+              <span class="text-xs text-zinc-400 font-bold tracking-wide truncate">
                 {{ item.date }}
               </span>
             </div>
-            
-            <h3 class="font-black font-sans text-xl md:text-2xl text-zinc-900 tracking-tight leading-tight mb-3 group-hover:text-[#65a30d] transition-colors">
+            <h3 class="font-black font-sans text-xl md:text-2xl text-zinc-900 tracking-tight leading-tight mb-2 group-hover:text-[#65a30d] transition-colors line-clamp-2">
               {{ item.title }}
             </h3>
-            
-            <p class="text-xs md:text-sm text-zinc-500 font-semibold leading-relaxed mb-6">
+            <p class="text-xs md:text-sm text-zinc-500 font-semibold leading-relaxed">
               {{ item.description }}
             </p>
           </div>
