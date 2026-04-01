@@ -187,7 +187,7 @@ onMounted(() => {
 
 			timeline.add(startFloating, "-=1");
 
-			timeline.fromTo(bannerRef.value, {
+			timeline.fromTo(['.top-banner-bar', '.bottom-banner-bar', bannerRef.value], {
 				y: -40,
 				autoAlpha: 0,
 				filter: 'blur(10px)'
@@ -325,13 +325,17 @@ onUnmounted(() => {
         hopefully something along the length of this.
       </p>
     </div>
+
+		<svg class="top-banner-bar absolute -scale-x-100 -scale-y-[0.5] bottom-0 left-0 w-full text-[#a3e635] fill-current h-16 md:h-32 z-0 rotate-[2.5deg] opacity-0" viewBox="0 0 1440 320" preserveAspectRatio="none">
+			<path d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+		</svg>
   </div>
 
-  <div ref="bannerRef" class="relative w-full -mt-16 md:-mt-20 overflow-hidden py-10 -mb-16 z-30 pointer-events-none opacity-0 z-50">
+  <div ref="bannerRef" class="relative w-full -mt-16 md:-mt-20 overflow-hidden py-10 -mb-20 z-30 pointer-events-none opacity-0 z-50">
     <div class="bg-[#3f6212] py-4 border-y-4 border-[#a3e635] w-full rotate-2 scale-110 relative flex items-center justify-center">
       <div ref="bannerTextRef" class="whitespace-nowrap translate-x-1/4 flex gap-4 text-[#ecfccb] text-2xl md:text-4xl font-[900] uppercase italic tracking-tighter">
         <span v-for="n in 10" :key="n">
-          boba comes free with any drink  •
+          boba comes free with any drink&nbsp;&nbsp;•
         </span>
       </div>
     </div>
@@ -350,11 +354,14 @@ onUnmounted(() => {
 			}"
 		/>
 
+		<svg class="bottom-banner-bar absolute top-0 left-0 w-full text-[#a3e635] fill-current h-16 md:h-28 z-0 rotate-[2.5deg]" viewBox="0 0 1440 320" preserveAspectRatio="none">
+			<path d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+		</svg>
 
 		<Carousel :items="top10Drinks"/>
 
 		<svg class="absolute -scale-y-100 bottom-0 left-0 w-full text-[#3f6212] fill-current h-16 md:h-32 z-0" viewBox="0 0 1440 320" preserveAspectRatio="none">
-				<path d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+			<path d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
 		</svg>
 	</div>
 
