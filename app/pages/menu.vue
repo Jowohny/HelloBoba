@@ -81,15 +81,15 @@ const menuItems = [
 ];
 
 const toppings = [
-  { name: 'Mango Jelly', desc: 'A chewy, gel-based topping infused with sweet tropical mango flavor.', image: ''},
-  { name: 'Lychee Jelly', desc: 'Translucent, firm jelly bits with a delicate, floral grape-like sweetness.', image: ''},
-  { name: 'Coffee Jelly', desc: 'Robust and slightly bitter cubes made from real coffee to balance sweet milk teas.', image: ''},
-  { name: 'Grass Jelly', desc: 'A traditional, herbal jelly with a mild minty undertone and a silky texture.', image: ''},
-  { name: 'Rainbow Jelly', desc: 'Colorful, multi-flavored coconut strips that offer a firm and playful chew.', image: ''},
-  { name: 'Aloe Vera', desc: 'Refreshing, juicy cubes of real aloe plant that are light and naturally sweet.', image: ''},
-  { name: 'Egg Pudding', desc: 'A smooth, custard-like topping with a rich vanilla and caramelized sugar taste.', image: ''},
-  { name: 'Sea Salt Cream', desc: 'A thick, frothy milk foam layer with a savory saltiness that cuts through sweetness.', image: ''},
-  { name: 'Creme Brulee', desc: 'A decadent, creamy swirl inspired by the classic French dessert with hints of toasted sugar.', image: ''}
+  { name: 'Mango Jelly', desc: 'A chewy, gel-based topping infused with sweet tropical mango flavor.', image: '/toppings/MangoJelly.png'},
+  { name: 'Lychee Jelly', desc: 'Translucent, firm jelly bits with a delicate, floral grape-like sweetness.', image: '/toppings/LycheeJelly.png'},
+  { name: 'Coffee Jelly', desc: 'Robust and slightly bitter cubes made from real coffee to balance sweet milk teas.', image: '/toppings/CoffeeJelly.png'},
+  { name: 'Grass Jelly', desc: 'A traditional, herbal jelly with a mild minty undertone and a silky texture.', image: '/toppings/GrassJelly.png'},
+  { name: 'Rainbow Jelly', desc: 'Colorful, multi-flavored coconut strips that offer a firm and playful chew.', image: '/toppings/RainbowJelly.png'},
+  { name: 'Aloe Vera', desc: 'Refreshing, juicy cubes of real aloe plant that are light and naturally sweet.', image: '/toppings/AloeVera.png'},
+  { name: 'Egg Pudding', desc: 'A smooth, custard-like topping with a rich vanilla and caramelized sugar taste.', image: '/toppings/EggPudding.png'},
+  { name: 'Sea Salt Cream', desc: 'A thick, frothy milk foam layer with a savory saltiness that cuts through sweetness.', image: '/toppings/SeaCream.png'},
+  { name: 'Creme Brulee', desc: 'A decadent, creamy swirl inspired by the classic French dessert with hints of toasted sugar.', image: '/toppings/CremeBrulee.png'}
 ];
 
 const boba = [
@@ -417,7 +417,7 @@ watch(activeTab, async (newTab) => {
 	
 	if (newTab) {	
 		const activeEl = document.getElementById(`tab-${newTab.replace(/\s+/g, '-')}`);
-		
+
 		if (activeEl) {
 			activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
 		}
