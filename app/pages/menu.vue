@@ -2,6 +2,7 @@
 import { onMounted, onUnmounted } from 'vue';
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
+import { addComponentsDir } from 'nuxt/kit';
 
 gsap.registerPlugin(SplitText)
 
@@ -133,6 +134,7 @@ const drinksRef = ref(null);
 const toppingRef = ref(null);
 const bobaRef = ref(null);
 const foodRef = ref(null);
+const drinkScrollBar = ref(null);
 
 const hasPlayedIntro = useState('playedIntro', () => false);
 const currentHover = useState('hovering', () => false);
@@ -161,7 +163,6 @@ const categories = computed(() => Object.keys(groupedMenu.value));
 const activeTab = ref(categories.value[0]);
 
 const currentDrinks = computed(() => groupedMenu.value[activeTab.value!] || []);
-const currentIndex = ref(0);
 
 const bobas = ref<any[]>([]);
 
@@ -171,11 +172,11 @@ const updateDisplayAmount = () => {
   resizeTimer = setTimeout(async () => {
     if (typeof window !== 'undefined') {
       if (window.innerWidth < 768) {
-        totalBoba.value = 20; 
+        totalBoba.value = 10; 
       } else if (window.innerWidth < 1024) {
-        totalBoba.value = 40; 
+        totalBoba.value = 20; 
       } else {
-        totalBoba.value = 60;
+        totalBoba.value = 30;
       }
     }
     
@@ -203,10 +204,6 @@ const decreaseIndex = () => {
 		const nextIndex = currentIndex === 0 ? categories.value.length-1 : currentIndex-1;
 		activeTab.value = categories.value[nextIndex];
 	}
-}
-
-const changeIndex = (index: number) => {
-	currentIndex.value = index;
 }
 
 const createRandomBoba = () => {
@@ -478,186 +475,128 @@ watch(activeTab, async (newTab) => {
           </h3>
         </div>
       </div>
-      <div 
-        ref="drinksRef" 
-        v-if="currentMenuConfigure === 'drinks'"
-        class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10"
-        :class="firstTime ? '' : 'opacity-0'"
-      >
-        <div class="flex flex-row justify-center">
-					<button @click="decreaseIndex" class="shrink-0 h-10 w-10 md:h-12 md:w-12 rounded-full bg-green-600 flex items-center justify-center shadow-lg shadow-green-600/30 hover:bg-green-700 transition-all active:scale-95 p-3 md:p-4 mr-2">
-						<NuxtPicture 
-							src="/leftchevron.png" 
-							class="w-full h-full flex items-center justify-center"
-							:img-attrs="{ class: 'w-full h-full object-contain' }"
-						/>
-					</button>
-					<div class="flex overflow-x-auto gap-3 pt-1 pb-8 border-b-2 border-green-500/20">
-						<button
-							v-for="cat in categories"
-							:key="cat"
-							@click="activeTab = cat"
-							:id="`tab-${cat.replace(/\s+/g, '-')}`"
-							@mouseenter="currentHover = true"
-							@mouseleave="currentHover = false"
-							:class="[
-								'section px-4 md:px-5 py-2 md:py-2.5 rounded-2xl font-bold text-xs md:text-sm tracking-wide whitespace-nowrap transition-all duration-300 border border-zinc-500/30',
-								activeTab === cat
-									? 'bg-green-600 text-white border-green-600 shadow-md shadow-green-600/50'
-									: 'bg-white/50 text-zinc-500 border-transparent hover:bg-white hover:text-zinc-800 shadow-md shadow-zinc-500/50',
-									firstTime ? '' : 'opacity-0'
-							]"
-						>
-							{{ cat }}
-						</button>
-					</div>
-					<button @click="increaseIndex" class="shrink-0 h-10 w-10 md:h-12 md:w-12 rounded-full bg-green-600 flex items-center justify-center shadow-lg shadow-green-600/30 hover:bg-green-700 transition-all active:scale-95 p-3 md:p-4 ml-2">
-						<NuxtPicture 
-							src="/rightchevron.webp" 
-							class="w-full h-full flex items-center justify-center"
-							:img-attrs="{ class: 'w-full h-full object-contain' }"
-						/>
-					</button>
-				</div>
-
-        <h2 class="drink-section text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2 mt-6">
-          {{ activeTab }}
-        </h2>
-
-        <div class="flex flex-col gap-2 min-h-[500px]">
-          <div 
-            v-for="item in currentDrinks" 
-            :key="item.name" 
-            class="drink-item group flex flex-col lg:flex-row justify-between items-start lg:items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-4 lg:gap-0"
-          >
-            <div class="flex flex-1 items-start md:items-center gap-4 md:gap-5 pr-0 lg:pr-4 w-full">
-              <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
-                <img v-if="item.image" :src="item.image" class="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-[1.1]" />
-                <span v-else class="text-2xl md:text-3xl opacity-50 grayscale">🧋</span>
-              </div>
-              <div class="flex-1">
-                <div class="flex flex-col md:flex-row md:flex-wrap items-start md:items-center gap-2 md:gap-3 mb-2">
-                  <h3 class="text-lg md:text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors">
-                    {{ item.name }}
-                  </h3>
-                  <div class="flex gap-2 flex-wrap">
-                    <span v-if="item.DF" class="px-2 py-1 rounded-md bg-orange-100/80 text-orange-700 text-[10px] font-black tracking-widest border border-orange-200">Dairy Free</span>
-                    <span v-if="item.CF" class="px-2 py-1 rounded-md bg-purple-100/80 text-purple-700 text-[10px] font-black tracking-widest border border-purple-200">Caffeine Free</span>
+      <div class="grid relative w-full mt-8">
+        <div
+          ref="drinksRef"
+          class="col-start-1 row-start-1 w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10"
+          :class="[
+            firstTime ? '' : 'opacity-0', 
+            currentMenuConfigure === 'drinks' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none'
+          ]"
+        >
+          <div class="flex flex-row justify-center">
+            <button @click="decreaseIndex" class="shrink-0 h-10 w-10 md:h-12 md:w-12 rounded-full bg-green-600 flex items-center justify-center shadow-lg shadow-green-600/30 hover:bg-green-700 transition-all active:scale-95 p-3 md:p-4 mr-2">
+              <NuxtPicture src="/leftchevron.png" class="w-full h-full flex items-center justify-center" :img-attrs="{ class: 'w-full h-full object-contain' }" />
+            </button>
+            <div class="flex overflow-x-auto gap-3 pt-1 pb-8 border-b-2 border-green-500/20">
+              <button v-for="cat in categories" :key="cat" @click="activeTab = cat" :id="`tab-${cat.replace(/\s+/g, '-')}`" @mouseenter="currentHover = true" @mouseleave="currentHover = false" :class="[ 'section px-4 md:px-5 py-2 md:py-2.5 rounded-2xl font-bold text-xs md:text-sm tracking-wide whitespace-nowrap transition-all duration-300 border border-zinc-500/30', activeTab === cat ? 'bg-green-600 text-white border-green-600 shadow-md shadow-green-600/50' : 'bg-white/50 text-zinc-500 border-transparent hover:bg-white hover:text-zinc-800 shadow-md shadow-zinc-500/50', firstTime ? '' : 'opacity-0' ]">
+                {{ cat }}
+              </button>
+            </div>
+            <button @click="increaseIndex" class="shrink-0 h-10 w-10 md:h-12 md:w-12 rounded-full bg-green-600 flex items-center justify-center shadow-lg shadow-green-600/30 hover:bg-green-700 transition-all active:scale-95 p-3 md:p-4 ml-2">
+              <NuxtPicture src="/rightchevron.webp" class="w-full h-full flex items-center justify-center" loading="lazy" :img-attrs="{ class: 'w-full h-full object-contain' }" />
+            </button>
+          </div>
+          <h2 class="drink-section text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2 mt-6">
+            {{ activeTab }}
+          </h2>
+          <div class="grid relative min-h-[500px]">
+            <div v-for="category in categories" :key="category" class="col-start-1 row-start-1 flex flex-col gap-2 transition-opacity duration-300 ease-in-out" :class="activeTab === category ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'">
+              <div v-for="item in groupedMenu[category]" :key="item.name" class="drink-item group flex flex-col lg:flex-row justify-between items-start lg:items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-4 lg:gap-0">
+                <div class="flex flex-1 items-start md:items-center gap-4 md:gap-5 pr-0 lg:pr-4 w-full">
+                  <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
+                    <img :src="item.image" decoding="async" class="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-[1.1]" />
+                  </div>
+                  <div class="flex-1">
+                    <div class="flex flex-col md:flex-row md:flex-wrap items-start md:items-center gap-2 md:gap-3 mb-2">
+                      <h3 class="text-lg md:text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors">{{ item.name }}</h3>
+                      <div class="flex gap-2 flex-wrap">
+                        <span v-if="item.DF" class="px-2 py-1 rounded-md bg-orange-100/80 text-orange-700 text-[10px] font-black tracking-widest border border-orange-200">Dairy Free</span>
+                        <span v-if="item.CF" class="px-2 py-1 rounded-md bg-purple-100/80 text-purple-700 text-[10px] font-black tracking-widest border border-purple-200">Caffeine Free</span>
+                      </div>
+                    </div>
+                    <p class="text-xs md:text-sm font-semibold text-zinc-500 max-w-2xl">{{ item.desc }}</p>
                   </div>
                 </div>
-                <p class="text-xs md:text-sm font-semibold text-zinc-500 max-w-2xl">
-                  {{ item.desc }}
-                </p>
-              </div>
-            </div>
-            <div class="flex w-full lg:w-auto justify-center lg:justify-start gap-6 lg:pl-4 mt-2 lg:mt-0 pt-2 lg:pt-0 border-t border-zinc-300 lg:border-t-0">
-              <div class="flex flex-col items-center">
-                <span class="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-1">Reg (16oz)</span>
-                <span class="font-black text-base md:text-lg text-zinc-800">
-                  {{ item.price.R }}
-                </span>
-              </div>
-              <div class="flex flex-col items-center">
-                <span class="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-1">Lrg (24oz)</span>
-                <span class="font-black text-base md:text-lg text-green-700">
-                  {{ item.price.L }}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div 
-        ref="toppingRef" 
-        v-else-if="currentMenuConfigure === 'toppings'"
-        class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 opacity-0"
-      >
-        <h2 class="text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
-          Toppings
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 auto-rows-min">
-          <div 
-            v-for="topping in toppings" 
-            :key="topping.name" 
-            class="group flex flex-row justify-between items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-0"
-          >
-            <div class="flex flex-1 items-center gap-4 md:gap-5 pr-0 md:pr-4 w-full">
-              <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
-                <img v-if="topping.image" :src="topping.image" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                <span v-else class="text-2xl md:text-3xl opacity-50 grayscale">🧋</span>
-              </div>
-              <div class="flex-1">
-                <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-1">
-                  <h3 class="text-lg md:text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors">
-                    {{ topping.name }}
-                  </h3>
+                <div class="flex w-full lg:w-auto justify-center lg:justify-start gap-6 lg:pl-4 mt-2 lg:mt-0 pt-2 lg:pt-0 border-t border-zinc-300 lg:border-t-0">
+                  <div class="flex flex-col items-center">
+                    <span class="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-1">Reg (16oz)</span>
+                    <span class="font-black text-base md:text-lg text-zinc-800">{{ item.price.R }}</span>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <span class="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-1">Lrg (24oz)</span>
+                    <span class="font-black text-base md:text-lg text-green-700">{{ item.price.L }}</span>
+                  </div>
                 </div>
-                <p class="text-xs md:text-sm font-semibold text-zinc-500 max-w-2xl">
-                  {{ topping.desc }}
-                </p>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div 
-        ref="bobaRef"
-        v-else-if="currentMenuConfigure === 'boba'"
-        class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 opacity-0"
-      > 
-        <h2 class="text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">
-          Boba
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 auto-rows-min">
-          <div 
-            v-for="b in boba" 
-            :key="b.name" 
-            class="group flex flex-row justify-between items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-0"
-          >
-            <div class="flex items-center gap-4 md:gap-5 w-full">
-              <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
-                <img v-if="b.image" :src="b.image" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                <span v-else class="text-2xl md:text-3xl opacity-50 grayscale">🧋</span>
-              </div>
-              <div class="flex-1">
-                <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-1">
-                  <h3 class="text-lg md:text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors">
-                    {{ b.name }}
-                  </h3>
+
+        <div
+          ref="toppingRef"
+          class="col-start-1 row-start-1 w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 opacity-0"
+          :class="currentMenuConfigure === 'toppings' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none'"
+        >
+          <h2 class="text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">Toppings</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2 auto-rows-min">
+            <div v-for="topping in toppings" :key="topping.name" class="group flex flex-row justify-between items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-0">
+              <div class="flex flex-1 items-center gap-4 md:gap-5 pr-0 md:pr-4 w-full">
+                <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
+                  <img :src="topping.image" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                 </div>
-                <p class="text-xs md:text-sm font-semibold text-zinc-500">
-                  {{ b.desc }}
-                </p>
+                <div class="flex-1">
+                  <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-1">
+                    <h3 class="text-lg md:text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors">{{ topping.name }}</h3>
+                  </div>
+                  <p class="text-xs md:text-sm font-semibold text-zinc-500 max-w-2xl">{{ topping.desc }}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div 
-        ref="foodRef"
-        v-else-if="currentMenuConfigure === 'food'"
-        class="w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 opacity-0"
-      >
-        <div v-for="f in food" :key="f.type" class="mb-12">
-          <h2 class="text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-4 pb-2 border-b-2 border-green-500/10">
-            {{ f.type }}
-          </h2>
-          <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
-            <div 
-              v-for="flavor in f.items" 
-              :key="flavor.name"
-              class="group flex flex-col items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-4"
-            >
-              <div class="w-20 h-20 md:w-24 md:h-24 shrink-0 rounded-full overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center shadow-inner">
-                <img v-if="flavor.image" :src="flavor.image" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                <span v-else class="text-3xl md:text-4xl opacity-50 grayscale">🍰</span>
+
+        <div
+          ref="bobaRef"
+          class="col-start-1 row-start-1 w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 opacity-0"
+          :class="currentMenuConfigure === 'boba' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none'"
+        >
+          <h2 class="text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">Boba</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2 auto-rows-min">
+            <div v-for="b in boba" :key="b.name" class="group flex flex-row justify-between items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-0">
+              <div class="flex items-center gap-4 md:gap-5 w-full">
+                <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
+                  <img v-if="b.image" :src="b.image" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <span v-else class="text-2xl md:text-3xl opacity-50 grayscale">🧋</span>
+                </div>
+                <div class="flex-1">
+                  <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-1">
+                    <h3 class="text-lg md:text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors">{{ b.name }}</h3>
+                  </div>
+                  <p class="text-xs md:text-sm font-semibold text-zinc-500">{{ b.desc }}</p>
+                </div>
               </div>
-              <h3 class="text-base md:text-lg font-bold text-center text-zinc-800 group-hover:text-green-700 transition-colors leading-tight">
-                {{ flavor.name }}
-              </h3>
             </div>
           </div>
-          
+        </div>
+
+        <div
+          ref="foodRef"
+          class="col-start-1 row-start-1 w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 opacity-0"
+          :class="currentMenuConfigure === 'food' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none'"
+        >
+          <div v-for="f in food" :key="f.type" class="mb-12">
+            <h2 class="text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-4 pb-2 border-b-2 border-green-500/10">{{ f.type }}</h2>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
+              <div v-for="flavor in f.items" :key="flavor.name" class="group flex flex-col items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-4">
+                <div class="w-20 h-20 md:w-24 md:h-24 shrink-0 rounded-full overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center shadow-inner">
+                  <img v-if="flavor.image" :src="flavor.image" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <span v-else class="text-3xl md:text-4xl opacity-50 grayscale">🍰</span>
+                </div>
+                <h3 class="text-base md:text-lg font-bold text-center text-zinc-800 group-hover:text-green-700 transition-colors leading-tight">{{ flavor.name }}</h3>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
