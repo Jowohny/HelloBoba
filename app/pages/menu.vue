@@ -2,7 +2,6 @@
 import { onMounted, onUnmounted } from 'vue';
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
-import { addComponentsDir } from 'nuxt/kit';
 
 gsap.registerPlugin(SplitText)
 
