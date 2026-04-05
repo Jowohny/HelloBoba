@@ -134,7 +134,6 @@ const drinksRef = ref(null);
 const toppingRef = ref(null);
 const bobaRef = ref(null);
 const foodRef = ref(null);
-const drinkScrollBar = ref(null);
 
 const hasPlayedIntro = useState('playedIntro', () => false);
 const currentHover = useState('hovering', () => false);
@@ -161,8 +160,6 @@ const groupedMenu = computed(() => {
 const categories = computed(() => Object.keys(groupedMenu.value));
 
 const activeTab = ref(categories.value[0]);
-
-const currentDrinks = computed(() => groupedMenu.value[activeTab.value!] || []);
 
 const bobas = ref<any[]>([]);
 
