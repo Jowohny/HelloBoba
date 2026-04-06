@@ -130,9 +130,6 @@ const sections = [ 'drinks', 'toppings', 'boba', 'food' ]
 
 const headerRef = ref(null);
 const drinksRef = ref(null);
-const toppingRef = ref(null);
-const bobaRef = ref(null);
-const foodRef = ref(null);
 
 const hasPlayedIntro = useState('playedIntro', () => false);
 const currentHover = useState('hovering', () => false);
@@ -277,12 +274,16 @@ onMounted(() => {
 
           timeline.fromTo(drinksRef.value, {
             autoAlpha: 0,
-            y: 60
+            yPercent: 20
           }, {
             autoAlpha: 1,
             duration: 1,
-            y: 0,
-            ease: 'back.out'
+            yPercent: 0,
+            ease: 'back.out',
+            clearProps: 'all',
+            onComplete: () => {
+              firstTime.value = true;
+            }
           }, '<+=0.4')
 
           const menuSections = gsap.utils.toArray('.menu-section');
@@ -320,8 +321,7 @@ onMounted(() => {
             autoAlpha: 1,
             duration: 1.2,
             ease: 'power4.out',
-            stagger: 0.04,
-            onComplete: () => { firstTime.value = true; }
+            stagger: 0.04
           }, '<')
 
           const drinkItems = gsap.utils.toArray('.drink-item');
@@ -333,7 +333,7 @@ onMounted(() => {
             x: 0,
             autoAlpha: 1,
             duration: 1,
-            stagger: 0.2,
+            stagger: 0.05,
             ease: 'power4.out'
           }, '<+=0.3')  
         })
@@ -342,73 +342,12 @@ onMounted(() => {
   }, { immediate: true })
 });
 
-const animateMenuIn = async (nextMenuConfigure: string) => {
-  if (currentMenuConfigure.value === nextMenuConfigure) return;
-
-  let oldMenuConfigure;
-
-  switch (currentMenuConfigure.value) {
-    case 'drinks':
-      oldMenuConfigure = drinksRef;
-      break;
-    case 'toppings':
-      oldMenuConfigure = toppingRef;
-      break;
-    case 'food':
-      oldMenuConfigure = foodRef;
-      break;
-    default:
-      oldMenuConfigure = bobaRef;
-  }
-
-  await new Promise((resolve) => {
-    gsap.to(oldMenuConfigure.value, {
-      autoAlpha: 0,
-      y: -20,
-      duration: 0.3,
-      ease: 'power2.in',
-      onComplete: resolve
-    });
-  });
-
-  currentMenuConfigure.value = nextMenuConfigure;
-
-  await nextTick();
-
-  let newMenuConfigure;
-  switch (nextMenuConfigure) {
-    case 'drinks':
-      newMenuConfigure = drinksRef;
-      break;
-    case 'toppings':
-      newMenuConfigure = toppingRef;
-      break;
-    case 'food':
-      newMenuConfigure = foodRef;
-      break;
-    default:
-      newMenuConfigure = bobaRef;
-  }
-
-  gsap.fromTo(newMenuConfigure.value, {
-    autoAlpha: 0,
-    y: 50
-  }, {
-    autoAlpha: 1,
-    y: 0,
-    ease: 'power4.out',
-    duration: 0.5
-  });
-}
-
 onUnmounted(() => {
   window.removeEventListener('resize', updateDisplayAmount);
 })
 
 
-watch(activeTab, async (newTab) => {
-	await nextTick(); 
-	
+watch(activeTab, (newTab) => {
 	if (newTab) {	
 		const activeEl = document.getElementById(`tab-${newTab.replace(/\s+/g, '-')}`);
 
@@ -447,9 +386,9 @@ watch(activeTab, async (newTab) => {
         <div
           class="menu-section relative h-32 w-40 md:w-56 z-50 -mb-2 transition-all duration-500 opacity-0 cursor-none drop-shadow-xl"
           :class="currentMenuConfigure === section ? '-translate-y-[10%]' : ''"
-          @click="animateMenuIn(section)"
           @mouseenter="currentHover = true"
           @mouseleave="currentHover = false"
+          @click="[currentMenuConfigure = section]"
           v-for="section in sections"
           :key="section"
         >
@@ -474,11 +413,8 @@ watch(activeTab, async (newTab) => {
       <div class="grid relative w-full mt-8">
         <div
           ref="drinksRef"
-          class="col-start-1 row-start-1 w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10"
-          :class="[
-            firstTime ? '' : 'opacity-0', 
-            currentMenuConfigure === 'drinks' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none'
-          ]"
+          class="col-start-1 row-start-1 w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 transition-all duration-500"
+          :class="[firstTime && currentMenuConfigure === 'drinks' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none opacity-0 translate-y-[20%]']"
         >
           <div class="flex flex-row justify-center">
             <button @click="decreaseIndex" class="shrink-0 h-10 w-10 md:h-12 md:w-12 rounded-full bg-green-600 flex items-center justify-center shadow-lg shadow-green-600/30 hover:bg-green-700 transition-all active:scale-95 p-3 md:p-4 mr-2">
@@ -501,7 +437,7 @@ watch(activeTab, async (newTab) => {
               <div v-for="item in groupedMenu[category]" :key="item.name" class="drink-item group flex flex-col lg:flex-row justify-between items-start lg:items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-4 lg:gap-0">
                 <div class="flex flex-1 items-start md:items-center gap-4 md:gap-5 pr-0 lg:pr-4 w-full">
                   <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
-                    <img :src="item.image" decoding="async" class="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-[1.1]" />
+                    <img :src="item.image" class="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-[1.1]" />
                   </div>
                   <div class="flex-1">
                     <div class="flex flex-col md:flex-row md:flex-wrap items-start md:items-center gap-2 md:gap-3 mb-2">
@@ -530,9 +466,8 @@ watch(activeTab, async (newTab) => {
         </div>
 
         <div
-          ref="toppingRef"
-          class="col-start-1 row-start-1 w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 opacity-0"
-          :class="currentMenuConfigure === 'toppings' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none'"
+          class="col-start-1 row-start-1 w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 transition-all duration-500"
+          :class="firstTime && currentMenuConfigure === 'toppings' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none opacity-0 translate-y-[20%]'"
         >
           <h2 class="text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">Toppings</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-2 auto-rows-min">
@@ -553,9 +488,8 @@ watch(activeTab, async (newTab) => {
         </div>
 
         <div
-          ref="bobaRef"
-          class="col-start-1 row-start-1 w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 opacity-0"
-          :class="currentMenuConfigure === 'boba' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none'"
+          class="col-start-1 row-start-1 w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 transition-all duration-500"
+          :class="firstTime && currentMenuConfigure === 'boba' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none opacity-0 translate-y-[20%]'"
         >
           <h2 class="text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">Boba</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-2 auto-rows-min">
@@ -577,9 +511,8 @@ watch(activeTab, async (newTab) => {
         </div>
 
         <div
-          ref="foodRef"
-          class="col-start-1 row-start-1 w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 opacity-0"
-          :class="currentMenuConfigure === 'food' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none'"
+          class="col-start-1 row-start-1 w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 transition-all duration-500"
+          :class="firstTime && currentMenuConfigure === 'food' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none opacity-0 translate-y-[20%]'"
         >
           <div v-for="f in food" :key="f.type" class="mb-12">
             <h2 class="text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-4 pb-2 border-b-2 border-green-500/10">{{ f.type }}</h2>
