@@ -152,8 +152,8 @@ onUnmounted(() => {
               <div class="relative w-full aspect-square mb-6 bg-zinc-100 rounded-xl overflow-hidden hover:bg-green-100/80 transition-colors">
                   <NuxtPicture 
                     :src="drink.image" 
-                    class="w-full h-full object-contain" 
-                    :img-attrs="{ class: 'w-full h-full transition-all hover:scale-110 duration-500 object-contain' }"
+                    class="w-full" 
+                    :img-attrs="{ class: 'w-full -translate-y-[10%]' }"
                   />
               </div>
 

@@ -12,27 +12,9 @@ const logoRef = ref(null);
 const bannerRef = ref(null);
 const bannerTextRef = ref(null);
 const kiwiRef = ref(null);
-const bouncingContainerRef = ref<HTMLDivElement | null>(null);
-let resizeTimer: ReturnType<typeof setTimeout>;
 
 const hasPlayedIntro = useState('playedIntro', () => false);
 const currentHover = useState('hovering', () => false);
-
-const fruitAmount = ref<number>(20);
-
-interface BouncingIcon {
-  id: number;
-  icon: string;
-  x: number;
-  y: number;
-  vx: number; 
-  vy: number;
-  size: number;
-	opacity: number;
-	rotation: number;
-}
-
-const backgroundIcons = ref<BouncingIcon[]>([])
 
 const socialMediaLinks = [
 	{
@@ -54,61 +36,61 @@ const top10Drinks = [
 		name: 'Hello Boba Special',
 		price: '$6.60',
 		description: 'Mango Refresher with Aloe Vera & Lychee Jelly (included)',
-		image: '/bobalogo.png'
+		image: '/drinks/HBS.png'
 	},
 	{
 		name: 'Mango Mango',
 		price: '$6.60',
 		description: 'Mango Refresher with Aloe Vera & Lychee Jelly (included)',
-		image: '/bobalogo.png'
+		image: '/drinks/MM.png'
 	},
 	{
 		name: 'Horchata Cinnamon Crumbs',
 		price: '$6.60',
 		description: 'Mango Refresher with Aloe Vera & Lychee Jelly (included)',
-		image: '/bobalogo.png'
+		image: '/drinks/HCC.png'
 	},
 	{
 		name: 'Thai Green Milk Tea',
 		price: '$6.60',
 		description: 'Mango Refresher with Aloe Vera & Lychee Jelly (included)',
-		image: '/bobalogo.png'
+		image: '/drinks/TGMT.png'
 	},
 	{
 		name: 'Creme Brulee Oreo Smoothie',
 		price: '$6.60',
 		description: 'Mango Refresher with Aloe Vera & Lychee Jelly (included)',
-		image: '/bobalogo.png'
+		image: '/drinks/CBOS.png'
 	},
 	{
 		name: 'Creme Brulee Thai Tea',
 		price: '$6.60',
 		description: 'Mango Refresher with Aloe Vera & Lychee Jelly (included)',
-		image: '/bobalogo.png'
+		image: '/drinks/CBTT.png'
 	},
 	{
 		name: 'Vietnamese Iced Coffee',
 		price: '$6.60',
 		description: 'Mango Refresher with Aloe Vera & Lychee Jelly (included)',
-		image: '/bobalogo.png'
+		image: '/drinks/VIC.png'
 	},
 	{
 		name: 'Creme Brulee Brown Sugar Boba Milk',
 		price: '$6.60',
 		description: 'Mango Refresher with Aloe Vera & Lychee Jelly (included)',
-		image: '/bobalogo.png'
+		image: '/drinks/CBBSBM.png'
 	},
 	{
 		name: 'Creme Brulee Matcha Smoothie',
 		price: '$6.60',
 		description: 'Mango Refresher with Aloe Vera & Lychee Jelly (included)',
-		image: '/bobalogo.png'
+		image: '/drinks/CBMS.png'
 	},
 	{
 		name: 'Butterfly Mango',
 		price: '$6.60',
 		description: 'Mango Refresher with Aloe Vera & Lychee Jelly (included)',
-		image: '/bobalogo.png'
+		image: '/drinks/BM.png'
 	}
 ]
 
