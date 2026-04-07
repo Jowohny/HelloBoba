@@ -114,7 +114,7 @@ onUnmounted(() => {
 
 <template>
   <div class="min-h-screen flex justify-center py-10 md:py-20 px-4 md:px-6 relative z-10 overflow-hidden">
-    <div class="max-w-7xl w-full">    
+    <div class="max-w-[88rem] w-full">    
       
       <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-8 md:mb-12 relative z-50 gap-6">
         <div class="text-left">
@@ -159,7 +159,7 @@ onUnmounted(() => {
 
               <div>
                 <div class="flex flex-wrap gap-2 justify-between items-start mb-2">
-                  <h3 class="font-black font-sans text-lg md:text-xl text-black tracking-tight leading-tight">{{ drink.name }}</h3>
+                  <h3 class="font-black font-sans text-md md:text-lg text-black tracking-tight leading-tight">{{ drink.name }}</h3>
                   <span class="font-semibold font-sans text-green-600 bg-green-100 px-2 py-1 border border-green-300/30 rounded-xl text-xs md:text-sm">{{ drink.price }}</span>
                 </div>
                 <p class="text-xs md:text-sm text-slate-500 font-semibold">{{ drink.description }}</p>
