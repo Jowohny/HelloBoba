@@ -136,6 +136,8 @@ const currentHover = useState('hovering', () => false);
 
 const currentMenuConfigure = ref<string>('drinks');
 const firstTime = ref<boolean>(false);
+const scrollCheckL = ref<boolean>(true);
+const scrollCheckR = ref<boolean>(true);
 
 const totalBoba = ref<number>(60);
 let resizeTimer: ReturnType<typeof setTimeout>;
@@ -183,20 +185,33 @@ const updateDisplayAmount = () => {
   }, 250);
 };
 
-const increaseIndex = () => {
-	if (activeTab.value) {
-		const currentIndex = categories.value.indexOf(activeTab.value);
-		const nextIndex = (currentIndex+1) % categories.value.length;
-		activeTab.value = categories.value[nextIndex];
-	}
+const slideRight = () => {
+  const element = document.getElementById('catBox');
+  const innerWidth = element ? element.clientWidth : 0;
+  if (element) {
+    element.scrollBy({
+      left: innerWidth/3,
+      behavior: 'smooth'
+    })
+  }
 }
 
-const decreaseIndex = () => {
-	if (activeTab.value) {
-		const currentIndex = categories.value.indexOf(activeTab.value);
-		const nextIndex = currentIndex === 0 ? categories.value.length-1 : currentIndex-1;
-		activeTab.value = categories.value[nextIndex];
-	}
+const slideLeft = () => {
+  const element = document.getElementById('catBox');
+  const innerWidth = element ? element.clientWidth : 0;
+  if (element) {
+    element.scrollBy({
+      left: -innerWidth/3,
+      behavior: 'smooth'
+    })
+  }
+}
+
+const checkScrollButtons = () => {
+  const element = document.getElementById('catBox') as HTMLElement;
+
+  scrollCheckL.value = element.scrollLeft <= 0;
+  scrollCheckR.value = element.scrollLeft + element.clientWidth >= element.scrollWidth - 1;
 }
 
 const createRandomBoba = () => {
@@ -246,6 +261,13 @@ const animateBobaElements = () => {
 }
 
 onMounted(() => {
+  const catBox = document.getElementById('catBox') as HTMLElement;
+
+  if (catBox) {
+    checkScrollButtons();
+    catBox.addEventListener('scroll', checkScrollButtons)
+  }
+
   updateDisplayAmount();
   createRandomBoba();
   
@@ -417,16 +439,33 @@ watch(activeTab, (newTab) => {
           :class="[firstTime && currentMenuConfigure === 'drinks' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none opacity-0 translate-y-[20%]']"
         >
           <div class="flex flex-row justify-center">
-            <button @click="decreaseIndex" class="shrink-0 h-10 w-10 md:h-12 md:w-12 rounded-full bg-green-600 flex items-center justify-center shadow-lg shadow-green-600/30 hover:bg-green-700 transition-all active:scale-95 p-3 md:p-4 mr-2">
-              <NuxtPicture src="/leftchevron.png" class="w-full h-full flex items-center justify-center" :img-attrs="{ class: 'w-full h-full object-contain' }" />
+            <button 
+              @click="slideLeft" 
+              :disabled="scrollCheckL"
+              class="shrink-0 h-10 w-10 md:h-12 md:w-12 rounded-full bg-green-600 flex items-center justify-center shadow-lg shadow-green-600/30 hover:bg-green-700 transition-all active:scale-95 p-3 md:p-4 mr-2 disabled:opacity-70 cursor-none"
+            >
+              <NuxtPicture 
+                src="/leftchevron.png"
+                class="w-full h-full flex items-center justify-center" 
+                :img-attrs="{ class: 'w-full h-full object-contain' }" 
+              />
             </button>
-            <div class="flex overflow-x-auto gap-3 pt-1 pb-8 border-b-2 border-green-500/20">
+            <div id="catBox" class="flex overflow-x-auto gap-3 pt-1 pb-8 border-b-2 border-green-500/20">
               <button v-for="cat in categories" :key="cat" @click="activeTab = cat" :id="`tab-${cat.replace(/\s+/g, '-')}`" @mouseenter="currentHover = true" @mouseleave="currentHover = false" :class="[ 'section px-4 md:px-5 py-2 md:py-2.5 rounded-2xl font-bold text-xs md:text-sm tracking-wide whitespace-nowrap transition-all duration-300 border border-zinc-500/30', activeTab === cat ? 'bg-green-600 text-white border-green-600 shadow-md shadow-green-600/50' : 'bg-white/50 text-zinc-500 border-transparent hover:bg-white hover:text-zinc-800 shadow-md shadow-zinc-500/50', firstTime ? '' : 'opacity-0' ]">
                 {{ cat }}
               </button>
             </div>
-            <button @click="increaseIndex" class="shrink-0 h-10 w-10 md:h-12 md:w-12 rounded-full bg-green-600 flex items-center justify-center shadow-lg shadow-green-600/30 hover:bg-green-700 transition-all active:scale-95 p-3 md:p-4 ml-2">
-              <NuxtPicture src="/rightchevron.webp" class="w-full h-full flex items-center justify-center" loading="lazy" :img-attrs="{ class: 'w-full h-full object-contain' }" />
+            <button 
+              @click="slideRight" 
+              :disabled="scrollCheckR" 
+              class="shrink-0 h-10 w-10 md:h-12 md:w-12 rounded-full bg-green-600 flex items-center justify-center shadow-lg shadow-green-600/30 hover:bg-green-700 transition-all active:scale-95 p-3 md:p-4 ml-2 disabled:opacity-70 cursor-none"
+            >
+              <NuxtPicture 
+                src="/rightchevron.webp" 
+                class="w-full h-full flex items-center justify-center" 
+                loading="lazy" 
+                :img-attrs="{ class: 'w-full h-full object-contain' }" 
+              />
             </button>
           </div>
           <h2 class="drink-section text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2 mt-6">
