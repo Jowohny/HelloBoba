@@ -175,7 +175,7 @@ onUnmounted(() => {
 				>
           <NuxtLink 
             to="#" 
-            class="group relative px-8 py-3 md:px-10 md:py-4 bg-gradient-to-r from-green-500 to-green-700 rounded-full shadow-lg shadow-green-700/40 hover:shadow-green-500/50 hover:-translate-y-1 transition-all duration-300 active:scale-95 cursor-none"
+            class="group relative px-8 py-3 md:px-10 md:py-4 bg-gradient-to-r from-green-500 to-green-700 rounded-full shadow-lg shadow-green-700/40 hover:shadow-green-500/50 hover:-translate-y-1 transition-all duration-300 active:scale-95"
           >
             <span class="flex items-center gap-2 md:gap-3 text-white font-sans font-black text-lg md:text-xl tracking-tight">
               Order Now

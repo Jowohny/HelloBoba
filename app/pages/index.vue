@@ -14,7 +14,6 @@ const bannerTextRef = ref(null);
 const kiwiRef = ref(null);
 
 const hasPlayedIntro = useState('playedIntro', () => false);
-const currentHover = useState('hovering', () => false);
 
 const socialMediaLinks = [
 	{
@@ -373,18 +372,14 @@ onUnmounted(() => {
               <NuxtPicture :img-attrs="{ class: 'location-tag h-12 md:h-16 w-auto object-cover invert' }" src="/locationpointer.png"/>
               <div class="flex flex-col">
                 <NuxtLink
-                  class="hover:text-green-400 transition-colors duration-300 cursor-none"
+                  class="hover:text-green-400 transition-colors duration-300"
                   to="https://www.google.com/maps/place/Hello+Boba/data=!4m7!3m6!1s0x80c2d1db6c36bda3:0x1fdf3db0b5303a86!8m2!3d34.062467!4d-118.0311685!16s%2Fg%2F11ftxdfmv7!19sChIJo702bNvRwoARhjowtbA93x8?authuser=0&hl=en&rclk=1"
-                  @mouseenter="currentHover = true"
-                  @mouseleave="currentHover = false"
                 >
                   <p class="address-text">11230 Garvey Ave #C</p>
                   <p class="address-text">El Monte, CA 91733</p>
                 </NuxtLink>
                 <a 
-                  href="tel:+16263617058" class="address-text inline-block mt-1 text-sm font-bold tracking-widest text-white hover:text-green-400 transition-colors duration-300 cursor-none"
-                  @mouseenter="currentHover = true"
-                  @mouseleave="currentHover = false"
+                  href="tel:+16263617058" class="address-text inline-block mt-1 text-sm font-bold tracking-widest text-white hover:text-green-400 transition-colors duration-300"
                 >
                   +16263617058
                 </a>
@@ -394,19 +389,15 @@ onUnmounted(() => {
               <NuxtPicture :img-attrs="{ class: 'location-tag h-12 md:h-16 w-auto object-cover invert' }" src="/locationpointer.png"/>
               <div class="flex flex-col">
                 <NuxtLink
-                  class="hover:text-green-400 transition-colors duration-300 cursor-none"
+                  class="hover:text-green-400 transition-colors duration-300"
                   to="https://www.google.com/maps/place/Hello+Boba/data=!4m7!3m6!1s0x80c2d91f75934401:0x7f2669691ab068dc!8m2!3d34.0899773!4d-118.0139066!16s%2Fg%2F11y64hq1f9!19sChIJAUSTdR_ZwoAR3GiwGmlpJn8?authuser=0&hl=en&rclk=1"
-                  @mouseenter="currentHover = true"
-                  @mouseleave="currentHover = false"
                 >
                   <p class="address-text">4788 Peck Rd</p>
                   <p class="address-text">El Monte, CA 91732</p>
                 </NuxtLink>
                 <a 
                   href="tel:+16263617055" 
-                  class="address-text inline-block mt-1 text-sm font-bold tracking-widest text-white hover:text-green-400 transition-colors duration-300 cursor-none"
-                  @mouseenter="currentHover = true"
-                  @mouseleave="currentHover = false"  
+                  class="address-text inline-block mt-1 text-sm font-bold tracking-widest text-white hover:text-green-400 transition-colors duration-300"
                 >
                   +16263617055
                 </a>
@@ -428,9 +419,7 @@ onUnmounted(() => {
           :to="social.link"
           target="_blank"
           rel="noopenner noreferrer"
-          class="social-media text-zinc-400 transition-colors hover:text-green-400 cursor-none" 
-          @mouseenter="currentHover = true"
-          @mouseleave="currentHover = false"
+          class="social-media text-zinc-400 transition-colors hover:text-green-400" 
         >{{ social.media }}</NuxtLink>
       </div>
     </div>

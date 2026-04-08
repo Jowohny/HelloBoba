@@ -3,7 +3,6 @@ import { onMounted } from 'vue';
 import gsap from 'gsap';
 
 const hasPlayedIntro = useState('playedIntro', () => false);
-const currentHover = useState('hovering', () => false);
 
 const headerRef = ref(null);
 const card1TextRef = ref<HTMLElement | null>(null);
@@ -202,18 +201,14 @@ onMounted(() => {
           <div class="flex flex-col gap-3 justify-end shrink-0">
             <a 
               href="tel:+16263617058" 
-              class="action-button opacity-0 flex items-center justify-center w-full px-4 py-3 md:px-6 md:py-4 rounded-xl bg-zinc-200/70 hover:bg-zinc-300 text-zinc-700 font-bold text-sm md:text-md transition-colors shadow-lg border border-zinc-300 cursor-none"
-              @mouseenter="currentHover = true"
-              @mouseleave="currentHover = false"
+              class="action-button opacity-0 flex items-center justify-center w-full px-4 py-3 md:px-6 md:py-4 rounded-xl bg-zinc-200/70 hover:bg-zinc-300 text-zinc-700 font-bold text-sm md:text-md transition-colors shadow-lg border border-zinc-300"
             >
               Call Store
             </a>
             <a 
               href="https://maps.google.com/maps/dir//Hello+Boba+11230+Garvey+Ave+%23C+El+Monte,+CA+91733/@34.062467,-118.0311685,18z/data=!4m5!4m4!1m0!1m2!1m1!1s0x80c2d1db6c36bda3:0x1fdf3db0b5303a86" 
               target="_blank" 
-              class="action-button opacity-0 flex items-center justify-center w-full px-4 py-3 md:px-6 md:py-4 rounded-xl bg-gradient-to-r from-[#65a30d] to-[#4d7c0f] hover:from-[#4d7c0f] hover:to-[#3f6212] text-white font-bold text-sm md:text-md transition-colors shadow-lg shadow-green-600/50 cursor-none"
-              @mouseenter="currentHover = true"
-              @mouseleave="currentHover = false"              
+              class="action-button opacity-0 flex items-center justify-center w-full px-4 py-3 md:px-6 md:py-4 rounded-xl bg-gradient-to-r from-[#65a30d] to-[#4d7c0f] hover:from-[#4d7c0f] hover:to-[#3f6212] text-white font-bold text-sm md:text-md transition-colors shadow-lg shadow-green-600/50"          
             >
               Get Directions
             </a>
@@ -250,18 +245,14 @@ onMounted(() => {
           <div class="flex flex-col gap-3 justify-end shrink-0">
             <a 
               href="tel:+16263617055" 
-              class="action-button opacity-0 flex items-center justify-center w-full px-4 py-3 md:px-6 md:py-4 rounded-xl bg-zinc-200/70 hover:bg-zinc-300 text-zinc-700 font-bold text-sm md:text-md transition-colors shadow-lg border border-zinc-300 cursor-none"
-              @mouseenter="currentHover = true"
-              @mouseleave="currentHover = false"
+              class="action-button opacity-0 flex items-center justify-center w-full px-4 py-3 md:px-6 md:py-4 rounded-xl bg-zinc-200/70 hover:bg-zinc-300 text-zinc-700 font-bold text-sm md:text-md transition-colors shadow-lg border border-zinc-300"
             >
               Call Store
             </a>
             <a 
               href="https://www.google.com/maps/dir//Hello+Boba,+11230+Garvey+Ave+%23C,+El+Monte,+CA+91733/@34.062467,-118.0311685,18z/data=!4m8!4m7!1m0!1m5!1m1!1s0x80c2d1db6c36bda3:0x1fdf3db0b5303a86!2m2!1d-118.0311685!2d34.062467?entry=ttu&g_ep=EgoyMDI2MDIyMy4wIKXMDSoASAFQAw%3D%3D"
               target="_blank" 
-              class="action-button opacity-0 flex items-center justify-center w-full px-4 py-3 md:px-6 md:py-4 rounded-xl bg-gradient-to-r from-[#65a30d] to-[#4d7c0f] hover:from-[#4d7c0f] hover:to-[#3f6212] text-white font-bold text-sm md:text-md transition-colors shadow-lg shadow-green-600/50 cursor-none"
-              @mouseenter="currentHover = true"
-              @mouseleave="currentHover = false"
+              class="action-button opacity-0 flex items-center justify-center w-full px-4 py-3 md:px-6 md:py-4 rounded-xl bg-gradient-to-r from-[#65a30d] to-[#4d7c0f] hover:from-[#4d7c0f] hover:to-[#3f6212] text-white font-bold text-sm md:text-md transition-colors shadow-lg shadow-green-600/50"
             >
               Get Directions
             </a>

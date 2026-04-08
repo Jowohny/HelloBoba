@@ -132,7 +132,6 @@ const headerRef = ref(null);
 const drinksRef = ref(null);
 
 const hasPlayedIntro = useState('playedIntro', () => false);
-const currentHover = useState('hovering', () => false);
 
 const currentMenuConfigure = ref<string>('drinks');
 const firstTime = ref<boolean>(false);
@@ -406,10 +405,8 @@ watch(activeTab, (newTab) => {
       </div>
       <div class="relative flex flex-wrap lg:flex-nowrap justify-center lg:justify-around px-2 md:px-8 z-5">
         <div
-          class="menu-section relative h-32 w-40 md:w-56 z-50 -mb-2 transition-all duration-500 opacity-0 cursor-none drop-shadow-xl"
+          class="menu-section relative h-32 w-40 md:w-56 z-50 -mb-2 transition-all duration-500 opacity-0 drop-shadow-xl cursor-pointer"
           :class="currentMenuConfigure === section ? '-translate-y-[10%]' : ''"
-          @mouseenter="currentHover = true"
-          @mouseleave="currentHover = false"
           @click="[currentMenuConfigure = section]"
           v-for="section in sections"
           :key="section"
@@ -442,23 +439,30 @@ watch(activeTab, (newTab) => {
             <button 
               @click="slideLeft" 
               :disabled="scrollCheckL"
-              class="shrink-0 h-10 w-10 md:h-12 md:w-12 rounded-full bg-green-600 flex items-center justify-center shadow-lg shadow-green-600/30 hover:bg-green-700 transition-all active:scale-95 p-3 md:p-4 mr-2 disabled:opacity-70 cursor-none"
+              class="shrink-0 h-10 w-10 md:h-12 md:w-12 rounded-full bg-green-600 flex items-center justify-center shadow-lg shadow-green-600/30 hover:bg-green-700 transition-all active:scale-95 p-3 md:p-4 mr-2 disabled:opacity-70"
             >
               <NuxtPicture 
                 src="/leftchevron.png"
+                :class="scrollCheckL ? 'cursor-not-allowed' : 'cursor-pointer'"
                 class="w-full h-full flex items-center justify-center" 
                 :img-attrs="{ class: 'w-full h-full object-contain' }" 
               />
             </button>
-            <div id="catBox" class="flex overflow-x-auto gap-3 pt-1 pb-8 border-b-2 border-green-500/20">
-              <button v-for="cat in categories" :key="cat" @click="activeTab = cat" :id="`tab-${cat.replace(/\s+/g, '-')}`" @mouseenter="currentHover = true" @mouseleave="currentHover = false" :class="[ 'section px-4 md:px-5 py-2 md:py-2.5 rounded-2xl font-bold text-xs md:text-sm tracking-wide whitespace-nowrap transition-all duration-300 border border-zinc-500/30', activeTab === cat ? 'bg-green-600 text-white border-green-600 shadow-md shadow-green-600/50' : 'bg-white/50 text-zinc-500 border-transparent hover:bg-white hover:text-zinc-800 shadow-md shadow-zinc-500/50', firstTime ? '' : 'opacity-0' ]">
+            <div id="catBox" class="flex overflow-x-auto gap-3 pt-1 pb-8 border-b-2 border-green-500/20 cursor-pointer">
+              <button v-for="cat in categories" 
+                :key="cat" 
+                @click="activeTab = cat" 
+                :id="`tab-${cat.replace(/\s+/g, '-')}`" 
+                :class="[ 'section px-4 md:px-5 py-2 md:py-2.5 rounded-2xl font-bold text-xs md:text-sm tracking-wide whitespace-nowrap transition-all duration-300 border border-zinc-500/30', activeTab === cat ? 'bg-green-600 text-white border-green-600 shadow-md shadow-green-600/50' : 'bg-white/50 text-zinc-500 border-transparent hover:bg-white hover:text-zinc-800 shadow-md shadow-zinc-500/50', firstTime ? '' : 'opacity-0' ]"
+              >
                 {{ cat }}
               </button>
             </div>
             <button 
               @click="slideRight" 
               :disabled="scrollCheckR" 
-              class="shrink-0 h-10 w-10 md:h-12 md:w-12 rounded-full bg-green-600 flex items-center justify-center shadow-lg shadow-green-600/30 hover:bg-green-700 transition-all active:scale-95 p-3 md:p-4 ml-2 disabled:opacity-70 cursor-none"
+              :class="scrollCheckR ? 'cursor-not-allowed' : 'cursor-pointer'"
+              class="shrink-0 h-10 w-10 md:h-12 md:w-12 rounded-full bg-green-600 flex items-center justify-center shadow-lg shadow-green-600/30 hover:bg-green-700 transition-all active:scale-95 p-3 md:p-4 ml-2 disabled:opacity-70"
             >
               <NuxtPicture 
                 src="/rightchevron.webp" 
