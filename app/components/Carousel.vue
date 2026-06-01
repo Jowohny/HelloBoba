@@ -1,16 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
-
-interface Drink {
-  name: string;
-  price: string;
-  description: string;
-  image: string;
-}
+import type { Drink } from '~/types';
 
 const props = defineProps<{
   items: Drink[]
@@ -23,7 +14,6 @@ const currentIndex = ref(0);
 const displayAmount = ref(3);
 
 const maxIndex = computed(() => (props.items ? props.items.length - displayAmount.value : 0));
-const currentHover = useState('hovering', () => false);
 
 const isVisible = (index: number) => {
   return index >= currentIndex.value && index < currentIndex.value + displayAmount.value;
@@ -168,10 +158,8 @@ onUnmounted(() => {
           </div>
         </div>
         
-        <div 
+        <div
 					ref="orderRef" class="w-full flex justify-center mt-16 md:my-12 pb-10 relative z-50"
-					@mouseover="currentHover = true"
-					@mouseleave="currentHover = false"
 				>
           <NuxtLink 
             to="#" 
@@ -191,10 +179,3 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
-
-.font-sans {
-  font-family: 'Nunito', sans-serif;
-}
-</style>
