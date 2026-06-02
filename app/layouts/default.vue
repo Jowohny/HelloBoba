@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, nextTick, watch } from 'vue'
 import gsap from 'gsap'
-import { SplitText } from "gsap/SplitText";
-
-gsap.registerPlugin(SplitText) 
 
 const tabs = [
   { tabName: 'Home', link: '/'},
@@ -190,15 +187,12 @@ watch(openMobileMenu, (isOpen) => {
 
   </div>
 
-  <div class="min-h-screen min-w-full bg-[#f6f6f6]">
-    <slot />
+  <div class="relative min-h-screen bg-white overflow-hidden">
+    <div class="relative">
+      <slot />
+    </div>
   </div>
+
+  <SiteFooter />
 </template>
 
-<style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
-
-.font-sans {
-  font-family: 'Nunito', sans-serif;
-}
-</style>
