@@ -1,41 +1,46 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, onBeforeUnmount, ref } from 'vue';
 import gsap from 'gsap';
 
-const hasPlayedIntro = useState('playedIntro', () => false);
+useSeoMeta({
+  title: 'Locations — Hello Boba',
+  description: 'Visit Hello Boba at our Garvey Avenue and Peck Road locations in El Monte, CA.'
+});
 
-const headerRef = ref(null);
+const headerRef = ref<{ $el?: HTMLElement } | HTMLElement | null>(null);
 const card1TextRef = ref<HTMLElement | null>(null);
 const card2TextRef = ref<HTMLElement | null>(null);
 
+const resolveEl = (r: any) => r?.$el ?? r;
+
 onMounted(() => {
-  gsap.to('.text-1', { 
-    xPercent: -50, 
-    duration: 50, 
-    repeat: -1, 
-    ease: 'none' 
-  });
-  
-	gsap.set('.text-2', { xPercent: -50 })
-  gsap.to('.text-2', { 
-    xPercent: 0, 
-    duration: 50, 
-    repeat: -1, 
-    ease: 'none' 
+  gsap.to('.text-1', {
+    xPercent: -50,
+    duration: 50,
+    repeat: -1,
+    ease: 'none'
   });
 
-  gsap.to(['.path-1', '.path-3'], { 
-    strokeDashoffset: -60, 
-    duration: 1.5, 
-    repeat: -1, 
-    ease: 'none' 
+  gsap.set('.text-2', { xPercent: -50 });
+  gsap.to('.text-2', {
+    xPercent: 0,
+    duration: 50,
+    repeat: -1,
+    ease: 'none'
   });
-  
-  gsap.to(['.path-2', '.path-4'], { 
+
+  gsap.to(['.path-1', '.path-3'], {
+    strokeDashoffset: -60,
+    duration: 1.5,
+    repeat: -1,
+    ease: 'none'
+  });
+
+  gsap.to(['.path-2', '.path-4'], {
     strokeDashoffset: 60,
-    duration: 2, 
-    repeat: -1, 
-    ease: 'none' 
+    duration: 2,
+    repeat: -1,
+    ease: 'none'
   });
 
   gsap.to('.pin-1', {
@@ -56,81 +61,75 @@ onMounted(() => {
     ease: 'sine.inOut',
     delay: 1
   });
+});
 
-	watch(hasPlayedIntro, async (isDone) => {
-		if (isDone) {
-			await nextTick();
-			const timeline = gsap.timeline();
+useIntroSequence((timeline) => {
+  timeline.fromTo(resolveEl(headerRef.value), {
+    autoAlpha: 0,
+    y: -30
+  }, {
+    y: 0,
+    autoAlpha: 1,
+    duration: 1,
+    ease: 'expo.out'
+  });
 
-			requestAnimationFrame(() => {
-				requestAnimationFrame(() => {
-					timeline.fromTo(headerRef.value, {
-						autoAlpha: 0,
-						y: -30
-					}, {
-						y: 0,
-						autoAlpha: 1,
-						duration: 1,
-						ease: 'expo.out'
-					})
+  timeline.fromTo('.location-card', {
+    autoAlpha: 0,
+    y: 60
+  }, {
+    y: 0,
+    autoAlpha: 1,
+    duration: 0.8,
+    stagger: 0.15,
+    ease: 'back.out(1.2)'
+  }, '-=0.5');
 
-					timeline.fromTo('.location-card', {
-						autoAlpha: 0, 
-						y: 60
-					}, {
-						y: 0,
-						autoAlpha: 1,
-						duration: 0.8,
-						stagger: 0.15,
-						ease: 'back.out(1.2)'
-					}, '-=0.5')
+  timeline.fromTo(['.location1-tag', '.location2-tag'], {
+    autoAlpha: 0,
+    scale: 0.5
+  }, {
+    scale: 1,
+    autoAlpha: 1,
+    duration: 0.8,
+    ease: 'elastic.out(1,0.7)'
+  }, '-=0.45');
 
+  const children1 = card1TextRef.value ? Array.from(card1TextRef.value.children) : [];
+  const children2 = card2TextRef.value ? Array.from(card2TextRef.value.children) : [];
 
-					timeline.fromTo(['.location1-tag', '.location2-tag'], {
-						autoAlpha: 0,
-						scale: 0.5
-					}, {
-						scale: 1,
-						autoAlpha: 1,
-						duration: 0.8,
-						ease: 'elastic.out(1,0.7)'
-					}, '-=0.45')
-					
-					const children1 = card1TextRef.value ? Array.from(card1TextRef.value.children) : [];
-					const children2 = card2TextRef.value ? Array.from(card2TextRef.value.children) : [];
+  timeline.fromTo([...children1, ...children2], {
+    autoAlpha: 0,
+    x: -20
+  }, {
+    autoAlpha: 1,
+    x: 0,
+    duration: 0.6,
+    stagger: 0.08,
+    ease: 'power2.out'
+  }, '-=0.6')
+  .fromTo('.action-button', {
+    autoAlpha: 0,
+    y: 20,
+    scale: 0.95
+  }, {
+    autoAlpha: 1,
+    y: 0,
+    scale: 1,
+    duration: 0.6,
+    stagger: 0.1,
+    ease: 'back.out(1.5)'
+  }, '<+=0.15');
+});
 
-					timeline.fromTo([...children1, ...children2], {
-						autoAlpha: 0,
-						x: -20
-					}, {
-						autoAlpha: 1,
-						x: 0,
-						duration: 0.6,
-						stagger: 0.08,
-						ease: 'power2.out'
-					}, "-=0.6")
-					.fromTo('.action-button', {
-						autoAlpha: 0,
-						y: 20,
-						scale: 0.95
-					}, {
-						autoAlpha: 1,
-						y: 0,
-						scale: 1,
-						duration: 0.6,
-						stagger: 0.1,
-						ease: 'back.out(1.5)'
-					}, "<+=0.15");
-				})
-			})
-		}
-	}, { immediate: true });
+onBeforeUnmount(() => {
+  gsap.killTweensOf(['.text-1', '.text-2', '.path-1', '.path-2', '.path-3', '.path-4', '.pin-1', '.pin-2']);
 });
 
 </script>
 
 <template>
-  <div class="min-h-screen pt-40 pb-24 px-4 md:px-6 relative z-10 overflow-hidden bg-[#f6f6f6]">
+  <div class="min-h-screen pt-40 pb-32 md:pb-48 px-4 md:px-6 relative z-10 overflow-hidden bg-[#f6f6f6]">
     
     <div class="fixed inset-0 w-full h-full z-0 pointer-events-none overflow-hidden flex flex-col justify-center">
       <div class="absolute inset-0 flex flex-col justify-center gap-16 opacity-[0.06] blur-[1.5px] scale-110 -rotate-[2deg]">
@@ -157,17 +156,12 @@ onMounted(() => {
     </div>
 
     <div class="max-w-7xl mx-auto relative z-10">
-      <div ref="headerRef" class="text-center mb-10 md:mb-16 opacity-0">
-        <span class="inline-block px-4 py-1.5 mb-4 rounded-full border border-green-500/20 bg-green-500/10 text-green-700 font-bold tracking-widest text-xs uppercase backdrop-blur-sm">
-          Visit Us
-        </span>
-        <h1 class="text-transparent bg-clip-text bg-gradient-to-r from-[#65a30d] to-[#3f6212] text-5xl md:text-8xl tracking-tighter font-black font-sans pb-2">
-          Our Locations
-        </h1>
-        <p class="text-zinc-500 font-semibold mt-4 max-w-lg mx-auto text-sm md:text-base">
-          Two spots in El Monte to get your boba fix. Find our hours of operation, directions to either location, as well as any contact info you may need below.
-        </p>
-      </div>
+      <PageHeader
+        ref="headerRef"
+        eyebrow="Visit Us"
+        title="Our Locations"
+        description="Two spots in El Monte to get your boba fix. Find our hours of operation, directions to either location, as well as any contact info you may need below."
+      />
     </div>
 
     <div class="w-full md:w-[75vw] lg:w-[95vw] xl:max-w-7xl relative z-10 grid grid-cols-1 lg:grid-cols-2 mx-auto gap-8">
@@ -205,10 +199,11 @@ onMounted(() => {
             >
               Call Store
             </a>
-            <a 
-              href="https://maps.google.com/maps/dir//Hello+Boba+11230+Garvey+Ave+%23C+El+Monte,+CA+91733/@34.062467,-118.0311685,18z/data=!4m5!4m4!1m0!1m2!1m1!1s0x80c2d1db6c36bda3:0x1fdf3db0b5303a86" 
-              target="_blank" 
-              class="action-button opacity-0 flex items-center justify-center w-full px-4 py-3 md:px-6 md:py-4 rounded-xl bg-gradient-to-r from-[#65a30d] to-[#4d7c0f] hover:from-[#4d7c0f] hover:to-[#3f6212] text-white font-bold text-sm md:text-md transition-colors shadow-lg shadow-green-600/50"          
+            <a
+              href="https://maps.google.com/maps/dir//Hello+Boba+11230+Garvey+Ave+%23C+El+Monte,+CA+91733/@34.062467,-118.0311685,18z/data=!4m5!4m4!1m0!1m2!1m1!1s0x80c2d1db6c36bda3:0x1fdf3db0b5303a86"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="action-button opacity-0 flex items-center justify-center w-full px-4 py-3 md:px-6 md:py-4 rounded-xl bg-gradient-to-r from-[#65a30d] to-[#4d7c0f] hover:from-[#4d7c0f] hover:to-[#3f6212] text-white font-bold text-sm md:text-md transition-colors shadow-lg shadow-green-600/50"
             >
               Get Directions
             </a>
@@ -249,9 +244,10 @@ onMounted(() => {
             >
               Call Store
             </a>
-            <a 
-              href="https://www.google.com/maps/dir//Hello+Boba,+11230+Garvey+Ave+%23C,+El+Monte,+CA+91733/@34.062467,-118.0311685,18z/data=!4m8!4m7!1m0!1m5!1m1!1s0x80c2d1db6c36bda3:0x1fdf3db0b5303a86!2m2!1d-118.0311685!2d34.062467?entry=ttu&g_ep=EgoyMDI2MDIyMy4wIKXMDSoASAFQAw%3D%3D"
-              target="_blank" 
+            <a
+              href="https://maps.google.com/maps/dir//Hello+Boba+4788+Peck+Rd+El+Monte,+CA+91732/@34.0899773,-118.0139066,18z/data=!4m5!4m4!1m0!1m2!1m1!1s0x80c2d91f75934401:0x7f2669691ab068dc"
+              target="_blank"
+              rel="noopener noreferrer"
               class="action-button opacity-0 flex items-center justify-center w-full px-4 py-3 md:px-6 md:py-4 rounded-xl bg-gradient-to-r from-[#65a30d] to-[#4d7c0f] hover:from-[#4d7c0f] hover:to-[#3f6212] text-white font-bold text-sm md:text-md transition-colors shadow-lg shadow-green-600/50"
             >
               Get Directions
@@ -259,15 +255,8 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      
+
     </div>
   </div>
 </template>
 
-<style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
-
-.font-sans {
-  font-family: 'Nunito', sans-serif;
-}
-</style>

@@ -1,6 +1,11 @@
 <script setup lang="ts">
-import { watch, onMounted } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import gsap from 'gsap';
+
+useSeoMeta({
+  title: 'Contact — Hello Boba',
+  description: 'Have a question, feedback, or want to inquire about a job opening? Reach out to Hello Boba in El Monte.'
+});
 
 const backgroundItems = [
   { 
@@ -114,29 +119,35 @@ const email = ref('');
 const message = ref('');
 const destinationEmail = 'hello.hello.boba.boba@gmail.com';
 
-const cardRef = ref<HTMLElement>();
-const headerRef = ref('');
-
-const hasPlayedIntro = useState('playedIntro', () => false)
+const cardRef = ref<HTMLElement | null>(null);
+const headerRef = ref<{ $el?: HTMLElement } | HTMLElement | null>(null);
 
 const mailtoLink = computed(() => {
-  const formattedBody = `Hi Hello Boba team,%0D%0A%0D%0A${message.value}%0D%0A%0D%0AFrom: ${name.value}%0D%0A${email.value}`;
-  return `mailto:${destinationEmail}?subject=${encodeURIComponent(subject.value)}&body=${formattedBody}`;
+  const body = `Hi Hello Boba team,\n\n${message.value}\n\nFrom: ${name.value}\n${email.value}`;
+  return `mailto:${destinationEmail}?subject=${encodeURIComponent(subject.value)}&body=${encodeURIComponent(body)}`;
 });
+
+const canSubmit = computed(() => Boolean(name.value && email.value && message.value));
+
+const openMail = () => {
+  if (!canSubmit.value) return;
+  window.location.href = mailtoLink.value;
+};
+
+const resolveEl = (r: any) => r?.$el ?? r;
 
 onMounted(() => {
   const floaters = gsap.utils.toArray('.floater');
-  
+
   floaters.forEach((floater: any) => {
-    const speed = gsap.utils.random(15, 30); 
+    const speed = gsap.utils.random(15, 30);
     const drift = gsap.utils.random(-80, 80);
-    
-    const startDelay = gsap.utils.random(-speed, 0); 
+    const startDelay = gsap.utils.random(-speed, 0);
 
     gsap.fromTo(floater, {
       y: '100vh',
       x: 0,
-      rotation: gsap.utils.random(-90, 90),
+      rotation: gsap.utils.random(-90, 90)
     }, {
       y: '-50vh',
       x: drift,
@@ -144,67 +155,61 @@ onMounted(() => {
       duration: speed,
       repeat: -1,
       ease: 'none',
-      delay: startDelay 
+      delay: startDelay
     });
   });
+});
 
-  watch(hasPlayedIntro, async (isDone) => {
-    if (isDone) {
-      const timeline = gsap.timeline();
+useIntroSequence((timeline) => {
+  timeline.fromTo(resolveEl(headerRef.value), {
+    autoAlpha: 0,
+    y: -30
+  }, {
+    autoAlpha: 1,
+    y: 0,
+    duration: 1,
+    ease: 'expo.out'
+  });
 
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          timeline.fromTo(headerRef.value, {
-            autoAlpha: 0,
-            y: -30
-          }, {
-            autoAlpha: 1,
-            y: 0,
-            duration: 1,
-            ease: 'expo.out'
-          })
+  const contactElements = cardRef.value ? Array.from(cardRef.value.children) : [];
 
-          const contactElements = cardRef.value ? Array.from(cardRef.value.children) : []
+  timeline.fromTo(cardRef.value!, {
+    autoAlpha: 0,
+    y: 50
+  }, {
+    autoAlpha: 1,
+    y: 0,
+    duration: 1,
+    ease: 'back.out'
+  }, '<+=0.5')
+  .fromTo(contactElements, {
+    autoAlpha: 0,
+    y: -30
+  }, {
+    autoAlpha: 1,
+    y: 0,
+    duration: 0.6,
+    ease: 'sine.out',
+    stagger: 0.1
+  }, '<+=0.4');
+});
 
-          timeline.fromTo(cardRef.value!, {
-            autoAlpha: 0,
-            y: 50
-          }, {
-            autoAlpha: 1,
-            y: 0,
-            duration: 1,
-            ease: 'back.out'
-          }, '<+=0.5')
-          .fromTo(contactElements, {
-            autoAlpha: 0,
-            y: -30
-          }, {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.6,
-            ease: 'sine.out',
-            stagger: 0.1
-          }, '<+=0.4')
-        })
-      })
-    }
-  }, { immediate: true });
+onBeforeUnmount(() => {
+  gsap.killTweensOf('.floater');
 });
 </script>
 
 <template>
-  <div class="min-h-screen pt-40 pb-24 px-4 md:px-6 relative z-10 overflow-hidden">
+  <div class="min-h-screen pt-40 pb-32 md:pb-48 px-4 md:px-6 relative z-10 overflow-hidden">
     <div class="fixed inset-0 w-full h-full -z-10 overflow-hidden">
       <div
         class="absolute inset-0 z-[5]"
         :style="{
-          backgroundImage: `
-            radial-gradient(125% 125% at 50% 10%, #ffffff 40%, #10b981 100%)
-          `,
-          backgroundSize: `100% 100%`,
+          backgroundImage: `radial-gradient(125% 125% at 50% 10%, #ffffff 40%, #10b981 100%)`,
+          backgroundSize: `100% 100%`
         }"
       />
-      <div 
+      <div
         v-for="item in backgroundItems"
         class="floater absolute top-0 font-black font-sans text-green-700/15 leading-none z-10"
         :key="item.symbol"
@@ -220,20 +225,12 @@ onMounted(() => {
       />
     </div>
     <div class="max-w-4xl mx-auto relative z-50">      
-      <div
-        ref="headerRef" 
-        class="text-center mb-10 md:mb-16 opacity-0"
-      >
-        <span class="inline-block px-4 py-1.5 mb-4 rounded-full border border-green-500/20 bg-green-500/10 text-green-700 font-bold tracking-widest text-xs uppercase backdrop-blur-sm shadow-sm">
-          Reach Out
-        </span>
-        <h1 class="text-transparent bg-clip-text bg-gradient-to-r from-[#65a30d] to-[#3f6212] text-5xl md:text-8xl tracking-tighter font-black font-sans pb-2">
-          Say Hello
-        </h1>
-        <p class="text-zinc-500 font-semibold mt-4 max-w-lg mx-auto text-sm md:text-base">
-          Have a question, feedback, or want to inquire about any job openings? Just send us an email down below about anything you may want to know.
-        </p>
-      </div>
+      <PageHeader
+        ref="headerRef"
+        eyebrow="Reach Out"
+        title="Say Hello"
+        description="Have a question, feedback, or want to inquire about any job openings? Just send us an email down below about anything you may want to know."
+      />
       <div 
         ref="cardRef"
         class="w-full flex flex-col gap-6 text-left mx-auto bg-white/60 backdrop-blur-xl rounded-3xl shadow-green-900/5 border border-3 border-zinc-400/50 p-6 md:p-10 shadow-2xl z-20 opacity-0"
@@ -285,29 +282,24 @@ onMounted(() => {
         </div>
 
         <div class="mt-2 flex justify-end opacity-0">
-          <a 
-            :href="name && message ? mailtoLink : 'javascript:void(0)'"
-						:disabled="!(name && message && email)"
+          <button
+            type="button"
+            :disabled="!canSubmit"
+            :aria-disabled="!canSubmit"
+            @click="openMail"
             :class="[
-              name && message && email
-                ? 'bg-gradient-to-r from-[#65a30d] to-[#4d7c0f] text-white shadow-lg shadow-green-600/30 hover:scale-105 cursor-pointer' 
+              canSubmit
+                ? 'bg-gradient-to-r from-[#65a30d] to-[#4d7c0f] text-white shadow-lg shadow-green-600/30 hover:scale-105 cursor-pointer'
                 : 'bg-zinc-200/50 text-zinc-400 cursor-not-allowed'
             ]"
-						class="inline-flex items-center justify-center w-full md:w-auto px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-sm tracking-wide transition-all duration-300"
+            class="inline-flex items-center justify-center w-full md:w-auto px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-sm tracking-wide transition-all duration-300"
           >
             Open in Mail App
-            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-          </a>
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
-
-.font-sans {
-  font-family: 'Nunito', sans-serif;
-}
-</style>
