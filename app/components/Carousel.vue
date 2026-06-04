@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import gsap from 'gsap';
 import type { Drink } from '~/types';
+
+let topTextTween: gsap.core.Tween | null = null;
+let carouselEnterTween: gsap.core.Tween | null = null;
 
 const props = defineProps<{
   items: Drink[]
@@ -70,23 +73,23 @@ onMounted(() => {
   updateDisplayAmount();
   window.addEventListener('resize', updateDisplayAmount);
 
-  gsap.from('.top-text', {
+  topTextTween = gsap.from('.top-text', {
     scrollTrigger: {
-      trigger: '.text-left', 
-      start: 'top 65%',      
+      trigger: '.text-left',
+      start: 'top 65%'
     },
-    y: '100%',               
-    rotationX: -90,          
+    y: '100%',
+    rotationX: -90,
     opacity: 0,
     duration: 0.8,
-    stagger: 0.05,           
-    ease: 'back.out(1.5)', 
+    stagger: 0.05,
+    ease: 'back.out(1.5)'
   });
 
-  gsap.from([carouselRef.value, orderRef.value] , { 
+  carouselEnterTween = gsap.from([carouselRef.value, orderRef.value], {
     scrollTrigger: {
       trigger: carouselRef.value,
-      start: 'top 95%',
+      start: 'top 95%'
     },
     stagger: 0.5,
     duration: 0.7,
@@ -97,8 +100,12 @@ onMounted(() => {
   });
 });
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   window.removeEventListener('resize', updateDisplayAmount);
+  topTextTween?.scrollTrigger?.kill();
+  topTextTween?.kill();
+  carouselEnterTween?.scrollTrigger?.kill();
+  carouselEnterTween?.kill();
 });
 </script>
 
@@ -116,10 +123,10 @@ onUnmounted(() => {
 
         <div class="top-text flex gap-4 self-end md:self-auto">
           <button @click="decreaseIndexCarousel" class="cursor-pointer h-10 w-10 md:h-12 md:w-12 rounded-full bg-green-600 text-green-700 flex items-center justify-center hover:bg-green-700 transition-all active:scale-95 disabled:opacity-50">
-            <NuxtPicture src="/leftchevron.png"/>
+            <NuxtPicture src="/leftchevron.png" :img-attrs="{ alt: 'Previous' }" />
           </button>
           <button @click="increaseIndexCarousel" class="cursor-pointer h-10 w-10 md:h-12 md:w-12 rounded-full bg-green-600 flex items-center justify-center shadow-lg shadow-green-600/30 hover:bg-green-700 transition-all active:scale-95">
-            <NuxtPicture src="/rightchevron.webp"/>
+            <NuxtPicture src="/rightchevron.webp" :img-attrs="{ alt: 'Next' }" />
           </button>
         </div>
       </div>
@@ -140,10 +147,10 @@ onUnmounted(() => {
               </div>
 
               <div class="relative w-full aspect-square mb-6 bg-zinc-100 rounded-xl overflow-hidden hover:bg-green-100/80 transition-colors">
-                  <NuxtPicture 
-                    :src="drink.image" 
-                    class="w-full" 
-                    :img-attrs="{ class: 'w-full -translate-y-[10%]' }"
+                  <NuxtPicture
+                    :src="drink.image"
+                    class="w-full"
+                    :img-attrs="{ class: 'w-full -translate-y-[10%]', alt: drink.name }"
                   />
               </div>
 
@@ -161,9 +168,11 @@ onUnmounted(() => {
         <div
 					ref="orderRef" class="w-full flex justify-center mt-16 md:my-12 pb-10 relative z-50"
 				>
-          <NuxtLink 
-            to="#" 
-            class="group relative px-8 py-3 md:px-10 md:py-4 bg-gradient-to-r from-green-500 to-green-700 rounded-full shadow-lg shadow-green-700/40 hover:shadow-green-500/50 hover:-translate-y-1 transition-all duration-300 active:scale-95"
+          <button
+            type="button"
+            disabled
+            aria-label="Online ordering — coming soon"
+            class="group relative px-8 py-3 md:px-10 md:py-4 bg-gradient-to-r from-green-500 to-green-700 rounded-full shadow-lg shadow-green-700/40 cursor-not-allowed"
           >
             <span class="flex items-center gap-2 md:gap-3 text-white font-sans font-black text-lg md:text-xl tracking-tight">
               Order Now
@@ -171,7 +180,7 @@ onUnmounted(() => {
                 TBA
               </span>
             </span>
-          </NuxtLink>
+          </button>
         </div>
       </div>
 
