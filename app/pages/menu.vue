@@ -262,7 +262,7 @@ watch(activeTab, (newTab) => {
 
 <template>
   <div class="min-h-screen pt-32 md:pt-40 pb-32 md:pb-48 px-4 md:px-6 relative z-10 overflow-hidden">
-    <div class="fixed inset-0 w-full h-full pointer-events-none overflow-hidden bg-gradient-to-b from-[#18ffe7]/40 to-[#fa1d1c]/30">
+    <div class="fixed inset-0 w-full h-full pointer-events-none overflow-hidden bg-gradient-to-b from-[#18ffe7]/40 to-[#fa1d1c]/30" aria-hidden="true">
       <div
         v-for="boba in bobas"
         :key="boba.id"
@@ -311,16 +311,18 @@ watch(activeTab, (newTab) => {
           :class="[firstTime && currentMenuConfigure === 'drinks' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none opacity-0 translate-y-[20%]']"
         >
           <div class="flex flex-row justify-center">
-            <button 
-              @click="slideLeft" 
+            <button
+              @click="slideLeft"
               :disabled="scrollCheckL"
+              type="button"
+              aria-label="Scroll categories left"
               class="shrink-0 h-10 w-10 md:h-12 md:w-12 rounded-full bg-green-600 flex items-center justify-center shadow-lg shadow-green-600/30 hover:bg-green-700 transition-all active:scale-95 p-3 md:p-4 mr-2 disabled:opacity-70"
             >
-              <NuxtPicture 
+              <NuxtPicture
                 src="/leftchevron.png"
                 :class="scrollCheckL ? 'cursor-not-allowed' : 'cursor-pointer'"
-                class="w-full h-full flex items-center justify-center" 
-                :img-attrs="{ class: 'w-full h-full object-contain' }" 
+                class="w-full h-full flex items-center justify-center"
+                :img-attrs="{ class: 'w-full h-full object-contain', alt: '' }"
               />
             </button>
             <div id="catBox" class="flex overflow-x-auto gap-3 pt-1 pb-8 border-b-2 border-green-500/20 cursor-pointer">
@@ -333,17 +335,19 @@ watch(activeTab, (newTab) => {
                 {{ cat }}
               </button>
             </div>
-            <button 
-              @click="slideRight" 
-              :disabled="scrollCheckR" 
+            <button
+              @click="slideRight"
+              :disabled="scrollCheckR"
+              type="button"
+              aria-label="Scroll categories right"
               :class="scrollCheckR ? 'cursor-not-allowed' : 'cursor-pointer'"
               class="shrink-0 h-10 w-10 md:h-12 md:w-12 rounded-full bg-green-600 flex items-center justify-center shadow-lg shadow-green-600/30 hover:bg-green-700 transition-all active:scale-95 p-3 md:p-4 ml-2 disabled:opacity-70"
             >
-              <NuxtPicture 
-                src="/rightchevron.webp" 
-                class="w-full h-full flex items-center justify-center" 
-                loading="lazy" 
-                :img-attrs="{ class: 'w-full h-full object-contain' }" 
+              <NuxtPicture
+                src="/rightchevron.webp"
+                class="w-full h-full flex items-center justify-center"
+                loading="lazy"
+                :img-attrs="{ class: 'w-full h-full object-contain', alt: '' }"
               />
             </button>
           </div>
@@ -355,7 +359,7 @@ watch(activeTab, (newTab) => {
               <div v-for="item in groupedMenu[category]" :key="item.name" class="drink-item group flex flex-col lg:flex-row justify-between items-start lg:items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-4 lg:gap-0">
                 <div class="flex flex-1 items-start md:items-center gap-4 md:gap-5 pr-0 lg:pr-4 w-full">
                   <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
-                    <img :src="item.image" class="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-[1.1]" />
+                    <img :src="item.image" :alt="item.name" class="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-[1.1]" />
                   </div>
                   <div class="flex-1">
                     <div class="flex flex-col md:flex-row md:flex-wrap items-start md:items-center gap-2 md:gap-3 mb-2">
@@ -392,7 +396,7 @@ watch(activeTab, (newTab) => {
             <div v-for="topping in toppings" :key="topping.name" class="group flex flex-row justify-between items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-0">
               <div class="flex flex-1 items-center gap-4 md:gap-5 pr-0 md:pr-4 w-full">
                 <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
-                  <img :src="topping.image" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <img :src="topping.image" :alt="topping.name" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                 </div>
                 <div class="flex-1">
                   <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-1">
@@ -414,7 +418,7 @@ watch(activeTab, (newTab) => {
             <div v-for="b in bobaOptions" :key="b.name" class="group flex flex-row justify-between items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-0">
               <div class="flex items-center gap-4 md:gap-5 w-full">
                 <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
-                  <img v-if="b.image" :src="b.image" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <img v-if="b.image" :src="b.image" :alt="b.name" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                   <span v-else class="text-2xl md:text-3xl opacity-50 grayscale">🧋</span>
                 </div>
                 <div class="flex-1">
@@ -437,7 +441,7 @@ watch(activeTab, (newTab) => {
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
               <div v-for="flavor in f.items" :key="flavor.name" class="group flex flex-col items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-4">
                 <div class="w-20 h-20 md:w-24 md:h-24 shrink-0 rounded-full overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center shadow-inner">
-                  <img v-if="flavor.image" :src="flavor.image" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <img v-if="flavor.image" :src="flavor.image" :alt="flavor.name" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                   <span v-else class="text-3xl md:text-4xl opacity-50 grayscale">🍰</span>
                 </div>
                 <h3 class="text-base md:text-lg font-bold text-center text-zinc-800 group-hover:text-green-700 transition-colors leading-tight">{{ flavor.name }}</h3>

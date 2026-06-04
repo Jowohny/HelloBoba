@@ -127,11 +127,11 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="relative h-[100svh] pt-40 md:h-screen w-full flex items-center justify-center overflow-hidden bg-zinc-950 z-40">
-    <div ref="heroImage" class="absolute inset-0 z-0 scale-[1.2] blur-[20px]">
-      <NuxtPicture 
-        src="/HelloHero.png" 
+    <div ref="heroImage" class="absolute inset-0 z-0 scale-[1.2] blur-[20px]" aria-hidden="true">
+      <NuxtPicture
+        src="/HelloHero.png"
         class="h-full w-full object-cover"
-        :img-attrs="{ class: 'h-full w-full object-cover opacity-70' }"
+        :img-attrs="{ class: 'h-full w-full object-cover opacity-70', alt: '' }"
       />
     </div>
 
@@ -140,7 +140,7 @@ onBeforeUnmount(() => {
         <NuxtPicture
           class="h-full w-full"
           src="/HelloBobaLogo.png"
-          :img-attrs="{ class: 'h-full w-full object-cover' }"
+          :img-attrs="{ class: 'h-full w-full object-cover', alt: 'Hello Boba' }"
         />
       </div>
 
@@ -173,6 +173,7 @@ onBeforeUnmount(() => {
 
 	<div class="relative bg-white overflow-hidden pb-32 md:pb-48">
 		<div
+			aria-hidden="true"
 			class="pointer-events-none absolute inset-0 opacity-[0.2]"
 			:style="{
 				backgroundImage: `linear-gradient(45deg, transparent 49%, #00cc00 49%, #00cc00 51%, transparent 51%), linear-gradient(-45deg, transparent 49%, #00cc00 49%, #00cc00 51%, transparent 51%)`,

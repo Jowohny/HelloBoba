@@ -86,7 +86,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="min-h-screen bg-[#f6f6f6] pt-40 pb-32 md:pb-48 px-4 md:px-6 relative z-10 overflow-hidden">
-    <div class="fixed inset-0 w-full h-full z-0 pointer-events-none bg-[#f6f6f6]">
+    <div class="fixed inset-0 w-full h-full z-0 pointer-events-none bg-[#f6f6f6]" aria-hidden="true">
       <div 
         class="bubble-layer-1 absolute inset-0 w-[200%] h-[200%] opacity-40"
         :style="{
@@ -120,10 +120,10 @@ onBeforeUnmount(() => {
         >
           <div class="relative bg-zinc-50 shrink-0 border-b border-zinc-200 w-full aspect-[9/11] overflow-hidden">
             <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10 pointer-events-none"></div>
-            <NuxtPicture 
-              :src="item.image" 
+            <NuxtPicture
+              :src="item.image"
               class="w-full h-full"
-              :img-attrs="{ class: 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out' }"
+              :img-attrs="{ class: 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out', alt: item.title }"
             />
           </div>
 
@@ -159,10 +159,10 @@ onBeforeUnmount(() => {
         >
           <div class="relative bg-zinc-50 shrink-0 border-b border-zinc-200 w-full aspect-[4/5] overflow-hidden">
             <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10 pointer-events-none"></div>
-            <NuxtPicture 
-              :src="item.image" 
+            <NuxtPicture
+              :src="item.image"
               class="w-full h-full"
-              :img-attrs="{ class: 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out' }"
+              :img-attrs="{ class: 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out', alt: item.title }"
             />
           </div>
 

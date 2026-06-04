@@ -131,7 +131,7 @@ onBeforeUnmount(() => {
 <template>
   <div class="min-h-screen pt-40 pb-32 md:pb-48 px-4 md:px-6 relative z-10 overflow-hidden bg-[#f6f6f6]">
     
-    <div class="fixed inset-0 w-full h-full z-0 pointer-events-none overflow-hidden flex flex-col justify-center">
+    <div class="fixed inset-0 w-full h-full z-0 pointer-events-none overflow-hidden flex flex-col justify-center" aria-hidden="true">
       <div class="absolute inset-0 flex flex-col justify-center gap-16 opacity-[0.06] blur-[1.5px] scale-110 -rotate-[2deg]">
         <div class="text-1 flex whitespace-nowrap text-[15vw] lg:text-[12vw] font-black font-sans text-green-900 tracking-tighter uppercase">
           <span v-for="n in 4" :key="'l'+n" class="px-8">Garvey Ave • El Monte •</span>
@@ -140,14 +140,14 @@ onBeforeUnmount(() => {
           <span v-for="n in 4" :key="'r'+n" class="px-8">Peck Road • El Monte •</span>
         </div>
       </div>
-      <div class="pin-1 absolute top-[10%] left-[10%] w-[40vw] lg:w-[30vw] max-w-sm opacity-[0.04] filter blur-[1.5px]">
-        <NuxtPicture src="/locationpointer.png" class="w-full h-auto object-contain" />
+      <div class="pin-1 absolute top-[10%] left-[10%] w-[40vw] lg:w-[30vw] max-w-sm opacity-[0.04] filter blur-[1.5px]" aria-hidden="true">
+        <NuxtPicture src="/locationpointer.png" class="w-full h-auto object-contain" :img-attrs="{ alt: '' }" />
       </div>
-      <div class="pin-2 absolute bottom-[5%] right-[5%] w-[50vw] lg:w-[40vw] max-w-lg opacity-[0.04] filter blur-[2px]">
-        <NuxtPicture src="/locationpointer.png" class="w-full h-auto object-contain" />
+      <div class="pin-2 absolute bottom-[5%] right-[5%] w-[50vw] lg:w-[40vw] max-w-lg opacity-[0.04] filter blur-[2px]" aria-hidden="true">
+        <NuxtPicture src="/locationpointer.png" class="w-full h-auto object-contain" :img-attrs="{ alt: '' }" />
       </div>
 
-      <svg class="absolute inset-0 w-full h-full opacity-50" viewBox="0 0 1440 800">
+      <svg class="absolute inset-0 w-full h-full opacity-50" viewBox="0 0 1440 800" aria-hidden="true">
         <path class="path-1" d="M-100,600 C200,600 300,200 600,300 C900,400 1000,100 1500,200" fill="none" stroke="#65a30d" stroke-width="4" stroke-dasharray="30 30" stroke-linecap="round"/>
         <path class="path-2" d="M-100,200 C300,100 400,700 800,600 C1200,500 1300,300 1500,400" fill="none" stroke="#84cc16" stroke-width="6" stroke-dasharray="30 30" stroke-linecap="round"/>
         <path class="path-3" d="M-100,400 C200,800 500,0 800,400 C1100,800 1300,100 1500,300" fill="none" stroke="#a3e635" stroke-width="3" stroke-dasharray="30 30" stroke-linecap="round"/>

@@ -201,7 +201,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="min-h-screen pt-40 pb-32 md:pb-48 px-4 md:px-6 relative z-10 overflow-hidden">
-    <div class="fixed inset-0 w-full h-full -z-10 overflow-hidden">
+    <div class="fixed inset-0 w-full h-full -z-10 overflow-hidden" aria-hidden="true">
       <div
         class="absolute inset-0 z-[5]"
         :style="{

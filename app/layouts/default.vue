@@ -136,7 +136,7 @@ watch(openMobileMenu, (isOpen) => {
     <div class="flex items-center justify-between w-full h-[10vh] shrink-0">
       <div class="flex flex-row items-center">
         <span ref='bobaRef' class="h-9 w-9 shrink-0 overflow-hidden rounded-full opacity-0">
-          <NuxtPicture class="h-full w-full object-cover cursor-pointer" src="bobalogo.png"/>
+          <NuxtPicture class="h-full w-full object-cover cursor-pointer" src="bobalogo.png" :img-attrs="{ alt: 'Hello Boba logo' }" />
         </span>
         <NuxtLink ref="nameRef" to="/" class="subpixel-antialiased flex items-center gap-2 no-underline font-black text-2xl tracking-tighter text-green-300 opacity-0 pl-2">
           HELLO <span class="text-amber-800">BOBA</span>
@@ -157,16 +157,29 @@ watch(openMobileMenu, (isOpen) => {
       </div>
 
       <div class="flex items-center gap-4">
-        <NuxtLink ref="orderRef" to="#" class="hidden lg:block px-5 py-2 rounded-full font-black text-md text-white bg-gradient-to-r from-green-500 to-green-600 shadow-lg opacity-0">
+        <button
+          ref="orderRef"
+          type="button"
+          disabled
+          aria-label="Online ordering — coming soon"
+          class="hidden lg:block px-5 py-2 rounded-full font-black text-md text-white bg-gradient-to-r from-green-500 to-green-600 shadow-lg opacity-0 cursor-not-allowed"
+        >
           TBA
-        </NuxtLink>
-        <NuxtPicture 
-          ref="hamburgerRef"
-          src="/hamburgericon.png"
-          class="w-8 h-8 lg:hidden opacity-0"
+        </button>
+        <button
+          type="button"
+          :aria-label="openMobileMenu ? 'Close menu' : 'Open menu'"
+          :aria-expanded="openMobileMenu"
+          class="lg:hidden"
           @click="openMobileMenu = !openMobileMenu"
-          :img-attrs="{ class: 'h-full w-full object-contain' }"
-        />
+        >
+          <NuxtPicture
+            ref="hamburgerRef"
+            src="/hamburgericon.png"
+            class="w-8 h-8 opacity-0 block"
+            :img-attrs="{ class: 'h-full w-full object-contain', alt: '' }"
+          />
+        </button>
       </div>
     </div>
 
@@ -180,9 +193,14 @@ watch(openMobileMenu, (isOpen) => {
       >
         {{ tab.tabName }}
       </NuxtLink>
-        <NuxtLink to="#" class="mobile-link lg:block px-5 py-2 rounded-full font-black text-md text-white bg-gradient-to-r from-green-500 to-green-600 shadow-lg opacity-0">
+        <button
+          type="button"
+          disabled
+          aria-label="Online ordering — coming soon"
+          class="mobile-link lg:block px-5 py-2 rounded-full font-black text-md text-white bg-gradient-to-r from-green-500 to-green-600 shadow-lg opacity-0 cursor-not-allowed"
+        >
           TBA
-        </NuxtLink>
+        </button>
     </div>
 
   </div>
