@@ -1,75 +1,51 @@
-# Nuxt Minimal Starter
+# Hello Boba
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Marketing site for Hello Boba (El Monte, CA). Nuxt 4 + Tailwind + GSAP.
 
-## Setup
+## Stack
 
-Make sure to install dependencies:
+- **Framework:** Nuxt 4 (Vue 3, `<script setup>`)
+- **Styling:** Tailwind CSS via `@nuxtjs/tailwindcss`
+- **Images:** `@nuxt/image` (`<NuxtPicture>` / `<NuxtImg>`)
+- **Animation:** GSAP (core, `ScrollTrigger`, `SplitText`) — plugins registered once in `app/plugins/gsap.client.ts`
+- **Type system:** strict TypeScript via `nuxi typecheck`
+
+## Project layout
+
+```
+app/
+  app.vue                 # Root component
+  layouts/default.vue     # Navbar + page slot + SiteFooter
+  pages/                  # index, news, menu, locations, contact
+  components/             # PageHeader, SiteFooter, WaveDivider, Carousel
+  composables/            # useIntroSequence — gates page intro on navbar drop
+  data/                   # topDrinks, menu, locations, news, social
+  types/index.ts          # Drink, MenuItem, StoreLocation, NewsItem, SocialLink
+  plugins/gsap.client.ts  # ScrollTrigger + SplitText registration
+  assets/css/main.css     # Nunito + .font-sans (global)
+public/                   # Static images (drinks/, toppings/, banners)
+```
+
+## Local development
 
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+npm run dev      # http://localhost:3000
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+Other scripts:
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+npm run build       # Production build
+npm run preview     # Preview production build locally
+npm run generate    # Static site generation
+npm run typecheck   # vue-tsc strict typecheck
 ```
 
-## Production
+## Conventions
 
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- Page content (drinks, hours, news, social links) lives in `app/data/*` — edit there, not in templates.
+- Page entry animations use `useIntroSequence((timeline) => { ... })` so they wait for the navbar drop before running.
+- The SiteFooter is mounted in the layout (visible on every route). Its wave divider is part of the footer, not the page.
+- Crosshatch pattern is only on the home page's Top 10 section.
+- Per-page background gradients live in each page's wrapper; the footer's `z-50` keeps it above them.
