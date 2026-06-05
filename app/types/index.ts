@@ -67,3 +67,11 @@ export interface SocialLink {
   media: string
   link: string
 }
+
+export interface Review {
+  pfp: string
+  name: string
+  message: string
+  images: string[]
+  link: string
+}
