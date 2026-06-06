@@ -24,6 +24,9 @@ defineProps<{
       <h3 class="font-black font-sans text-lg text-zinc-900 tracking-tight truncate">
         {{ review.name }}
       </h3>
+			<div class="ml-auto mr-4 flex flex-row justify-center content-center gap-1">
+				<img v-for="i in 5" class="h-6 w-6 object-contain" :key="i" src="/star.svg" alt="star">
+			</div>
     </div>
 
     <div class="relative">
