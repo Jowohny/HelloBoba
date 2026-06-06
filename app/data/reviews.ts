@@ -84,7 +84,7 @@ export const reviews: Review[] = [
 		name: 'Teresa Ramirez',
 		message: 'Tasty boba with original style. My son and I love coming here. Great variety of boba & tea flavors. Relaxing atmosphere & clean stylish decor.',
 		images: [
-			'https://lh3.googleusercontent.com/geougc-cs/AMG9lESBCvZN7QVHRpncVbPRLvX_8-_WXQeacLlUrYnjQgP_nJNQ2_0HZCljh679YHu8hZ2PozwyejFrIRoJdKc6Rfzmei8WbVvTQgFxQoYBSEENXRQR9R3bIAqI0bJKhAR6FH9VLnRg=s250-p-k',
+			'https://lh3.googleusercontent.com/grass-cs/ANxoTn3Lb5ULml7g_Ll0q8U5_5OnXeUl74zEgPocN5KZEQGwTIfVtpQoLxyqayML7yhQTx7po06puomuoq2vLGTuNmuswZnyox2ntcPkFbvGlAB4ZZwebmeodhSBm_4BWCXGiolZ32Qu=s250-p-k',
 			'https://lh3.googleusercontent.com/grass-cs/ANxoTn39Op2jMgEfh2kkuwhUWRO_k7YvwPD3fT2_COUX19OmldvPML168simE9YYsSIUSkG8dUrOqrTHxTOpkhrSG3Vsny5LoX81fC1SQC0w2WXWRK42ojg0oxVT9CPPNQB7NFmmnNaj=s250-p-k',
 			'https://lh3.googleusercontent.com/grass-cs/ANxoTn2CIXWDCPREzz1mYRMlj5ssWejqA1pHK-cyz2AIF57g5CyiLNTnpq90aLe7kxe1fiqyD85342uSjWmRPyZJ5NMRmsjaVg9LvogKEQ0eDolxHOZf6KCbUVBIq7gmjcUuFULWHOBxig=s250-p-k'
 		],
