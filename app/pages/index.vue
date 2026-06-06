@@ -2,6 +2,7 @@
 import { onBeforeUnmount, ref } from 'vue';
 import gsap from 'gsap';
 import { topDrinks } from '~/data/topDrinks';
+import { reviews } from '~/data/reviews';
 
 useSeoMeta({
   title: 'Hello Boba — El Monte',
@@ -171,7 +172,7 @@ onBeforeUnmount(() => {
     </div>
   </div>
 
-	<div class="relative bg-white overflow-hidden pb-32 md:pb-48">
+	<div class="relative bg-white overflow-hidden">
 		<div
 			aria-hidden="true"
 			class="pointer-events-none absolute inset-0 opacity-[0.2]"
@@ -185,6 +186,23 @@ onBeforeUnmount(() => {
 
 		<Carousel :items="topDrinks"/>
 	</div>
+
+	<section class="relative bg-[#4d7c0f] pt-2 md:pt-6 pb-40 md:pb-56">
+		<WaveDivider class="pointer-events-none absolute -top-16 md:-top-32 left-0 w-full h-16 md:h-32 -scale-y-100  -scale-x-100 text-[#4d7c0f] fill-current z-[100]" />
+
+		<div class="relative z-10 max-w-7xl mx-auto px-4 md:px-6 mb-10 md:mb-14">
+			<span class="inline-block px-4 py-1.5 mb-3 rounded-full border border-lime-300/30 bg-lime-300/10 text-lime-200 font-bold tracking-widest text-xs uppercase backdrop-blur-sm">
+				What People Say
+			</span>
+			<h2 class="text-white font-black font-sans text-4xl md:text-6xl tracking-tighter">
+				Reviews
+			</h2>
+		</div>
+
+		<div class="relative z-10">
+			<ReviewMarquee :reviews="reviews" />
+		</div>
+	</section>
 </template>
 
 <style scoped>
