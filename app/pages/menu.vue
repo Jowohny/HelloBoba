@@ -19,8 +19,48 @@ const firstTime = ref<boolean>(false);
 const scrollCheckL = ref<boolean>(true);
 const scrollCheckR = ref<boolean>(true);
 
-const totalBoba = ref<number>(60);
+type BobaDepth = 'far' | 'mid' | 'near';
+interface BobaConfig {
+  id: number;
+  depth: BobaDepth;
+  left: string;
+  drift: string;
+  delay: string;
+  duration: string;
+}
+
+const bobas = ref<BobaConfig[]>([]);
 let resizeTimer: ReturnType<typeof setTimeout>;
+
+const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
+
+const buildBobas = (): BobaConfig[] => {
+  if (typeof window === 'undefined') return [];
+
+  const count =
+    window.innerWidth < 768 ? 15 :
+    window.innerWidth < 1024 ? 18 :
+    21;
+
+  const result: BobaConfig[] = [];
+  for (let i = 0; i < count; i++) {
+    const depth: BobaDepth = i % 3 === 0 ? 'far' : i % 2 === 0 ? 'mid' : 'near';
+    const duration =
+      depth === 'far' ? randomInRange(12, 16) :
+      depth === 'mid' ? randomInRange(9, 12) :
+      randomInRange(5, 8);
+
+    result.push({
+      id: i,
+      depth,
+      left: `${(i * 13) % 100}%`,
+      drift: `${Math.round(randomInRange(-40, 40))}px`,
+      delay: `-${randomInRange(0, duration).toFixed(2)}s`,
+      duration: `${duration.toFixed(2)}s`
+    });
+  }
+  return result;
+};
 
 import type { MenuItem } from '~/types';
 
@@ -41,29 +81,10 @@ const categories = computed(() => Object.keys(groupedMenu.value));
 
 const activeTab = ref(categories.value[0]);
 
-const bobas = ref<any[]>([]);
-
-const updateDisplayAmount = () => {
+const onResize = () => {
   clearTimeout(resizeTimer);
-  
-  resizeTimer = setTimeout(async () => {
-    if (typeof window !== 'undefined') {
-      if (window.innerWidth < 768) {
-        totalBoba.value = 10; 
-      } else if (window.innerWidth < 1024) {
-        totalBoba.value = 20; 
-      } else {
-        totalBoba.value = 30;
-      }
-    }
-    
-    gsap.killTweensOf('.boba-pearl');
-
-    bobas.value = [];
-    createRandomBoba();
-
-    await nextTick();
-    animateBobaElements();
+  resizeTimer = setTimeout(() => {
+    bobas.value = buildBobas();
   }, 250);
 };
 
@@ -96,52 +117,6 @@ const checkScrollButtons = () => {
   scrollCheckR.value = element.scrollLeft + element.clientWidth >= element.scrollWidth - 1;
 }
 
-const createRandomBoba = () => {
-  const newBobas = []; 
-  
-  for (let i = 0; i < totalBoba.value; i++) {
-    const sizeClass = ['w-3 h-3', 'w-5 h-5', 'w-8 h-8', 'w-12 h-12', 'w-16 h-16', 'w-20 h-20'][i % 5];
-    const leftPos = (i * 13) % 100; 
-    
-    let depthClass = 'opacity-90 z-20 blur-[0.9px]';
-    if (i % 3 === 0) depthClass = 'blur-[3px] opacity-40 z-0';
-    if (i % 4 === 0) depthClass = 'blur-[1px] opacity-70 z-10'; 
-    
-    newBobas.push({
-      id: Math.random(),
-      size: sizeClass,
-      left: `${leftPos}%`,
-      depth: depthClass
-    });
-  }
-
-  bobas.value = newBobas;
-}
-
-const animateBobaElements = () => {
-  const bobaElements = gsap.utils.toArray('.boba-pearl');
-
-  bobaElements.forEach((boba: any) => {
-    const speed = gsap.utils.random(5, 15);    
-    const drift = gsap.utils.random(-40, 40);
-    const startDelay = gsap.utils.random(-speed, 0); 
-
-    gsap.fromTo(boba, {
-      y: '-15vh',
-      x: 0,
-      rotation: gsap.utils.random(0, 360)
-    }, {
-      y: '115vh',
-      x: drift,
-      rotation: gsap.utils.random(-180, 180),
-      duration: speed,
-      repeat: -1,
-      ease: 'none',
-      delay: startDelay
-    });
-  });
-}
-
 const resolveEl = (r: any) => r?.$el ?? r;
 let splitSectionTitle: SplitText | null = null;
 
@@ -153,14 +128,9 @@ onMounted(() => {
     catBox.addEventListener('scroll', checkScrollButtons);
   }
 
-  updateDisplayAmount();
-  createRandomBoba();
+  bobas.value = buildBobas();
 
-  nextTick(() => {
-    animateBobaElements();
-  });
-
-  window.addEventListener('resize', updateDisplayAmount);
+  window.addEventListener('resize', onResize);
 });
 
 useIntroSequence((timeline) => {
@@ -241,10 +211,10 @@ useIntroSequence((timeline) => {
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener('resize', updateDisplayAmount);
+  window.removeEventListener('resize', onResize);
+  clearTimeout(resizeTimer);
   const catBox = document.getElementById('catBox');
   catBox?.removeEventListener('scroll', checkScrollButtons);
-  gsap.killTweensOf('.boba-pearl');
   splitSectionTitle?.revert();
 });
 
@@ -266,9 +236,14 @@ watch(activeTab, (newTab) => {
       <div
         v-for="boba in bobas"
         :key="boba.id"
-        class="boba-pearl absolute top-0 rounded-full bg-[#1a1311]"
-        :class="[boba.size, boba.depth]"
-        :style="{ left: boba.left }"
+        class="boba-pearl"
+        :class="`depth-${boba.depth}`"
+        :style="{
+          left: boba.left,
+          '--drift': boba.drift,
+          animationDelay: boba.delay,
+          animationDuration: boba.duration
+        }"
       />
     </div>
     <div class="max-w-7xl mx-auto relative z-10">
@@ -453,4 +428,51 @@ watch(activeTab, (newTab) => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.boba-pearl {
+  position: absolute;
+  top: 0;
+  border-radius: 9999px;
+  background: #1a1311;
+  animation-name: bobaFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+  transform: translate3d(0, -15vh, 0);
+}
+
+.depth-far {
+  width: 16px;
+  height: 16px;
+  opacity: 0.35;
+  z-index: 0;
+}
+
+.depth-mid {
+  width: 32px;
+  height: 32px;
+  opacity: 0.65;
+  z-index: 10;
+}
+
+.depth-near {
+  width: 48px;
+  height: 48px;
+  opacity: 0.95;
+  z-index: 20;
+}
+
+@keyframes bobaFall {
+  from { transform: translate3d(0, -15vh, 0); }
+  to   { transform: translate3d(var(--drift, 0), 115vh, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boba-pearl {
+    animation: none;
+    display: none;
+  }
+}
+</style>
 
