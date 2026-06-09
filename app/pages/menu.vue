@@ -251,7 +251,9 @@ watch(activeTab, (newTab) => {
         ref="headerRef"
         eyebrow="Freshly Brewed"
         title="Menu Items"
-        description="Take a look at all our freshly brewed teas, milk tea variations, smoothies, and other specialty drinks. For anyone who's hungry, we also have our small selection of cakes and cookies."
+        description="Take a look at all our freshly brewed teas, milk tea variations, smoothies, and other specialty drinks. For anyone who's hungry, we also have our small selection of cakes and cookies. 
+				
+				In order to place an order for an online pickup, the order now in navigation menu will take you to our square site where you can customize your cart and complete your order."
       />
       <div class="relative flex flex-wrap lg:flex-nowrap justify-center lg:justify-around px-2 md:px-8 z-5">
         <div

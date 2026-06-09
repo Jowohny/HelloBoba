@@ -134,12 +134,12 @@ watch(openMobileMenu, (isOpen) => {
   <div ref="navbarRef" class="fixed top-4 left-1/2 -translate-x-1/2 z-[999] backdrop-blur-lg flex flex-col bg-white/20 w-[80%] h-[10vh] px-6 rounded-[100px] border shadow-xl shadow-green-500/20 overflow-hidden opacity-0">
     
     <div class="flex items-center justify-between w-full h-[10vh] shrink-0">
-      <div class="flex flex-row items-center">
-        <span ref='bobaRef' class="h-9 w-9 shrink-0 overflow-hidden rounded-full opacity-0">
-          <NuxtPicture class="h-full w-full object-cover cursor-pointer" src="bobalogo.png" :img-attrs="{ alt: 'Hello Boba logo' }" />
+      <div class="flex flex-row items-center gap-2">
+        <span ref='bobaRef' class="h-12 w-12 shrink-0 overflow-hidden rounded-full opacity-0 mr-2">
+          <NuxtPicture class="h-full w-full object-cover cursor-pointer" src="kiwiboba.png" :img-attrs="{ alt: 'Hello Boba logo' }" />
         </span>
-        <NuxtLink ref="nameRef" to="/" class="subpixel-antialiased flex items-center gap-2 no-underline font-black text-2xl tracking-tighter text-green-300 opacity-0 pl-2">
-          HELLO <span class="text-amber-800">BOBA</span>
+        <NuxtLink ref="nameRef" to="/" class="font-smono tracking-tighter subpixel-antialiased flex items-center gap-2 no-underline font-[900] text-2xl text-[#121212] opacity-0 pl-2">
+          HELLO BOBA
         </NuxtLink>
       </div>
 
@@ -157,15 +157,15 @@ watch(openMobileMenu, (isOpen) => {
       </div>
 
       <div class="flex items-center gap-4">
-        <button
+        <NuxtLink
           ref="orderRef"
-          type="button"
-          disabled
-          aria-label="Online ordering — coming soon"
-          class="hidden lg:block px-5 py-2 rounded-full font-black text-md text-white bg-gradient-to-r from-green-500 to-green-600 shadow-lg opacity-0 cursor-not-allowed"
+					to="https://hello-boba.square.site/s/shop"
+					target="_blank"
+          aria-label="Online ordering: Will take you to our square site."
+          class="hidden lg:block px-5 py-2 rounded-full font-black text-md text-white bg-gradient-to-r from-green-500 to-green-600 shadow-lg opacity-0 cursor-pointer"
         >
-          TBA
-        </button>
+          Order Here
+        </NuxtLink>
         <button
           type="button"
           :aria-label="openMobileMenu ? 'Close menu' : 'Open menu'"
@@ -193,14 +193,13 @@ watch(openMobileMenu, (isOpen) => {
       >
         {{ tab.tabName }}
       </NuxtLink>
-        <button
-          type="button"
-          disabled
-          aria-label="Online ordering — coming soon"
-          class="mobile-link lg:block px-5 py-2 rounded-full font-black text-md text-white bg-gradient-to-r from-green-500 to-green-600 shadow-lg opacity-0 cursor-not-allowed"
-        >
-          TBA
-        </button>
+			<NuxtLink
+				to="https://hello-boba.square.site/s/shop"
+				aria-label="Online ordering: Will take you to our square site."
+				class="mobile-link lg:block px-5 py-2 rounded-full font-black text-md text-white bg-gradient-to-r from-green-500 to-green-600 shadow-lg opacity-0 cursor-pointer"
+			>
+				Order Here
+			</NuxtLink>
     </div>
 
   </div>

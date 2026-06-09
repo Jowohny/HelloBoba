@@ -168,19 +168,17 @@ onBeforeUnmount(() => {
         <div
 					ref="orderRef" class="w-full flex justify-center mt-16 md:my-12 pb-10 relative z-50"
 				>
-          <button
+          <NuxtLink
             type="button"
-            disabled
-            aria-label="Online ordering — coming soon"
-            class="group relative px-8 py-3 md:px-10 md:py-4 bg-gradient-to-r from-green-500 to-green-700 rounded-full shadow-lg shadow-green-700/40 cursor-not-allowed"
+						target="_blank"
+            to="https://hello-boba.square.site/s/shop"
+            aria-label="Online ordering: Will take you to our square site."
+            class="group relative px-8 py-3 md:px-10 md:py-4 bg-gradient-to-r from-green-500 to-green-700 rounded-full shadow-lg shadow-green-700/40 cursor-pointer"
           >
             <span class="flex items-center gap-2 md:gap-3 text-white font-sans font-black text-lg md:text-xl tracking-tight">
               Order Now
-              <span class="px-2 py-1 bg-black/20 rounded-md text-green-100 text-[10px] md:text-xs font-bold uppercase tracking-widest backdrop-blur-sm">
-                TBA
-              </span>
             </span>
-          </button>
+          </NuxtLink>
         </div>
       </div>
 

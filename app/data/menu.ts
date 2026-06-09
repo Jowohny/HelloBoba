@@ -103,11 +103,7 @@ export const food: FoodCategory[] = [
       { name: 'Vanilla', image: '' },
       { name: 'Chocolate', image: '' },
       { name: 'Raspberry', image: '' },
-      { name: 'Birthday Cake', image: '' },
-      { name: 'Taro', image: '' },
-      { name: 'Strawberrys n Cream', image: '' },
-      { name: 'Cookies n Cream', image: '' },
-      { name: 'Coffee', image: '' }
+      { name: 'Birthday Cake', image: '' }
     ]
   },
   {
@@ -115,7 +111,6 @@ export const food: FoodCategory[] = [
     items: [
       { name: 'Cheesecake', image: '' },
       { name: 'Chocolate', image: '' },
-      { name: 'Tres Leches', image: '' },
       { name: 'Tiramisu', image: '' }
     ]
   }

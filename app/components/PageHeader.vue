@@ -14,7 +14,7 @@ defineProps<{
     <h1 class="text-transparent bg-clip-text bg-gradient-to-r from-[#65a30d] to-[#3f6212] text-5xl md:text-8xl tracking-tighter font-black font-sans pb-2">
       {{ title }}
     </h1>
-    <p class="text-zinc-500 font-semibold mt-4 max-w-lg mx-auto text-sm md:text-base">
+    <p class="text-zinc-500 font-semibold mt-4 max-w-lg mx-auto text-sm md:text-base whitespace-pre-line">
       {{ description }}
     </p>
   </div>
