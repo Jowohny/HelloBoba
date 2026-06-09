@@ -220,13 +220,13 @@ onBeforeUnmount(() => {
 
 
 watch(activeTab, (newTab) => {
-	if (newTab) {	
-		const activeEl = document.getElementById(`tab-${newTab.replace(/\s+/g, '-')}`);
+  if (newTab) { 
+    const activeEl = document.getElementById(`tab-${newTab.replace(/\s+/g, '-')}`);
 
-		if (activeEl) {
-			activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-		}
-	}	
+    if (activeEl) {
+      activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  } 
 });
 </script>
 
@@ -279,13 +279,14 @@ watch(activeTab, (newTab) => {
           </h3>
         </div>
       </div>
-      <div class="grid relative w-full mt-8">
+      
+      <div class="grid grid-cols-1 relative w-full mt-8 px-4 md:px-8">
         <div
           ref="drinksRef"
-          class="col-start-1 row-start-1 w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 transition-all duration-500"
+          class="col-start-1 row-start-1 w-full min-w-0 max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 transition-all duration-500"
           :class="[firstTime && currentMenuConfigure === 'drinks' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none opacity-0 translate-y-[20%]']"
         >
-          <div class="flex flex-row justify-center">
+          <div class="flex flex-row justify-center items-center w-full min-w-0">
             <button
               @click="slideLeft"
               :disabled="scrollCheckL"
@@ -300,12 +301,12 @@ watch(activeTab, (newTab) => {
                 :img-attrs="{ class: 'w-full h-full object-contain', alt: '' }"
               />
             </button>
-            <div id="catBox" class="flex overflow-x-auto gap-3 pt-1 pb-8 border-b-2 border-green-500/20 cursor-pointer">
+            <div id="catBox" class="flex-1 flex overflow-x-auto min-w-0 gap-3 pt-1 pb-8 border-b-2 border-green-500/20 cursor-pointer">
               <button v-for="cat in categories" 
                 :key="cat" 
                 @click="activeTab = cat" 
                 :id="`tab-${cat.replace(/\s+/g, '-')}`" 
-                :class="[ 'section px-4 md:px-5 py-2 md:py-2.5 rounded-2xl font-bold text-xs md:text-sm tracking-wide whitespace-nowrap transition-all duration-300 border border-zinc-500/30', activeTab === cat ? 'bg-green-600 text-white border-green-600 shadow-md shadow-green-600/50' : 'bg-white/50 text-zinc-500 border-transparent hover:bg-white hover:text-zinc-800 shadow-md shadow-zinc-500/50', firstTime ? '' : 'opacity-0' ]"
+                :class="[ 'section px-4 md:px-5 py-2 md:py-2.5 rounded-2xl font-bold text-xs md:text-sm tracking-wide whitespace-nowrap transition-all duration-300 border border-zinc-500/30 shrink-0', activeTab === cat ? 'bg-green-600 text-white border-green-600 shadow-md shadow-green-600/50' : 'bg-white/50 text-zinc-500 border-transparent hover:bg-white hover:text-zinc-800 shadow-md shadow-zinc-500/50', firstTime ? '' : 'opacity-0' ]"
               >
                 {{ cat }}
               </button>
@@ -329,16 +330,16 @@ watch(activeTab, (newTab) => {
           <h2 class="drink-section text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2 mt-6">
             {{ activeTab }}
           </h2>
-          <div class="grid relative min-h-[500px]">
-            <div v-for="category in categories" :key="category" class="col-start-1 row-start-1 flex flex-col gap-2 transition-opacity duration-300 ease-in-out" :class="activeTab === category ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'">
+          <div class="grid grid-cols-1 w-full relative min-h-[500px]">
+            <div v-for="category in categories" :key="category" class="col-start-1 row-start-1 min-w-0 w-full flex flex-col gap-2 transition-opacity duration-300 ease-in-out" :class="activeTab === category ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'">
               <div v-for="item in groupedMenu[category]" :key="item.name" class="drink-item group flex flex-col lg:flex-row justify-between items-start lg:items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-4 lg:gap-0">
                 <div class="flex flex-1 items-start md:items-center gap-4 md:gap-5 pr-0 lg:pr-4 w-full">
                   <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
                     <img :src="item.image" :alt="item.name" class="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-[1.1]" />
                   </div>
-                  <div class="flex-1">
+                  <div class="flex-1 min-w-0">
                     <div class="flex flex-col md:flex-row md:flex-wrap items-start md:items-center gap-2 md:gap-3 mb-2">
-                      <h3 class="text-lg md:text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors">{{ item.name }}</h3>
+                      <h3 class="text-lg md:text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors truncate w-full md:w-auto">{{ item.name }}</h3>
                       <div class="flex gap-2 flex-wrap">
                         <span v-if="item.DF" class="px-2 py-1 rounded-md bg-orange-100/80 text-orange-700 text-[10px] font-black tracking-widest border border-orange-200">Dairy Free</span>
                         <span v-if="item.CF" class="px-2 py-1 rounded-md bg-purple-100/80 text-purple-700 text-[10px] font-black tracking-widest border border-purple-200">Caffeine Free</span>
@@ -347,7 +348,7 @@ watch(activeTab, (newTab) => {
                     <p class="text-xs md:text-sm font-semibold text-zinc-500 max-w-2xl">{{ item.description }}</p>
                   </div>
                 </div>
-                <div class="flex w-full lg:w-auto justify-center lg:justify-start gap-6 lg:pl-4 mt-2 lg:mt-0 pt-2 lg:pt-0 border-t border-zinc-300 lg:border-t-0">
+                <div class="flex w-full lg:w-auto justify-center lg:justify-start gap-6 lg:pl-4 mt-2 lg:mt-0 pt-2 lg:pt-0 border-t border-zinc-300 lg:border-t-0 shrink-0">
                   <div class="flex flex-col items-center">
                     <span class="text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-1">Reg (16oz)</span>
                     <span class="font-black text-base md:text-lg text-zinc-800">{{ item.price.R }}</span>
@@ -363,19 +364,19 @@ watch(activeTab, (newTab) => {
         </div>
 
         <div
-          class="col-start-1 row-start-1 w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 transition-all duration-500"
+          class="col-start-1 row-start-1 w-full min-w-0 max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 transition-all duration-500"
           :class="firstTime && currentMenuConfigure === 'toppings' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none opacity-0 translate-y-[20%]'"
         >
           <h2 class="text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">Toppings</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-2 auto-rows-min">
-            <div v-for="topping in toppings" :key="topping.name" class="group flex flex-row justify-between items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-0">
+            <div v-for="topping in toppings" :key="topping.name" class="group min-w-0 flex flex-row justify-between items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-0">
               <div class="flex flex-1 items-center gap-4 md:gap-5 pr-0 md:pr-4 w-full">
                 <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
                   <img :src="topping.image" :alt="topping.name" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                 </div>
-                <div class="flex-1">
+                <div class="flex-1 min-w-0">
                   <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-1">
-                    <h3 class="text-lg md:text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors">{{ topping.name }}</h3>
+                    <h3 class="text-lg md:text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors truncate w-full">{{ topping.name }}</h3>
                   </div>
                   <p class="text-xs md:text-sm font-semibold text-zinc-500 max-w-2xl">{{ topping.description }}</p>
                 </div>
@@ -385,20 +386,20 @@ watch(activeTab, (newTab) => {
         </div>
 
         <div
-          class="col-start-1 row-start-1 w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 transition-all duration-500"
+          class="col-start-1 row-start-1 w-full min-w-0 max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 transition-all duration-500"
           :class="firstTime && currentMenuConfigure === 'boba' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none opacity-0 translate-y-[20%]'"
         >
           <h2 class="text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">Boba</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-2 auto-rows-min">
-            <div v-for="b in bobaOptions" :key="b.name" class="group flex flex-row justify-between items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-0">
+            <div v-for="b in bobaOptions" :key="b.name" class="group min-w-0 flex flex-row justify-between items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-0">
               <div class="flex items-center gap-4 md:gap-5 w-full">
                 <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
                   <img v-if="b.image" :src="b.image" :alt="b.name" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                   <span v-else class="text-2xl md:text-3xl opacity-50 grayscale">🧋</span>
                 </div>
-                <div class="flex-1">
+                <div class="flex-1 min-w-0">
                   <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-1">
-                    <h3 class="text-lg md:text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors">{{ b.name }}</h3>
+                    <h3 class="text-lg md:text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors truncate w-full">{{ b.name }}</h3>
                   </div>
                   <p class="text-xs md:text-sm font-semibold text-zinc-500">{{ b.description }}</p>
                 </div>
@@ -408,13 +409,13 @@ watch(activeTab, (newTab) => {
         </div>
 
         <div
-          class="col-start-1 row-start-1 w-full max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 transition-all duration-500"
+          class="col-start-1 row-start-1 w-full min-w-0 max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 transition-all duration-500"
           :class="firstTime && currentMenuConfigure === 'food' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none opacity-0 translate-y-[20%]'"
         >
           <div v-for="f in food" :key="f.type" class="mb-12">
             <h2 class="text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-4 pb-2 border-b-2 border-green-500/10">{{ f.type }}</h2>
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
-              <div v-for="flavor in f.items" :key="flavor.name" class="group flex flex-col items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-4">
+              <div v-for="flavor in f.items" :key="flavor.name" class="group min-w-0 flex flex-col items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-4">
                 <div class="w-20 h-20 md:w-24 md:h-24 shrink-0 rounded-full overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center shadow-inner">
                   <img v-if="flavor.image" :src="flavor.image" :alt="flavor.name" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                   <span v-else class="text-3xl md:text-4xl opacity-50 grayscale">🍰</span>
@@ -475,4 +476,3 @@ watch(activeTab, (newTab) => {
   }
 }
 </style>
-
