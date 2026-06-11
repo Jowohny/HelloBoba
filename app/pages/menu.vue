@@ -333,8 +333,8 @@ watch(activeTab, (newTab) => {
           <h2 class="drink-section text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2 mt-6">
             {{ activeTab }}
           </h2>
-          <div class="grid grid-cols-1 w-full relative min-h-[500px]">
-            <div v-for="category in categories" :key="category" class="col-start-1 row-start-1 min-w-0 w-full flex flex-col gap-2 transition-opacity duration-300 ease-in-out" :class="activeTab === category ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'">
+          <div class="relative w-full">
+            <div v-for="category in categories" :key="category" v-show="activeTab === category" class="min-w-0 w-full flex flex-col gap-2">
               <div v-for="item in groupedMenu[category]" :key="item.name" class="drink-item group flex flex-col lg:flex-row justify-between items-start lg:items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-4 lg:gap-0">
                 <div class="flex flex-1 items-start md:items-center gap-4 md:gap-5 pr-0 lg:pr-4 w-full">
                   <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
