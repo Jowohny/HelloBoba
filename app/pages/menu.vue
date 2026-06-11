@@ -253,7 +253,7 @@ watch(activeTab, (newTab) => {
         title="Menu Items"
         description="Take a look at all our freshly brewed teas, milk tea variations, smoothies, and other specialty drinks. For anyone who's hungry, we also have our small selection of cakes and cookies. 
 				
-				In order to place an order for an online pickup, the order now in navigation menu will take you to our square site where you can customize your cart and complete your order."
+				In order to place an order for an online pickup, the 'Order Now' button in navigation menu will take you to our square site where you can customize your cart and complete your order."
       />
       <div class="relative flex flex-wrap lg:flex-nowrap justify-center lg:justify-around px-2 md:px-8 z-5">
         <div
@@ -282,11 +282,12 @@ watch(activeTab, (newTab) => {
         </div>
       </div>
       
-      <div class="grid grid-cols-1 relative w-full mt-8 px-4 md:px-8">
+      <div class="relative w-full mt-8 px-4 md:px-8">
         <div
           ref="drinksRef"
-          class="col-start-1 row-start-1 w-full min-w-0 max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 transition-all duration-500"
-          :class="[firstTime && currentMenuConfigure === 'drinks' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none opacity-0 translate-y-[20%]']"
+          v-show="currentMenuConfigure === 'drinks'"
+          class="w-full min-w-0 max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 transition-all duration-500"
+          :class="firstTime ? '' : 'opacity-0 translate-y-[20%]'"
         >
           <div class="flex flex-row justify-center items-center w-full min-w-0">
             <button
@@ -366,8 +367,8 @@ watch(activeTab, (newTab) => {
         </div>
 
         <div
-          class="col-start-1 row-start-1 w-full min-w-0 max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 transition-all duration-500"
-          :class="firstTime && currentMenuConfigure === 'toppings' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none opacity-0 translate-y-[20%]'"
+          v-show="firstTime && currentMenuConfigure === 'toppings'"
+          class="w-full min-w-0 max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10"
         >
           <h2 class="text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">Toppings</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-2 auto-rows-min">
@@ -388,8 +389,8 @@ watch(activeTab, (newTab) => {
         </div>
 
         <div
-          class="col-start-1 row-start-1 w-full min-w-0 max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 transition-all duration-500"
-          :class="firstTime && currentMenuConfigure === 'boba' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none opacity-0 translate-y-[20%]'"
+          v-show="firstTime && currentMenuConfigure === 'boba'"
+          class="w-full min-w-0 max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10"
         >
           <h2 class="text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-3 pb-2">Boba</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-2 auto-rows-min">
@@ -411,8 +412,8 @@ watch(activeTab, (newTab) => {
         </div>
 
         <div
-          class="col-start-1 row-start-1 w-full min-w-0 max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10 transition-all duration-500"
-          :class="firstTime && currentMenuConfigure === 'food' ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none opacity-0 translate-y-[20%]'"
+          v-show="firstTime && currentMenuConfigure === 'food'"
+          class="w-full min-w-0 max-w-5xl mx-auto bg-white/70 backdrop-blur-2xl rounded-3xl p-6 md:p-12 shadow-2xl shadow-green-900/10"
         >
           <div v-for="f in food" :key="f.type" class="mb-12">
             <h2 class="text-3xl md:text-4xl font-black text-center font-sans text-green-800 mb-4 pb-2 border-b-2 border-green-500/10">{{ f.type }}</h2>
