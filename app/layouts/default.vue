@@ -195,6 +195,7 @@ watch(openMobileMenu, (isOpen) => {
       </NuxtLink>
 			<NuxtLink
 				to="https://hello-boba.square.site/s/shop"
+				target="_blank"
 				aria-label="Online ordering: Will take you to our square site."
 				class="mobile-link lg:block px-5 py-2 rounded-full font-black text-md text-white bg-gradient-to-r from-green-500 to-green-600 shadow-lg opacity-0 cursor-pointer"
 			>

@@ -169,7 +169,6 @@ onBeforeUnmount(() => {
 					ref="orderRef" class="w-full flex justify-center mt-16 md:my-12 pb-10 relative z-50"
 				>
           <NuxtLink
-            type="button"
 						target="_blank"
             to="https://hello-boba.square.site/s/shop"
             aria-label="Online ordering: Will take you to our square site."

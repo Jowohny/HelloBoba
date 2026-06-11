@@ -1,10 +1,10 @@
 import type { MenuItem, Topping, BobaOption, FoodCategory } from '~/types'
 
 export const menuItems: MenuItem[] = [
-  { type: 'Creme Brulee Series', name: 'Creme Brulee Oreo Smoothie', price: { R: '🚫', L: '$7.85' }, description: 'A cream based smoothie blended with oreo crumbs, vanilla syrup, and creamer powder, topped with whipped cream and oreo crumbs with creme brulee around the cup.', DF: false, CF: true, image: '/drinks/CBOS.png' },
-  { type: 'Creme Brulee Series', name: 'Creme Brulee Matcha Smoothie', price: { R: '🚫', L: '$7.85' }, description: 'A cream based smoothie blended with matcha, creamer powder, and vanilla syrup, topped with whipped cream and matcha powder with creme brulee around the cup.', DF: false, CF: false, image: '/drinks/CBMS.png' },
-  { type: 'Creme Brulee Series', name: 'Creme Brulee Thai Tea', price: { R: '🚫', L: '$6.85' }, description: 'A milk based drink using our classic Thai Iced Tea as its base, with creme brulee around the cup as well as on top.', DF: false, CF: false, image: '/drinks/CBTT.png' },
-  { type: 'Creme Brulee Series', name: 'Creme Brulee Brown Sugar Boba Milk', price: { R: '🚫', L: '$6.85' }, description: 'A milk based drink containing sweetened milk and a layer of creme brulee on top, finished with brown sugar syrup around the cup.', DF: false, CF: true, image: '/drinks/CBBSBM.png' },
+  { type: 'Creme Brulee Series', name: 'Creme Brulee Oreo Smoothie', price: { R: '-', L: '$7.85' }, description: 'A cream based smoothie blended with oreo crumbs, vanilla syrup, and creamer powder, topped with whipped cream and oreo crumbs with creme brulee around the cup.', DF: false, CF: true, image: '/drinks/CBOS.png' },
+  { type: 'Creme Brulee Series', name: 'Creme Brulee Matcha Smoothie', price: { R: '—', L: '$7.85' }, description: 'A cream based smoothie blended with matcha, creamer powder, and vanilla syrup, topped with whipped cream and matcha powder with creme brulee around the cup.', DF: false, CF: false, image: '/drinks/CBMS.png' },
+  { type: 'Creme Brulee Series', name: 'Creme Brulee Thai Tea', price: { R: '—', L: '$6.85' }, description: 'A milk based drink using our classic Thai Iced Tea as its base, with creme brulee around the cup as well as on top.', DF: false, CF: false, image: '/drinks/CBTT.png' },
+  { type: 'Creme Brulee Series', name: 'Creme Brulee Brown Sugar Boba Milk', price: { R: '—', L: '$6.85' }, description: 'A milk based drink containing sweetened milk and a layer of creme brulee on top, finished with brown sugar syrup around the cup.', DF: false, CF: true, image: '/drinks/CBBSBM.png' },
 
   { type: 'Mojito', name: 'Original Mojito', price: { R: '$4.95', L: '$5.45' }, description: 'A lemonade-like beverage that contains mint leaves for the extra kick of freshness.', DF: true, CF: true, image: '' },
   { type: 'Mojito', name: 'Mango Mojito', price: { R: '$5.20', L: '$5.70' }, description: 'A lemonade-like beverage that contains a hint of mango syrup and some mint leaves for the extra kick of freshness.', DF: true, CF: true, image: '' },
@@ -16,7 +16,7 @@ export const menuItems: MenuItem[] = [
   { type: 'Mojito', name: 'Peach Mojito', price: { R: '$5.20', L: '$5.70' }, description: 'A lemonade-like beverage that contains a hint of peach syrup and some mint leaves for the extra kick of freshness.', DF: true, CF: true, image: '' },
 
   { type: 'Fresh Tea', name: 'Jasmine Green Tea', price: { R: '$4.85', L: '$5.35' }, description: 'Freshly brewed floral jasmine green tea, served perfectly chilled.', DF: true, CF: false, image: '/drinks/JGT.png' },
-  { type: 'Fresh Tea', name: 'Honey Jasmine Green Tea', price: { R: '$5.60', L: '$6.10' }, description: 'Floral jasmine green tea lightly sweetened with pure, natural honey.', DF: true, CF: false, image: '/drinks/HJGT.png' },
+  { type: 'Fresh Tea', name: 'Honey Jasmine Green Tea', price: { R: '$5.60', L: '$6.10' }, description: 'Floral jasmine green tea lightly sweetened with pure, natural honey.', DF: true, CF: false, image: '' },
   { type: 'Fresh Tea', name: 'Roasted Oolong Tea', price: { R: '$4.85', L: '$5.35' }, description: 'Deeply aromatic oolong tea with a rich, roasted flavor profile.', DF: true, CF: false, image: '/drinks/ROT.png' },
   { type: 'Fresh Tea', name: 'Sea Cream Green Tea', price: { R: '$5.60', L: '$6.10' }, description: 'Our classic green tea topped with a thick, savory-sweet sea salt cheese foam.', DF: false, CF: false, image: '/drinks/SCGT.png' },
   { type: 'Fresh Tea', name: 'Sea Cream Roasted Oolong Tea', price: { R: '$4.85', L: '$5.35' }, description: 'Roasted oolong tea crowned with our signature whipped sea cream.', DF: false, CF: false, image: '/drinks/SCOT.png' },
@@ -41,17 +41,17 @@ export const menuItems: MenuItem[] = [
   { type: 'Milk Tea Classic', name: 'Earl Grey Milk Tea', price: { R: '$5.60', L: '$6.10' }, description: 'Fragrant black tea infused with bergamot orange and blended with milk.', DF: false, CF: false, image: '/drinks/EGMT.png' },
   { type: 'Milk Tea Classic', name: 'Taro Milk Tea', price: { R: '$5.60', L: '$6.10' }, description: 'Creamy milk tea blended with the sweet, starchy goodness of taro.', DF: true, CF: false, image: '/drinks/TMT.png' },
   { type: 'Milk Tea Classic', name: 'Rose Milk Tea', price: { R: '$5.60', L: '$6.10' }, description: 'A beautifully floral milk tea infused with delicate rose syrup.', DF: false, CF: false, image: '/drinks/RoseMT.png' },
-  { type: 'Milk Tea Classic', name: 'Oreo Garden Milk Tea', price: { R: '🚫', L: '$6.10' }, description: 'A decadent milk tea topped with crushed Oreo cookies for a dessert-like treat.', DF: false, CF: false, image: '/drinks/OGMT.png' },
+  { type: 'Milk Tea Classic', name: 'Oreo Garden Milk Tea', price: { R: '—', L: '$6.10' }, description: 'A decadent milk tea topped with crushed Oreo cookies for a dessert-like treat.', DF: false, CF: false, image: '/drinks/OGMT.png' },
 
-  { type: 'Slushie', name: 'Mango Mango', price: { R: '🚫', L: '$6.60' }, description: 'An icy, refreshing slushie bursting with double the tropical mango flavor.', DF: true, CF: true, image: '/drinks/MM.png' },
-  { type: 'Slushie', name: 'Very Strawberry', price: { R: '🚫', L: '$6.60' }, description: 'A perfectly blended, ice-cold strawberry slushie that is sweet and tart.', DF: true, CF: true, image: '/drinks/VS.png' },
-  { type: 'Slushie', name: 'Chamango Mango', price: { R: '🚫', L: '$6.60' }, description: 'A sweet and spicy mango slushie swirled with savory chamoy and Tajín.', DF: true, CF: true, image: '/drinks/CM.png' },
+  { type: 'Slushie', name: 'Mango Mango', price: { R: '—', L: '$6.60' }, description: 'An icy, refreshing slushie bursting with double the tropical mango flavor.', DF: true, CF: true, image: '/drinks/MM.png' },
+  { type: 'Slushie', name: 'Very Strawberry', price: { R: '—', L: '$6.60' }, description: 'A perfectly blended, ice-cold strawberry slushie that is sweet and tart.', DF: true, CF: true, image: '/drinks/VS.png' },
+  { type: 'Slushie', name: 'Chamango Mango', price: { R: '—', L: '$6.60' }, description: 'A sweet and spicy mango slushie swirled with savory chamoy and Tajín.', DF: true, CF: true, image: '/drinks/CM.png' },
 
-  { type: 'Smoothie', name: 'Taro Taro', price: { R: '🚫', L: '$6.60' }, description: 'A rich, thick, and creamy smoothie packed with sweet taro flavor.', DF: false, CF: true, image: '/drinks/TT.png' },
-  { type: 'Smoothie', name: 'Horchata', price: { R: '🚫', L: '$6.60' }, description: 'A creamy, cinnamon-spiced smoothie inspired by the classic Mexican drink.', DF: false, CF: true, image: '/drinks/HCC.png' },
-  { type: 'Smoothie', name: 'Nana Berry', price: { R: '🚫', L: '$6.60' }, description: 'A smooth, classic blend of ripe bananas and sweet strawberries.', DF: false, CF: true, image: '/drinks/NB.png' },
-  { type: 'Smoothie', name: 'Caramel Macchiato', price: { R: '🚫', L: '$6.60' }, description: 'An icy, blended coffee smoothie layered with rich caramel drizzle.', DF: false, CF: false, image: '/drinks/CaramelM.png' },
-  { type: 'Smoothie', name: 'Caramel Thai', price: { R: '🚫', L: '$6.60' }, description: 'Sweet Thai tea blended into a frosty smoothie and swirled with caramel.', DF: false, CF: true, image: '/drinks/CTT.png' },
+  { type: 'Smoothie', name: 'Taro Taro', price: { R: '—', L: '$6.60' }, description: 'A rich, thick, and creamy smoothie packed with sweet taro flavor.', DF: false, CF: true, image: '/drinks/TT.png' },
+  { type: 'Smoothie', name: 'Horchata', price: { R: '—', L: '$6.60' }, description: 'A creamy, cinnamon-spiced smoothie inspired by the classic Mexican drink.', DF: false, CF: true, image: '/drinks/HCC.png' },
+  { type: 'Smoothie', name: 'Nana Berry', price: { R: '—', L: '$6.60' }, description: 'A smooth, classic blend of ripe bananas and sweet strawberries.', DF: false, CF: true, image: '/drinks/NB.png' },
+  { type: 'Smoothie', name: 'Caramel Macchiato', price: { R: '—', L: '$6.60' }, description: 'An icy, blended coffee smoothie layered with rich caramel drizzle.', DF: false, CF: false, image: '/drinks/CaramelM.png' },
+  { type: 'Smoothie', name: 'Caramel Thai', price: { R: '—', L: '$6.60' }, description: 'Sweet Thai tea blended into a frosty smoothie and swirled with caramel.', DF: false, CF: true, image: '/drinks/CTT.png' },
 
   { type: 'Coffee', name: 'Coffee Milk Tea', price: { R: '$5.60', L: '$6.10' }, description: 'The perfect pick-me-up combining our classic milk tea with a shot of strong coffee.', DF: false, CF: false, image: '/drinks/CMT.png' },
   { type: 'Coffee', name: 'Chocolate Cream Mocha', price: { R: '$5.85', L: '$6.35' }, description: 'Rich chocolate and robust coffee blended with milk for a decadent treat.', DF: false, CF: false, image: '/drinks/CCM.png' },
@@ -59,15 +59,15 @@ export const menuItems: MenuItem[] = [
   { type: 'Coffee', name: 'Vanilla Coffee Latte (Iced)', price: { R: '$5.95', L: '$6.45' }, description: 'Smooth espresso and chilled milk sweetened with aromatic vanilla.', DF: false, CF: false, image: '/drinks/C&VCL.png' },
   { type: 'Coffee', name: 'Caramel Coffee Latte (Iced)', price: { R: '$5.95', L: '$6.45' }, description: 'Iced coffee and milk perfectly balanced with buttery caramel syrup.', DF: false, CF: false, image: '/drinks/C&VCL.png' },
 
-  { type: 'Matcha Series', name: 'Mango Matcha Latte', price: { R: '🚫', L: '$6.60' }, description: 'Earthy, premium matcha layered over sweet, tropical mango puree and milk.', DF: false, CF: false, image: '/drinks/MML.png' },
-  { type: 'Matcha Series', name: 'Creme Brulee Matcha Smoothie', price: { R: '🚫', L: '$7.85' }, description: 'A cream based smoothie blended with matcha, creamer powder, and vanilla syrup, topped with whipped cream and matcha powder with creme brulee around the cup.', DF: false, CF: false, image: '/drinks/CBMS.png' },
+  { type: 'Matcha Series', name: 'Mango Matcha Latte', price: { R: '—', L: '$6.60' }, description: 'Earthy, premium matcha layered over sweet, tropical mango puree and milk.', DF: false, CF: false, image: '/drinks/MML.png' },
+  { type: 'Matcha Series', name: 'Creme Brulee Matcha Smoothie', price: { R: '—', L: '$7.85' }, description: 'A cream based smoothie blended with matcha, creamer powder, and vanilla syrup, topped with whipped cream and matcha powder with creme brulee around the cup.', DF: false, CF: false, image: '/drinks/CBMS.png' },
   { type: 'Matcha Series', name: 'Matcha Boba Milk Tea', price: { R: '$5.85', L: '$6.35' }, description: 'Earthy matcha and creamy milk perfectly paired with our signature boba.', DF: false, CF: false, image: '/drinks/MBMT.png' },
-  { type: 'Matcha Series', name: 'Strawberry Matcha Latte', price: { R: '🚫', L: '$6.60' }, description: 'A beautiful layered drink of ceremonial matcha, milk, and fresh strawberry puree.', DF: false, CF: false, image: '/drinks/SML.png' },
+  { type: 'Matcha Series', name: 'Strawberry Matcha Latte', price: { R: '—', L: '$6.60' }, description: 'A beautiful layered drink of ceremonial matcha, milk, and fresh strawberry puree.', DF: false, CF: false, image: '/drinks/SML.png' },
 
-  { type: 'Butterfly Series', name: 'Butterfly Mango', price: { R: '🚫', L: '$6.60' }, description: 'A mesmerizing, color-changing butterfly pea flower tea layered with sweet mango.', DF: false, CF: false, image: '/drinks/BM.png' },
-  { type: 'Butterfly Series', name: 'Butterfly Strawberry', price: { R: '🚫', L: '$6.60' }, description: 'Vibrant butterfly pea tea poured over a refreshing strawberry base.', DF: false, CF: false, image: '/drinks/BS.png' },
-  { type: 'Butterfly Series', name: 'Butterfly Lychee', price: { R: '🚫', L: '$6.60' }, description: 'A magical, color-changing floral tea perfectly paired with sweet lychee.', DF: false, CF: false, image: '/drinks/BL.png' },
-  { type: 'Butterfly Series', name: 'Butterfly Coconut', price: { R: '🚫', L: '$6.60' }, description: 'Tropical coconut milk layered with our striking, deep blue butterfly pea tea.', DF: false, CF: false, image: '/drinks/BC.png' },
+  { type: 'Butterfly Series', name: 'Butterfly Mango', price: { R: '—', L: '$6.60' }, description: 'A mesmerizing, color-changing butterfly pea flower tea layered with sweet mango.', DF: false, CF: false, image: '/drinks/BM.png' },
+  { type: 'Butterfly Series', name: 'Butterfly Strawberry', price: { R: '—', L: '$6.60' }, description: 'Vibrant butterfly pea tea poured over a refreshing strawberry base.', DF: false, CF: false, image: '/drinks/BS.png' },
+  { type: 'Butterfly Series', name: 'Butterfly Lychee', price: { R: '—', L: '$6.60' }, description: 'A magical, color-changing floral tea perfectly paired with sweet lychee.', DF: false, CF: false, image: '/drinks/BL.png' },
+  { type: 'Butterfly Series', name: 'Butterfly Coconut', price: { R: '—', L: '$6.60' }, description: 'Tropical coconut milk layered with our striking, deep blue butterfly pea tea.', DF: false, CF: false, image: '/drinks/BC.png' },
 
   { type: 'Boba Milk', name: 'Brown Sugar Boba Milk', price: { R: '$5.35', L: '$5.95' }, description: 'Warm, slow-cooked brown sugar boba swirled with ice-cold organic milk.', DF: false, CF: true, image: '/drinks/BSBM.png' },
   { type: 'Boba Milk', name: 'Brown Sugar Boba Milk Tea', price: { R: '$5.60', L: '$6.10' }, description: 'Our classic black milk tea elevated with rich, roasted brown sugar boba.', DF: false, CF: false, image: '/drinks/BSBMT.png' },

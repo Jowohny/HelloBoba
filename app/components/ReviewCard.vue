@@ -25,7 +25,8 @@ defineProps<{
         {{ review.name }}
       </h3>
 			<div class="ml-auto mr-4 flex flex-row justify-center content-center gap-1">
-				<img v-for="i in 5" class="h-6 w-6 object-contain" :key="i" src="/star.svg" alt="star">
+				<span class="sr-only">Rated 5 out of 5 stars</span>
+				<img v-for="i in 5" class="h-6 w-6 object-contain" :key="i" src="/star.svg" alt="" aria-hidden="true">
 			</div>
     </div>
 

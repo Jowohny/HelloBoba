@@ -338,7 +338,8 @@ watch(activeTab, (newTab) => {
               <div v-for="item in groupedMenu[category]" :key="item.name" class="drink-item group flex flex-col lg:flex-row justify-between items-start lg:items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-4 lg:gap-0">
                 <div class="flex flex-1 items-start md:items-center gap-4 md:gap-5 pr-0 lg:pr-4 w-full">
                   <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
-                    <img :src="item.image" :alt="item.name" class="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-[1.1]" />
+                    <img v-if="item.image" :src="item.image" :alt="item.name" loading="lazy" width="80" height="80" class="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-[1.1]" />
+                    <span v-else class="text-2xl md:text-3xl opacity-50 grayscale">🧋</span>
                   </div>
                   <div class="flex-1 min-w-0">
                     <div class="flex flex-col md:flex-row md:flex-wrap items-start md:items-center gap-2 md:gap-3 mb-2">
@@ -375,7 +376,7 @@ watch(activeTab, (newTab) => {
             <div v-for="topping in toppings" :key="topping.name" class="group min-w-0 flex flex-row justify-between items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-0">
               <div class="flex flex-1 items-center gap-4 md:gap-5 pr-0 md:pr-4 w-full">
                 <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
-                  <img :src="topping.image" :alt="topping.name" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <img :src="topping.image" :alt="topping.name" loading="lazy" width="80" height="80" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                 </div>
                 <div class="flex-1 min-w-0">
                   <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-1">
@@ -397,7 +398,7 @@ watch(activeTab, (newTab) => {
             <div v-for="b in bobaOptions" :key="b.name" class="group min-w-0 flex flex-row justify-between items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-0">
               <div class="flex items-center gap-4 md:gap-5 w-full">
                 <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center">
-                  <img v-if="b.image" :src="b.image" :alt="b.name" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <img v-if="b.image" :src="b.image" :alt="b.name" loading="lazy" width="80" height="80" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                   <span v-else class="text-2xl md:text-3xl opacity-50 grayscale">🧋</span>
                 </div>
                 <div class="flex-1 min-w-0">
@@ -420,7 +421,7 @@ watch(activeTab, (newTab) => {
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
               <div v-for="flavor in f.items" :key="flavor.name" class="group min-w-0 flex flex-col items-center p-4 rounded-2xl hover:bg-white transition-colors border border-transparent hover:border-green-500/10 hover:shadow-sm gap-4">
                 <div class="w-20 h-20 md:w-24 md:h-24 shrink-0 rounded-full overflow-hidden bg-zinc-100/80 border border-zinc-200/60 flex items-center justify-center shadow-inner">
-                  <img v-if="flavor.image" :src="flavor.image" :alt="flavor.name" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <img v-if="flavor.image" :src="flavor.image" :alt="flavor.name" loading="lazy" width="96" height="96" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                   <span v-else class="text-3xl md:text-4xl opacity-50 grayscale">🍰</span>
                 </div>
                 <h3 class="text-base md:text-lg font-bold text-center text-zinc-800 group-hover:text-green-700 transition-colors leading-tight">{{ flavor.name }}</h3>

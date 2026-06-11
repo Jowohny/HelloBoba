@@ -233,7 +233,7 @@ onBeforeUnmount(() => {
       />
       <div 
         ref="cardRef"
-        class="w-full flex flex-col gap-6 text-left mx-auto bg-white/60 backdrop-blur-xl rounded-3xl shadow-green-900/5 border border-3 border-zinc-400/50 p-6 md:p-10 shadow-2xl z-20 opacity-0"
+        class="w-full flex flex-col gap-6 text-left mx-auto bg-white/60 backdrop-blur-xl rounded-3xl shadow-green-900/5 border border-zinc-400/50 p-6 md:p-10 shadow-2xl z-20 opacity-0"
       >
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 opacity-0">
           <div class="flex flex-col gap-2">
@@ -263,8 +263,8 @@ onBeforeUnmount(() => {
           <label for="email" class="text-xs font-black uppercase tracking-widest text-green-700/70 ml-2">Email</label>
           <input 
             id="email"
-            v-model="email" 
-            type="text" 
+            v-model="email"
+            type="email"
             placeholder="janedoe123@company.com"
             class="w-full bg-white/50 border border-green-600/30 focus:border-green-500 rounded-2xl px-4 py-3 md:px-5 md:py-3 text-zinc-700 font-semibold outline-none transition-colors shadow-inner"
           >

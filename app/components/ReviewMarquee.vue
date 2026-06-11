@@ -36,6 +36,9 @@ onBeforeUnmount(() => {
     class="relative w-full overflow-x-clip py-4"
     @mouseenter="pause"
     @mouseleave="resume"
+    @touchstart.passive="pause"
+    @touchend.passive="resume"
+    @touchcancel.passive="resume"
   >
     <div ref="trackRef" class="flex gap-4 md:gap-6 w-fit will-change-transform">
       <ReviewCard

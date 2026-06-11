@@ -10,13 +10,13 @@ export const topDrinks: Drink[] = [
   {
     name: 'Mango Mango',
     price: '$6.60',
-    description: 'A lemonade based smoothy blended with fresh mango, sweet mango syrup, and ice, finished with mango jelly along with some Tajín on top.',
+    description: 'A lemonade based smoothie blended with fresh mango, sweet mango syrup, and ice, finished with mango jelly along with some Tajín on top.',
     image: '/drinks/MM.png'
   },
   {
     name: 'Horchata Cinnamon Crumbs',
     price: '$6.60',
-    description: 'A cream based smoothy bended with a sweet and cinnamon-like powder, topped with whipped cream and crushed cinnamon toast crunch.',
+    description: 'A cream based smoothie blended with a sweet and cinnamon-like powder, topped with whipped cream and crushed cinnamon toast crunch.',
     image: '/drinks/HCC.png'
   },
   {
@@ -28,7 +28,7 @@ export const topDrinks: Drink[] = [
   {
     name: 'Creme Brulee Oreo Smoothie',
     price: '$6.60',
-    description: 'A cream based smoothy blended with oreo crumbs, vanilla syrup, and creamer powder, topped with whipped cream and oreo crumbs with creme brulee around the cup.',
+    description: 'A cream based smoothie blended with oreo crumbs, vanilla syrup, and creamer powder, topped with whipped cream and oreo crumbs with creme brulee around the cup.',
     image: '/drinks/CBOS.png'
   },
   {
@@ -52,13 +52,13 @@ export const topDrinks: Drink[] = [
   {
     name: 'Creme Brulee Matcha Smoothie',
     price: '$6.60',
-    description: 'A cream based smoothy blended with matcha, creamer powder, and vanilla syrup, topped with whipped cream and matcha powder with creme brulee around the cup.',
+    description: 'A cream based smoothie blended with matcha, creamer powder, and vanilla syrup, topped with whipped cream and matcha powder with creme brulee around the cup.',
     image: '/drinks/CBMS.png'
   },
   {
     name: 'Butterfly Mango',
     price: '$6.60',
-    description: 'A lemondate based drink with mango syrup and a light amount of green tea and a layer of butterfly pea water on top, containing mango and lychee jelly.',
+    description: 'A lemonade based drink with mango syrup and a light amount of green tea and a layer of butterfly pea water on top, containing mango and lychee jelly.',
     image: '/drinks/BM.png'
   }
 ]

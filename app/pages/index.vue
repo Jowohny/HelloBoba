@@ -137,12 +137,6 @@ useIntroSequence((timeline) => {
 		duration: 2,
 		ease: 'sine.out',
 		autoAlpha: 1
-	}, '<')
-	.to(bannerTextRef.value, {
-		repeat: -1,
-		xPercent: -50,
-		duration: 25,
-		ease: 'none'
 	}, '<');
 
 	timeline.add(startBanner, '<');
@@ -187,15 +181,15 @@ onBeforeUnmount(() => {
       </h2>
       
       <p class="text-zinc-300 text-xs md:text-sm leading-relaxed italic">
-        Temporary caption for now because I don't know what to put, <br class="hidden md:block">
-        hopefully something along the length of this.
+        Hand-shaken teas, fresh-brewed leaves, and brown sugar boba. <br class="hidden md:block">
+        Made to order in the heart of El Monte.
       </p>
     </div>
 
 		<WaveDivider class="top-banner-bar absolute -scale-x-100 -scale-y-[0.5] bottom-0 left-0 w-full text-[#a3e635] fill-current h-16 md:h-32 z-0 rotate-[2.5deg] opacity-0" />
   </div>
 
-  <div ref="bannerRef" class="relative w-full -mt-16 md:-mt-20 overflow-hidden py-10 -mb-20 z-30 pointer-events-none opacity-0 z-50">
+  <div ref="bannerRef" class="relative w-full -mt-16 md:-mt-20 overflow-hidden py-10 -mb-20 z-50 pointer-events-none opacity-0">
     <div class="bg-[#3f6212] py-4 border-y-4 border-[#a3e635] w-full rotate-2 scale-110 relative flex items-center justify-center">
       <div ref="bannerTextRef" class="whitespace-nowrap translate-x-1/4 flex gap-4 text-[#ecfccb] text-2xl md:text-4xl font-[900] uppercase italic tracking-tighter">
         <span v-for="n in 10" :key="n">
