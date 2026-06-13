@@ -157,7 +157,7 @@ onBeforeUnmount(() => {
   <div class="relative h-[100svh] pt-40 md:h-screen w-full flex items-center justify-center overflow-hidden bg-zinc-950 z-40">
     <div ref="heroImage" class="absolute inset-0 z-0 scale-[1.2] blur-[20px]" aria-hidden="true">
       <NuxtPicture
-        src="/HelloHero.png"
+        src="/HelloHero.webp"
         class="h-full w-full object-cover"
         :img-attrs="{ class: 'h-full w-full object-cover opacity-70', alt: '' }"
       />
