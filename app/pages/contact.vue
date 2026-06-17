@@ -2,7 +2,7 @@
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import gsap from 'gsap';
 
-useSeoMeta({
+usePageSeo({
   title: 'Contact — Hello Boba',
   description: 'Have a question, feedback, or want to inquire about a job opening? Reach out to Hello Boba in El Monte.'
 });

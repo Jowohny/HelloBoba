@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import { topDrinks } from '~/data/topDrinks';
 import { reviews } from '~/data/reviews';
 
-useSeoMeta({
+usePageSeo({
   title: 'Hello Boba — El Monte',
   description: 'Crafting the perfect sip. Boba, milk tea, smoothies, and more in El Monte, CA.'
 });

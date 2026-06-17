@@ -2,7 +2,7 @@
 import { onMounted, onBeforeUnmount, ref } from 'vue';
 import gsap from 'gsap';
 
-useSeoMeta({
+usePageSeo({
   title: 'Locations — Hello Boba',
   description: 'Visit Hello Boba at our Garvey Avenue and Peck Road locations in El Monte, CA.'
 });

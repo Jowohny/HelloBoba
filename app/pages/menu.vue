@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { menuItems, toppings, bobaOptions, food } from '~/data/menu';
 
-useSeoMeta({
+usePageSeo({
   title: 'Menu — Hello Boba',
   description: 'Our full menu: milk teas, fresh teas, fruit teas, smoothies, slushies, coffee, creme brulee series, mojitos, and seasonal specialties.'
 });

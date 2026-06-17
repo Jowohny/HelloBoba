@@ -3,7 +3,7 @@ import { onMounted, onBeforeUnmount, ref } from 'vue';
 import gsap from 'gsap';
 import { currentNewsItems, previousNewsItems } from '~/data/news';
 
-useSeoMeta({
+usePageSeo({
   title: 'News & Promotions — Hello Boba',
   description: "What's happening at Hello Boba: promotions, events, and seasonal specials in El Monte."
 });
