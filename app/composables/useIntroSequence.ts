@@ -6,24 +6,30 @@ export function useIntroSequence(build: IntroBuilder) {
   const hasPlayedIntro = useState('playedIntro', () => false)
   let timeline: gsap.core.Timeline | null = null
 
-  const stopWatch = watch(
-    hasPlayedIntro,
-    async (isDone) => {
-      if (!isDone) return
-      await nextTick()
+  const buildIntroTimeline = () => {
+    requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          timeline = gsap.timeline()
-          build(timeline)
-          if (usePrefersReducedMotion()) timeline.progress(1, false)
-        })
+        timeline = gsap.timeline()
+        build(timeline)
+        if (usePrefersReducedMotion()) timeline.progress(1, false)
       })
-    },
-    { immediate: true }
-  )
+    })
+  }
+
+  onMounted(async () => {
+    await nextTick()
+    if (hasPlayedIntro.value) {
+      buildIntroTimeline()
+    } else {
+      const stop = watch(hasPlayedIntro, (isDone) => {
+        if (!isDone) return
+        stop()
+        buildIntroTimeline()
+      })
+    }
+  })
 
   onBeforeUnmount(() => {
-    stopWatch()
     timeline?.kill()
     timeline = null
   })

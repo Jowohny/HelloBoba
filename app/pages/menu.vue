@@ -146,17 +146,19 @@ useIntroSequence((timeline) => {
 
   timeline.fromTo(drinksRef.value, {
     autoAlpha: 0,
+		opacity: 0,
     yPercent: 20
   }, {
     autoAlpha: 1,
-    duration: 1,
+		opacity: 0,
+    duration: 2,
     yPercent: 0,
     ease: 'back.out',
     clearProps: 'all',
     onComplete: () => {
       firstTime.value = true;
     }
-  }, '<+=0.4');
+  }, '<-=1.5');
 
   const menuSections = gsap.utils.toArray('.menu-section');
 
@@ -166,8 +168,8 @@ useIntroSequence((timeline) => {
     autoAlpha: 1,
     duration: 0.8,
     ease: 'sine.out',
-    stagger: 0.1
-  }, '<-=0.5');
+    stagger: 0.2
+  }, '<-=0.2');
 
   const categorySections = gsap.utils.toArray('.section');
 
