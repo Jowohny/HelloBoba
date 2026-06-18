@@ -14,6 +14,8 @@ const card2TextRef = ref<HTMLElement | null>(null);
 const resolveEl = (r: any) => r?.$el ?? r;
 
 onMounted(() => {
+  if (usePrefersReducedMotion()) return;
+
   gsap.to('.text-1', {
     xPercent: -50,
     duration: 50,

@@ -54,6 +54,7 @@ onMounted(() => {
 });
 
 const startFloating = () => {
+	if (usePrefersReducedMotion()) return;
 	logoFloatTween = gsap.to(logoRef.value, {
 		y: -15,
 		duration: 2,
@@ -64,6 +65,7 @@ const startFloating = () => {
 };
 
 const startBanner = () => {
+	if (usePrefersReducedMotion()) return;
 	bannerScrollTween = gsap.to(bannerTextRef.value, {
 		repeat: -1,
 		xPercent: -50,
@@ -77,7 +79,7 @@ useIntroSequence((timeline) => {
 	const isFirstPaint = !heroIntroPlayed.value
 	heroIntroPlayed.value = true
 
-	if (isFirstPaint) {
+	if (isFirstPaint && !usePrefersReducedMotion()) {
 		document.body.style.overflow = 'hidden'
 	}
 
@@ -154,6 +156,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
+  <div>
   <div class="relative h-[100svh] pt-40 md:h-screen w-full flex items-center justify-center overflow-hidden bg-zinc-950 z-40">
     <div ref="heroImage" class="absolute inset-0 z-0 scale-[1.2] blur-[20px]" aria-hidden="true">
       <NuxtPicture
@@ -230,6 +233,7 @@ onBeforeUnmount(() => {
 			<ReviewMarquee :reviews="reviews" />
 		</div>
 	</section>
+  </div>
 </template>
 
 <style scoped>

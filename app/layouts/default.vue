@@ -79,6 +79,8 @@ onMounted(async() => {
     y: 0,
     ease: 'power2.out'
   }, '<+=0.5')
+
+  if (usePrefersReducedMotion()) timeline.progress(1, false)
 })
 
 watch(openMobileMenu, (isOpen) => {

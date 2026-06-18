@@ -19,7 +19,7 @@ let footerTimeline: gsap.core.Timeline | null = null
 let footerBobaSplit: SplitText | null = null
 
 onMounted(() => {
-  if (kiwiRef.value) {
+  if (kiwiRef.value && !usePrefersReducedMotion()) {
     kiwiTween = gsap.to(kiwiRef.value, {
       repeat: -1,
       ease: 'none',
