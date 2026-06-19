@@ -157,8 +157,6 @@ const submit = async () => {
 const resolveEl = (r: any) => r?.$el ?? r;
 
 onMounted(() => {
-  if (usePrefersReducedMotion()) return;
-
   const floaters = gsap.utils.toArray('.floater');
 
   floaters.forEach((floater: any) => {

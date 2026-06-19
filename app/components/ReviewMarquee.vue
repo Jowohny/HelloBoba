@@ -13,7 +13,7 @@ const trackRef = ref<HTMLElement | null>(null)
 let scrollTween: gsap.core.Tween | null = null
 
 onMounted(() => {
-  if (!trackRef.value || usePrefersReducedMotion()) return
+  if (!trackRef.value) return
   scrollTween = gsap.to(trackRef.value, {
     xPercent: -50,
     duration: 60,

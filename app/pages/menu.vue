@@ -474,11 +474,4 @@ watch(activeTab, (newTab) => {
   from { transform: translate3d(0, -15vh, 0); }
   to   { transform: translate3d(var(--drift, 0), 115vh, 0); }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .boba-pearl {
-    animation: none;
-    display: none;
-  }
-}
 </style>

@@ -11,7 +11,6 @@ export function useIntroSequence(build: IntroBuilder) {
       requestAnimationFrame(() => {
         timeline = gsap.timeline()
         build(timeline)
-        if (usePrefersReducedMotion()) timeline.progress(1, false)
       })
     })
   }

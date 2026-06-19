@@ -54,7 +54,6 @@ onMounted(() => {
 });
 
 const startFloating = () => {
-	if (usePrefersReducedMotion()) return;
 	logoFloatTween = gsap.to(logoRef.value, {
 		y: -15,
 		duration: 2,
@@ -65,7 +64,6 @@ const startFloating = () => {
 };
 
 const startBanner = () => {
-	if (usePrefersReducedMotion()) return;
 	bannerScrollTween = gsap.to(bannerTextRef.value, {
 		repeat: -1,
 		xPercent: -50,
@@ -79,7 +77,7 @@ useIntroSequence((timeline) => {
 	const isFirstPaint = !heroIntroPlayed.value
 	heroIntroPlayed.value = true
 
-	if (isFirstPaint && !usePrefersReducedMotion()) {
+	if (isFirstPaint) {
 		document.body.style.overflow = 'hidden'
 	}
 

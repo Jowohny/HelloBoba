@@ -16,8 +16,6 @@ let bubbleLayer1Tween: gsap.core.Tween | null = null;
 let bubbleLayer2Tween: gsap.core.Tween | null = null;
 
 onMounted(() => {
-  if (usePrefersReducedMotion()) return;
-
   bubbleLayer1Tween = gsap.from('.bubble-layer-1', {
     backgroundPosition: '900px 900px',
     ease: 'none',
