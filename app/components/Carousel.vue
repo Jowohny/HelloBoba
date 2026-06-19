@@ -110,7 +110,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="min-h-screen flex justify-center py-10 md:py-20 px-4 md:px-6 relative z-10 overflow-hidden">
+  <div class="flex justify-center mt-12 py-10 md:py-20 px-4 md:px-6 relative z-10 overflow-hidden">
     <div class="max-w-[88rem] w-full">    
       
       <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-8 md:mb-12 relative z-50 gap-6">

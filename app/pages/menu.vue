@@ -146,11 +146,9 @@ useIntroSequence((timeline) => {
 
   timeline.fromTo(drinksRef.value, {
     autoAlpha: 0,
-		opacity: 0,
     yPercent: 20
   }, {
     autoAlpha: 1,
-		opacity: 0,
     duration: 2,
     yPercent: 0,
     ease: 'back.out',
@@ -259,7 +257,7 @@ watch(activeTab, (newTab) => {
       />
       <div class="relative flex flex-wrap lg:flex-nowrap justify-center lg:justify-around px-2 md:px-8 z-5">
         <div
-          class="menu-section relative h-32 w-40 md:w-56 z-50 -mb-2 transition-all duration-500 opacity-0 drop-shadow-xl cursor-pointer"
+          class="menu-section relative h-24 w-32 md:h-32 md:w-56 z-50 -mb-2 transition-all duration-500 opacity-0 drop-shadow-xl cursor-pointer"
           :class="currentMenuConfigure === section ? '-translate-y-[10%]' : ''"
           @click="[currentMenuConfigure = section]"
           v-for="section in sections"
@@ -345,7 +343,7 @@ watch(activeTab, (newTab) => {
                   </div>
                   <div class="flex-1 min-w-0">
                     <div class="flex flex-col md:flex-row md:flex-wrap items-start md:items-center gap-2 md:gap-3 mb-2">
-                      <h3 class="text-lg md:text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors truncate w-full md:w-auto">{{ item.name }}</h3>
+                      <h3 class="text-lg md:text-xl font-bold text-zinc-800 group-hover:text-green-700 transition-colors w-full md:w-auto">{{ item.name }}</h3>
                       <div class="flex gap-2 flex-wrap">
                         <span v-if="item.DF" class="px-2 py-1 rounded-md bg-orange-100/80 text-orange-700 text-[10px] font-black tracking-widest border border-orange-200">Dairy Free</span>
                         <span v-if="item.CF" class="px-2 py-1 rounded-md bg-purple-100/80 text-purple-700 text-[10px] font-black tracking-widest border border-purple-200">Caffeine Free</span>

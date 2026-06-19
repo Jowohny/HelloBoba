@@ -95,7 +95,7 @@ watch(openMobileMenu, (isOpen) => {
 			ease: 'power4.out'
 		}, '<-=1')
 		.to(navbarRef.value, {
-      height: '60vh',
+      height: '80vh',
       duration: 0.6,
       ease: 'expo.inOut'
     }, '<+=1')
@@ -138,7 +138,7 @@ watch(openMobileMenu, (isOpen) => {
         <span ref='bobaRef' class="h-12 w-12 shrink-0 overflow-hidden rounded-full opacity-0 mr-2">
           <NuxtPicture class="h-full w-full object-cover cursor-pointer" src="kiwiboba.png" :img-attrs="{ alt: 'Hello Boba logo' }" />
         </span>
-        <NuxtLink ref="nameRef" to="/" class="font-smono tracking-tighter subpixel-antialiased flex items-center gap-2 no-underline font-[900] text-2xl text-[#121212] opacity-0 pl-2">
+        <NuxtLink ref="nameRef" to="/" class="font-smono tracking-tighter subpixel-antialiased flex items-center gap-2 no-underline font-[900] text-xl md:text-2xl text-[#121212] opacity-0 pl-2 whitespace-nowrap">
           HELLO BOBA
         </NuxtLink>
       </div>
@@ -197,7 +197,7 @@ watch(openMobileMenu, (isOpen) => {
 				to="https://hello-boba.square.site/s/shop"
 				target="_blank"
 				aria-label="Online ordering: Will take you to our square site."
-				class="mobile-link lg:block px-5 py-2 rounded-full font-black text-md text-white bg-gradient-to-r from-green-500 to-green-600 shadow-lg opacity-0 cursor-pointer"
+				class="mobile-link inline-block px-5 py-2 rounded-full font-black text-md text-white bg-gradient-to-r from-green-500 to-green-600 shadow-lg opacity-0 cursor-pointer"
 			>
 				Order Here
 			</NuxtLink>
