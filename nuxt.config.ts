@@ -5,6 +5,9 @@ export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss', '@nuxt/image'],
   css: ['~/assets/css/main.css'],
   runtimeConfig: {
+    resendApiKey: '',
+    contactFromEmail: '',
+    contactToEmail: '',
     public: {
       siteUrl: 'https://www.hello-boba.com'
     }

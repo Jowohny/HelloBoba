@@ -117,21 +117,41 @@ const name = ref('');
 const subject = ref('');
 const email = ref('');
 const message = ref('');
-const destinationEmail = 'hello.hello.boba.boba@gmail.com';
+const honeypot = ref('');
+const status = ref<'idle' | 'sending' | 'success' | 'error'>('idle');
+const errorMessage = ref('');
 
 const cardRef = ref<HTMLElement | null>(null);
 const headerRef = ref<{ $el?: HTMLElement } | HTMLElement | null>(null);
 
-const mailtoLink = computed(() => {
-  const body = `Hi Hello Boba team,\n\n${message.value}\n\nFrom: ${name.value}\n${email.value}`;
-  return `mailto:${destinationEmail}?subject=${encodeURIComponent(subject.value)}&body=${encodeURIComponent(body)}`;
-});
+const canSubmit = computed(() =>
+  Boolean(name.value && email.value && message.value) && status.value !== 'sending'
+);
 
-const canSubmit = computed(() => Boolean(name.value && email.value && message.value));
-
-const openMail = () => {
+const submit = async () => {
   if (!canSubmit.value) return;
-  window.location.href = mailtoLink.value;
+  status.value = 'sending';
+  errorMessage.value = '';
+  try {
+    await $fetch('/api/contact', {
+      method: 'POST',
+      body: {
+        name: name.value,
+        email: email.value,
+        subject: subject.value,
+        message: message.value,
+        website: honeypot.value
+      }
+    });
+    status.value = 'success';
+    name.value = '';
+    subject.value = '';
+    email.value = '';
+    message.value = '';
+  } catch (e: any) {
+    status.value = 'error';
+    errorMessage.value = e?.data?.statusMessage || e?.statusMessage || 'Something went wrong. Please try again.';
+  }
 };
 
 const resolveEl = (r: any) => r?.$el ?? r;
@@ -283,12 +303,37 @@ onBeforeUnmount(() => {
           />
         </div>
 
+        <input
+          v-model="honeypot"
+          type="text"
+          name="website"
+          tabindex="-1"
+          autocomplete="off"
+          aria-hidden="true"
+          class="absolute -left-[9999px] w-0 h-0 opacity-0"
+        >
+
+        <p
+          v-if="status === 'success'"
+          role="status"
+          class="rounded-2xl bg-green-100/80 border border-green-300/70 px-5 py-4 text-green-900 font-semibold text-sm"
+        >
+          Thanks! Your message is on its way — we'll get back to you soon.
+        </p>
+        <p
+          v-else-if="status === 'error'"
+          role="alert"
+          class="rounded-2xl bg-red-100/80 border border-red-300/70 px-5 py-4 text-red-900 font-semibold text-sm"
+        >
+          {{ errorMessage }}
+        </p>
+
         <div class="mt-2 flex justify-end opacity-0">
           <button
             type="button"
             :disabled="!canSubmit"
             :aria-disabled="!canSubmit"
-            @click="openMail"
+            @click="submit"
             :class="[
               canSubmit
                 ? 'bg-gradient-to-r from-[#65a30d] to-[#4d7c0f] text-white shadow-lg shadow-green-600/30 hover:scale-105 cursor-pointer'
@@ -296,8 +341,8 @@ onBeforeUnmount(() => {
             ]"
             class="inline-flex items-center justify-center w-full md:w-auto px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-sm tracking-wide transition-all duration-300"
           >
-            Open in Mail App
-            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            {{ status === 'sending' ? 'Sending...' : 'Send Message' }}
+            <svg v-if="status !== 'sending'" class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
           </button>
         </div>
       </div>
